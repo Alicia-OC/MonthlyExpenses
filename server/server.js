@@ -1,6 +1,7 @@
 require("dotenv").config();
 const express = require("express");
 const app = express();
+const bodyParser = require("body-parser");
 const mongoose = require("mongoose");
 const path = require("path");
 const PORT = process.env.PORT || 3500
@@ -12,6 +13,12 @@ connectDB();
 app.use(cors());
 app.set("view engine", "ejs");
 app.use(express.json());
+app.use(express.static("public"));
+app.use(bodyParser.urlencoded({ extended: true }));
+
+
+app.use("/users", require("./routes/userRoutes"))
+
 
 app.all("*", (req, res) => {
   res.status(404);

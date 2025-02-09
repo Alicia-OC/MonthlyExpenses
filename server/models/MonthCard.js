@@ -1,6 +1,6 @@
 const mongoose = require("mongoose");
 
-const monthSchema = new mongoose.Schema(
+const monthCardSchema = new mongoose.Schema(
   {
     user: {
       type: mongoose.Schema.Types.ObjectId,
@@ -63,6 +63,6 @@ const monthSchema = new mongoose.Schema(
   },
 );
 
-const Month = mongoose.model("Month", monthSchema);
+const MonthCard = mongoose.model("MonthCard", monthCardSchema);
 
-module.exports = Month;
+module.exports = {MonthCard};

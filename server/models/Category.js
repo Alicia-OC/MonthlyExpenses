@@ -31,4 +31,5 @@ const Category = mongoose.model(
   "Category",
   CategorySchema
 );
+
 module.exports = Category;

@@ -19,6 +19,7 @@ const userSchema = new mongoose.Schema(
       required: true,
       minlength: 6,
     },
+    cards: [{ type: mongoose.Schema.Types.ObjectId, ref: "MonthCard" }],
     avatar: {
       type: String,
       default: "/images/default-avatar.jpg",
@@ -29,4 +30,4 @@ const userSchema = new mongoose.Schema(
 
 const User = mongoose.model("User", userSchema);
 
-module.exports = User;
+module.exports = { User };
