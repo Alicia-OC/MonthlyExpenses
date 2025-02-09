@@ -18,6 +18,8 @@ app.use(bodyParser.urlencoded({ extended: true }));
 
 
 app.use("/users", require("./routes/userRoutes"))
+app.use("/categories", require("./routes/categoryRoutes"))
+
 
 
 app.all("*", (req, res) => {
