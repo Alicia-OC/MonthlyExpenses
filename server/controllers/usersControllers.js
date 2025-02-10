@@ -6,7 +6,6 @@ const jwt = require("jsonwebtoken");
 let User = UserSchema.User;
 let MonthCard = MonthCardSchema.MonthCard;
 
-
 const newUser = asyncHandler(async (req, res) => {
   try {
     const { name, email, password, avatar } = req.body;
@@ -41,7 +40,7 @@ const newUser = asyncHandler(async (req, res) => {
 });
 
 const updateDetails = asyncHandler(async (req, res) => {
-    try {
+  try {
     const { userId, name, email, password, avatar } = req.body;
     const user = await User.findById(userId);
     if (!user) {
@@ -68,7 +67,6 @@ const updateDetails = asyncHandler(async (req, res) => {
     res
       .status(200)
       .json({ message: "User details updated successfully", user });
-
   } catch (error) {
     console.error(error);
     res.status(500).json({ message: "Server error" });
@@ -98,4 +96,27 @@ const updateCards = asyncHandler(async (req, res) => {
   }
 });
 
-module.exports = { newUser, updateDetails, updateCards };
+const getAllCardsByUser = asyncHandler(async (req, res) => {
+  try {
+    const { userId } = req.body;
+
+    if (!userId) {
+      return res.status(404).json({ error: "userId is required" });
+    }
+
+    //find user
+    const user = await User.findById(userId);
+    if (!user) {
+      return res.status(404).json({ error: "User not found" });
+    } else {
+      res.status(200).json(user.cards);
+    }
+  } catch (error) {
+    console.error("Error getting all cards:", error);
+    return res
+      .status(500)
+      .json({ error: "Internal server error", details: error.message });
+  }
+});
+
+module.exports = { newUser, updateDetails, updateCards, getAllCardsByUser };

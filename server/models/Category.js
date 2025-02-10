@@ -16,20 +16,17 @@ const unexpectedExpenseCategory = new Category({
   description: "Unexpected expenses like vet, medicine, replacement, etc.",
 });
 
-unexpectedExpenseCategory.save();
 
 const guiltyPleasureCategory = new Category({
   name: "Guilty pleasure expense",
   description:
     "Spontaneous or unnecessary purchases like snacks, takeout or something not 100% necessary.",
 });
-guiltyPleasureCategory.save();
 
 const giftExpenseCategory = new Category({
   name: "Gifts",
   description: "A gift or present for someone else",
 });
-giftExpenseCategory.save();
 
 
 module.exports = {Category};

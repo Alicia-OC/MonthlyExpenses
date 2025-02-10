@@ -6,6 +6,6 @@ const usersController = require("../controllers/usersControllers");
 router.route("/signup").post(usersController.newUser);
 router.route("/update").patch(usersController.updateDetails);
 router.route("/addCard").patch(usersController.updateCards);
-
+router.route("/:userId/cards").get(usersController.getAllCardsByUser);
 
 module.exports = router;
