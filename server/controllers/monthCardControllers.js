@@ -19,11 +19,6 @@ const newCard = asyncHandler(async (req, res) => {
       subscriptionItems,
       otherItems,
       transportItems,
-
-      fixedExpenses,
-      subscriptionExpenses,
-      otherExpenses,
-      transportExpenses,
     } = req.body;
 
     const user = await User.findById(userId);
@@ -31,11 +26,45 @@ const newCard = asyncHandler(async (req, res) => {
       return res.status(404).json({ message: "User not found" });
     }
 
-    if (user.year === year && user.month === month) {
+    const existingCard = await MonthCard.findOne({ user: userId, year, month });
+    if (existingCard) {
       return res
         .status(404)
         .json({ message: "You already have a card for this month" });
     }
+
+
+    const calcFixedExpenses = () => {
+        let sum = 0;
+        for (let index = 0; index < fixedItems.length; index++) {
+          sum += fixedItems[index].amount;
+        }
+        return sum;
+      };
+  
+      const calcSubscriptionExpenses = () => {
+        let sum = 0;
+        for (let index = 0; index < subscriptionItems.length; index++) {
+          sum += subscriptionItems[index].amount;
+        }
+        return sum;
+      };
+  
+      const calcOtherExpenses = () => {
+        let sum = 0;
+        for (let index = 0; index < otherItems.length; index++) {
+          sum += otherItems[index].amount;
+        }
+        return sum;
+      };
+  
+      const calcTransportExpenses = () => {
+        let sum = 0;
+        for (let index = 0; index < transportItems.length; index++) {
+          sum += transportItems[index].amount;
+        }
+        return sum;
+      };
 
     const cardObject = {
       user: userId,
@@ -48,6 +77,10 @@ const newCard = asyncHandler(async (req, res) => {
       subscriptionItems: subscriptionItems,
       otherItems: otherItems,
       transportItems: transportItems,
+      fixedExpenses: calcFixedExpenses(),
+      subscriptionExpenses: calcSubscriptionExpenses(),
+      otherExpenses: calcOtherExpenses(),
+      transportExpenses: calcTransportExpenses(),
     };
 
     const newCard = await MonthCard.create(cardObject);
@@ -187,7 +220,6 @@ const updateCard = asyncHandler(async (req, res) => {
     };
 
     card.totalSavings = calcTotalSavings();
-
 
     const updatedCard = await card.save();
     return res.status(200).json(updatedCard);
