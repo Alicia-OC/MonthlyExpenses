@@ -1,60 +1,63 @@
 const mongoose = require("mongoose");
 
-const monthCardSchema = new mongoose.Schema({
-  user: {
-    type: mongoose.Schema.Types.ObjectId,
-    ref: "User",
-    required: true,
-  },
-  year: { type: Number, required: true },
-  month: { type: Number, required: true },
-  totalExpenses: { type: Number, required: true, default: 0 },
-  totalIncome: { type: Number, required: true, default: 0 },
-  totalSavings: { type: Number, required: true, default: 0 },
-  fixedItems: [
-    {
-      description: String,
-      amount: Number,
-      date: Date,
+const monthCardSchema = new mongoose.Schema(
+  {
+    user: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "User",
+      required: true,
     },
-  ],
-  fixedExpenses: { type: Number, required: true, default: 0 },
-  subscriptionItems: [
-    {
-      description: String,
-      amount: Number,
-      date: Date,
-    },
-  ],
-  subscriptionExpenses: { type: Number, required: true, default: 0 },
-  otherItems: [
-    {
-      description: String,
-      amount: Number,
-      category: {
-        type: mongoose.Schema.Types.ObjectId,
-        ref: "Category", // Reference to the Category model
-        required: true,
+    year: { type: Number, required: true },
+    month: { type: Number, required: true },
+    totalExpenses: { type: Number, required: true, default: 0 },
+    totalIncome: { type: Number, required: true, default: 0 },
+    totalSavings: { type: Number, required: true, default: 0 },
+    fixedItems: [
+      {
+        description: String,
+        amount: Number,
+        date: Date,
       },
-      date: Date,
-    },
-  ],
-  otherExpenses: { type: Number, required: true, default: 0 },
+    ],
+    fixedExpenses: { type: Number, required: true, default: 0 },
+    subscriptionItems: [
+      {
+        description: String,
+        amount: Number,
+        date: Date,
+      },
+    ],
+    subscriptionExpenses: { type: Number, required: true, default: 0 },
+    otherItems: [
+      {
+        description: String,
+        amount: Number,
+        category: {
+          type: mongoose.Schema.Types.ObjectId,
+          ref: "Category", // Reference to the Category model
+          required: true,
+        },
+        date: Date,
+      },
+    ],
+    otherExpenses: { type: Number, required: true, default: 0 },
 
-  transportItems: [
-    {
-      description: String,
-      amount: Number,
-      category: {
-        type: mongoose.Schema.Types.ObjectId,
-        ref: "Category", // Reference to the Category model
-        required: true,
+    transportItems: [
+      {
+        description: String,
+        amount: Number,
+        category: {
+          type: mongoose.Schema.Types.ObjectId,
+          ref: "Category", // Reference to the Category model
+          required: true,
+        },
+        date: Date,
       },
-      date: Date,
-    },
-  ],
-  transportExpenses: { type: Number, required: true, default: 0 },
-});
+    ],
+    transportExpenses: { type: Number, required: true, default: 0 },
+  },
+  { timestamps: true }
+);
 
 const MonthCard = mongoose.model("MonthCard", monthCardSchema);
 
