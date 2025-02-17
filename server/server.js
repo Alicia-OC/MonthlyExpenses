@@ -20,6 +20,7 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use("/users", require("./routes/userRoutes"))
 app.use("/categories", require("./routes/categoryRoutes"))
 app.use("/monthcards", require("./routes/monthCardRoutes"))
+app.use("/auth", require("./routes/authRoutes"))
 
 
 

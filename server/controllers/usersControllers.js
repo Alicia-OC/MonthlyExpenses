@@ -6,38 +6,6 @@ const jwt = require("jsonwebtoken");
 let User = UserSchema.User;
 let MonthCard = MonthCardSchema.MonthCard;
 
-const newUser = asyncHandler(async (req, res) => {
-  try {
-    const { name, email, password, avatar } = req.body;
-
-    const hashedPwd = await bcrypt.hash(password, 10); //10 salt rounds
-    const duplicatedMail = await User.findOne({ email }).lean().exec();
-
-    if (duplicatedMail) {
-      return res.status(409).json({
-        message:
-          "This email is already in use, to reset your password please click the button down below",
-      });
-    }
-
-    const userObj = {
-      name: name,
-      email: email,
-      password: hashedPwd,
-      avatar: avatar,
-    };
-
-    const newUser = await User.create(userObj);
-
-    if (newUser) {
-      res.status(200).json({ message: "User created succesfully" });
-    } else {
-      console.log("There has been an error, please try again");
-    }
-  } catch (error) {
-    res.status(500).json({ error: error.message });
-  }
-});
 
 const updateDetails = asyncHandler(async (req, res) => {
   try {
@@ -119,4 +87,4 @@ const getAllCardsByUser = asyncHandler(async (req, res) => {
   }
 });
 
-module.exports = { newUser, updateDetails, updateCards, getAllCardsByUser };
+module.exports = { updateDetails, updateCards, getAllCardsByUser };
