@@ -2,6 +2,18 @@ import { http, HttpResponse, delay } from 'msw';
 
 export const handlers = [
   http.get('monthcards/:cardId', async ({ params }) => {
+    const { token } = req.body;
+
+    if (!params.userId || !token || !params.cardId) {
+      return HttpResponse.json(
+        { error: 'Missing token or userId' },
+        { status: 400 }
+      );
+    }
+
+    if (params.userId !== 'placeholderId' || token !== 'placeholderToken') {
+        return HttpResponse.json({ error: 'Invalid credentials' });
+      }
     return HttpResponse.json([
       {
         userId: '67b39dae13026fd988907e92',
@@ -75,6 +87,18 @@ export const handlers = [
   }),
 
   http.get('/users/:userId/cards', async ({ params }) => {
+    const { token } = req.body;
+
+    if (!params.userId || !token || !params.cardId) {
+      return HttpResponse.json(
+        { error: 'Missing token or userId' },
+        { status: 400 }
+      );
+    }
+
+    if (params.userId !== 'placeholderId' || token !== 'placeholderToken') {
+      return HttpResponse.json({ error: 'Invalid credentials' });
+    }
     return HttpResponse.json([
       {
         cardId: '67b39f575ee98cc48c17cec5',
@@ -87,7 +111,19 @@ export const handlers = [
     ]);
   }),
 
-  http.get('http://localhost:3030/categories', async () => {
+  http.get('http://localhost:3030/categories', async (req) => {
+    const { userId, token } = req.body;
+
+    if (!userId || !token || !params.cardId) {
+      return HttpResponse.json(
+        { error: 'Missing token or userId' },
+        { status: 400 }
+      );
+    }
+
+    if (params.userId !== 'placeholderId' || token !== 'placeholderToken') {
+      return HttpResponse.json({ error: 'Invalid credentials' });
+    }
     return HttpResponse.json([
       {
         name: 'Unexpected expense',
@@ -140,18 +176,54 @@ export const handlers = [
       );
     }
 
-    if (email === 'placeholder' && password === 'placeholderpassword') {
-      return HttpResponse.json({ token: '9827542384' }, { status: 200  });
+    if (email === 'placeholderMail' && password === 'placeholderPassword') {
+      return HttpResponse.json({ token: '9827542384' }, { status: 200 });
     } else {
       return HttpResponse.json(
         { error: 'Incorrect password' },
-        { status: 401  }
+        { status: 401 }
       );
     }
   }),
 
-  http.post('http://localhost:3030/monthcards/new', async () => {
+  http.post('http://localhost:3030/monthcards/new', async (req) => {
     await delay(400);
+
+    const { userId, token } = req.body;
+
+    if (!userId || !token) {
+      return HttpResponse.json({ error: 'Missing info' }, { status: 400 });
+    }
+
+    if (params.userId !== 'placeholderId' || token !== 'placeholderToken') {
+      return HttpResponse.json({ error: 'Invalid credentials' });
+    }
+
+    const {
+      year,
+      month,
+      totalExpenses,
+      totalIncome,
+      totalSavings,
+      fixedItems,
+      subscriptionItems,
+      otherItems,
+      transportItems,
+    } = req.body;
+
+    if (
+      !year ||
+      !month ||
+      !totalExpenses ||
+      !totalIncome ||
+      !totalSavings ||
+      !fixedItems ||
+      !subscriptionItems ||
+      !otherItems ||
+      !transportItems
+    ) {
+      return HttpResponse.json({ error: 'Missing fields' }, { status: 400 });
+    }
 
     return HttpResponse.json(
       { cardId: '67b39f9c8e5bc6f868faf427' },
@@ -159,21 +231,59 @@ export const handlers = [
     );
   }),
 
-  http.patch('monthcards/update/:cardId', async ({ params }) => {
+  http.patch('monthcards/update/:cardId', async ({ params, req }) => {
     await delay(400);
+
+    const { userId, token } = req.body;
+
+    if (!userId || !token || !params.cardId) {
+      return HttpResponse.json(
+        { error: 'Missing token or userId' },
+        { status: 400 }
+      );
+    }
+
+    if (token !== 'placeholderToken') {
+      return HttpResponse.json({ error: 'Invalid token' }, { status: 403 });
+    }
+
+    if (userId !== 'placeholderId') {
+      return HttpResponse.json({ error: 'User not found' }, { status: 404 });
+    }
+
+    if (params.cardId !== placeholderCard) {
+      return HttpResponse.json({ error: 'Invalid card ID' }, { status: 404 });
+    }
 
     return HttpResponse.json(
       { message: `Card ${params.cardId} updated` },
-      { status: 201 }
+      { status: 200 }
     );
   }),
 
-  http.patch('/users/:userId/update', async ({ params }) => {
+  http.patch('/users/:userId/update', async ({ req, params }) => {
     await delay(400);
 
+    const { token } = req.body;
+
+    if (!token || !params.userId) {
+      return HttpResponse.json(
+        { error: 'Missing token or userId' },
+        { status: 400 }
+      );
+    }
+
+    if (token !== 'placeholderToken') {
+      return HttpResponse.json({ error: 'Invalid token' }, { status: 403 });
+    }
+
+    if (params.userId !== 'placeholderId') {
+      return HttpResponse.json({ error: 'User not found' }, { status: 404 });
+    }
+
     return HttpResponse.json(
-      { message: `User ${params.userId} updated` },
-      { status: 201 }
+      { message: `User ${params.userId} updated successfully` },
+      { status: 200 }
     );
   }),
 ];
