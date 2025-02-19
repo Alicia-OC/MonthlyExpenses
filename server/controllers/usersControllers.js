@@ -6,7 +6,6 @@ const jwt = require("jsonwebtoken");
 let User = UserSchema.User;
 let MonthCard = MonthCardSchema.MonthCard;
 
-
 const updateDetails = asyncHandler(async (req, res) => {
   try {
     const { userId, name, email, password, avatar } = req.body;
@@ -64,6 +63,34 @@ const updateCards = asyncHandler(async (req, res) => {
   }
 });
 
+//returns all the cards documments, works bt it's not implemented for now
+const getAllCardItemsByUser = asyncHandler(async (req, res) => {
+  try {
+    const { userId } = req.body;
+
+    if (!userId) {
+      return res.status(404).json({ error: "userId is required" });
+    }
+
+    //find user
+    const user = await User.findById(userId);
+    if (!user) {
+      return res.status(404).json({ error: "User not found" });
+    } else {
+      const cards = await Promise.all(
+        user.cards.map((item) => MonthCard.findById(item.toString()))
+      );
+
+      res.status(200).json(cards);
+    }
+  } catch (error) {
+    console.error("Error getting all cards:", error);
+    return res
+      .status(500)
+      .json({ error: "Internal server error", details: error.message });
+  }
+});
+
 const getAllCardsByUser = asyncHandler(async (req, res) => {
   try {
     const { userId } = req.body;
@@ -77,7 +104,35 @@ const getAllCardsByUser = asyncHandler(async (req, res) => {
     if (!user) {
       return res.status(404).json({ error: "User not found" });
     } else {
-      res.status(200).json(user.cards);
+      const months = [
+        "January",
+        "February",
+        "March",
+        "April",
+        "May",
+        "June",
+        "July",
+        "August",
+        "September",
+        "October",
+        "November",
+        "December",
+      ];
+      const allCards = await Promise.all(
+        user.cards.map((item) => MonthCard.findById(item.toString()).lean())
+      );
+
+      const filteredCards = allCards.filter((card) => card !== null);
+
+      const cardData = filteredCards.map((card) => {
+        const item = {
+          cardId: card._id.toString(),
+          month: months[card.month + 1].toString(),
+        };
+        return item;
+      });
+
+      res.status(200).json(cardData);
     }
   } catch (error) {
     console.error("Error getting all cards:", error);
