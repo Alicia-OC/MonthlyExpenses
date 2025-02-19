@@ -1,38 +1,75 @@
-import js from '@eslint/js';
-import globals from 'globals';
-import react from 'eslint-plugin-react';
-import reactHooks from 'eslint-plugin-react-hooks';
-import reactRefresh from 'eslint-plugin-react-refresh';
+import globals from "globals";
+import pluginJs from "@eslint/js";
+import pluginReact from "eslint-plugin-react";
+import vitest from "eslint-plugin-vitest";
+import testingLibrary from "eslint-plugin-testing-library";
+import jestDom from "eslint-plugin-jest-dom";
+import pluginReactHooks from "eslint-plugin-react-hooks";
 
 export default [
-  { ignores: ['dist'] },
   {
-    files: ['**/*.{js,jsx}'],
+    files: ["**/*.{js,mjs,cjs,ts,jsx,tsx}"],
     languageOptions: {
-      ecmaVersion: 2020,
+      parser: "@typescript-eslint/parser",
       globals: globals.browser,
-      parserOptions: {
-        ecmaVersion: 'latest',
-        ecmaFeatures: { jsx: true },
-        sourceType: 'module',
+      ...vitest.environments.env.globals,
+      ecmaFeatures: {
+        jsx: true,
       },
     },
-    settings: { react: { version: '18.3' } },
+  },
+
+  pluginJs.configs.recommended,
+  pluginReact.configs.flat.recommended,
+
+  {
     plugins: {
-      react,
-      'react-hooks': reactHooks,
-      'react-refresh': reactRefresh,
+      "testing-library": testingLibrary,
+      vitest,
+      "jest-dom": jestDom,
+      "react-hooks": pluginReactHooks,
+    },
+    settings: {
+      react: {
+        version: "detect",
+      },
     },
     rules: {
-      ...js.configs.recommended.rules,
-      ...react.configs.recommended.rules,
-      ...react.configs['jsx-runtime'].rules,
-      ...reactHooks.configs.recommended.rules,
-      'react/jsx-no-target-blank': 'off',
-      'react-refresh/only-export-components': [
-        'warn',
+      "no-unused-vars": "warn",
+      "no-undef": "error", // Flag usage of undeclared variables
+      "no-use-before-define": "error", // Disallow using variables before they are defined
+      "vitest/expect-expect": "off",
+      "react/prop-types": "off",
+      "react/react-in-jsx-scope": "off",
+      "react-refresh/only-export-components": [
+        "warn",
         { allowConstantExport: true },
       ],
+      "react-hooks/rules-of-hooks": "error", // ✅ Enforce rules of Hooks
+      "react-hooks/exhaustive-deps": "warn",
     },
+    overrides: [
+      {
+        files: [
+          "**/__tests__/**/*.{js,ts,jsx,tsx}",
+          "**/*.{test,spec}.{js,ts,jsx,tsx}",
+        ],
+        languageOptions: {
+          globals: {
+            describe: "readonly",
+            it: "readonly",
+            test: "readonly",
+            expect: "readonly",
+            beforeEach: "readonly",
+            afterEach: "readonly",
+            beforeAll: "readonly",
+            afterAll: "readonly",
+          },
+        },
+        env: {
+          "vitest-globals/env": true,
+        },
+      },
+    ],
   },
 ];
