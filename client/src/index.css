@@ -1,11 +1,16 @@
 :root {
+  --pink-theme_white: #f6f6f6;
+  --pink-theme_main: #ffc7c7;
+  --pink-theme_secondary: #ffe2e2;
+  --pink-theme_font: #aaaaaa;
+
   font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
   line-height: 1.5;
   font-weight: 400;
 
   color-scheme: light dark;
-  color: rgba(255, 255, 255, 0.87);
-  background-color: #242424;
+  color: black;
+  background-color: var(--pink-theme_main);
 
   font-synthesis: none;
   text-rendering: optimizeLegibility;

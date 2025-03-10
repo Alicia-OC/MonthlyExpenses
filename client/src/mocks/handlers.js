@@ -12,8 +12,8 @@ export const handlers = [
     }
 
     if (params.userId !== 'placeholderId' || token !== 'placeholderToken') {
-        return HttpResponse.json({ error: 'Invalid credentials' });
-      }
+      return HttpResponse.json({ error: 'Invalid credentials' });
+    }
     return HttpResponse.json([
       {
         userId: '67b39dae13026fd988907e92',
@@ -176,8 +176,15 @@ export const handlers = [
       );
     }
 
-    if (email === 'placeholderMail' && password === 'placeholderPassword') {
-      return HttpResponse.json({ token: '9827542384' }, { status: 200 });
+    if (email === 'test@example.com' && password === 'password123') {
+      return HttpResponse.json(
+        {
+          token: '9827542384',
+          user: { name: 'JaneDoe', email: 'test@example.com' },
+          id: 'd98ds2a7w948',
+        },
+        { status: 200 }
+      );
     } else {
       return HttpResponse.json(
         { error: 'Incorrect password' },
