@@ -1,7 +1,10 @@
-import { useState } from "react";
+import { useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 
 const Home = () => {
   const [count, setCount] = useState(0);
+
+  //const dispatch = useDispatch();
 
   return (
     <>
@@ -10,6 +13,10 @@ const Home = () => {
         <button onClick={() => setCount((count) => count + 1)}>
           count is {count}
         </button>
+        <button onClick={() => setCount((count) => count + 1)}>+5</button>
+        <button onClick={() => setCount((count) => count + 1)}>+20</button>
+        <button onClick={() => setCount((count) => count - 10)}>-10</button>
+
         <p>
           Edit <code>src/App.jsx</code> and save to test HMR
         </p>

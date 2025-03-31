@@ -1,11 +1,12 @@
 import axios from 'axios';
 import { useState } from 'react';
-import { setLogin } from '../../state';
+//import { setLogin } from '../../state';
 import { useDispatch } from 'react-redux';
 
 const SignIn = () => {
-  const [message, setMessage] = useState();
+  const dispatch = useDispatch();
 
+  const [message, setMessage] = useState();
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [token, setToken] = useState('');

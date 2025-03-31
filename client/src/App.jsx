@@ -10,7 +10,6 @@ import Home from './pages/Home/Home';
 import DashLayout from './pages/Dashboard/Dashboard';
 
 function App() {
-  const [count, setCount] = useState(0);
 
   return (
     <Router>

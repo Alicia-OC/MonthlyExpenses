@@ -1,7 +1,11 @@
 import axios from 'axios';
 import { useState } from 'react';
+import { useDispatch } from 'react-redux';
 
 const SignUp = () => {
+
+  const dispatch = useDispatch();
+
   const [message, setMessage] = useState();
 
   const [fullName, setFullName] = useState('');

@@ -2,11 +2,19 @@ import { render, screen } from '@testing-library/react';
 import SignIn from '../SignIn';
 import { expect, test, describe } from 'vitest';
 import userEvent from '@testing-library/user-event';
-
+import { Provider } from 'react-redux';
+import store from '../../../state/store';
 import axios from 'axios';
+import authReducer, { setLogout, setLogin } from '../../../state/authSlice';
 
-vi.mock('axios')
+vi.mock('axios');
 
+const initialState = {
+  mode: 'pink',
+  user: { name: '', email: '' },
+  userID: '',
+  token: null,
+};
 
 test('successfull API call', async () => {
   const mockToken = 'mocked-jwt-token';
@@ -15,7 +23,11 @@ test('successfull API call', async () => {
     data: { token: mockToken },
   });
 
-  render(<SignIn />);
+  render(
+    <Provider store={store}>
+      <SignIn />
+    </Provider>
+  );
 
   const user = userEvent.setup();
 
@@ -33,9 +45,6 @@ test('successfull API call', async () => {
 
   const response = await axios.post.mock.results[0].value;
   expect(response.data.token).toBe(mockToken);
-
-  
-
 });
 
 test('failed API call err 400', async () => {
@@ -44,8 +53,11 @@ test('failed API call err 400', async () => {
     data: { error: 'Incorrect password' },
   });
 
-  render(<SignIn />);
-
+  render(
+    <Provider store={store}>
+      <SignIn />
+    </Provider>
+  );
   const user = userEvent.setup();
 
   await user.type(screen.getByLabelText(/E-mail/i), 'test@example.com');
@@ -64,28 +76,29 @@ test('failed API call err 400', async () => {
 });
 
 test('failed API call err 401', async () => {
-    axios.post.mockResolvedValueOnce({
-      status: 401,
-      data: { error: 'Bad Request' },
-    });
-  
-    render(<SignIn />);
-  
-    const user = userEvent.setup();
-  
-    await user.type(screen.getByLabelText(/E-mail/i), 'test@example.com');
-    await user.type(screen.getByLabelText(/Password/i), 'password123');
-  
-    const callAPIbutton = screen.getByRole('button', { name: /Submit/i });
-  
-    await user.click(callAPIbutton);
-  
-    expect(axios.post).toHaveBeenCalledWith('http://localhost:3030/auth/signin', {
-      email: 'test@example.com',
-      password: 'password123',
-    });
-  
-    expect(screen.getByText(/Incorrect password/i)).toBeInTheDocument();
-
+  axios.post.mockResolvedValueOnce({
+    status: 401,
+    data: { error: 'Bad Request' },
   });
-  
+
+  render(
+    <Provider store={store}>
+      <SignIn />
+    </Provider>
+  );
+  const user = userEvent.setup();
+
+  await user.type(screen.getByLabelText(/E-mail/i), 'test@example.com');
+  await user.type(screen.getByLabelText(/Password/i), 'password123');
+
+  const callAPIbutton = screen.getByRole('button', { name: /Submit/i });
+
+  await user.click(callAPIbutton);
+
+  expect(axios.post).toHaveBeenCalledWith('http://localhost:3030/auth/signin', {
+    email: 'test@example.com',
+    password: 'password123',
+  });
+
+  expect(screen.getByText(/Incorrect password/i)).toBeInTheDocument();
+});

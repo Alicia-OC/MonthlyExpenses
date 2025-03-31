@@ -193,6 +193,35 @@ export const handlers = [
     }
   }),
 
+  http.post('http://localhost:3030/auth/logout', async (req) => {
+    await delay(400);
+
+    const { userid, token } = req.body;
+
+    if (!userid || !token) {
+      return HttpResponse.json(
+        { error: 'Missing required fields' },
+        { status: 400 }
+      );
+    }
+
+    if (userid === 'idExample' && token === 'token') {
+      return HttpResponse.json(
+        {
+          token: '9827542384',
+          user: { name: 'JaneDoe', email: 'test@example.com' },
+          id: 'd98ds2a7w948',
+        },
+        { status: 200 }
+      );
+    } else {
+      return HttpResponse.json(
+        { error: 'Incorrect password' },
+        { status: 401 }
+      );
+    }
+  }),
+
   http.post('http://localhost:3030/monthcards/new', async (req) => {
     await delay(400);
 

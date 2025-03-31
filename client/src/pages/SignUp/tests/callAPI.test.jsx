@@ -4,14 +4,18 @@ import { expect, test, describe } from 'vitest';
 import userEvent from '@testing-library/user-event';
 
 import axios from 'axios';
-
+import { Provider } from 'react-redux';
+import store from '../../../state/store';
 vi.mock('axios');
 
 test('successfull API call', async () => {
   axios.post.mockResolvedValue({ status: 201 });
 
-  render(<SignUp />);
-
+  render(
+    <Provider store={store}>
+      <SignUp />
+    </Provider>
+  );
   const user = userEvent.setup();
 
   await user.type(screen.getByLabelText(/Name/i), 'Test User');
@@ -35,8 +39,11 @@ test('failed API call err 400', async () => {
     data: { error: 'Bad Request' },
   });
 
-  render(<SignUp />);
-
+  render(
+    <Provider store={store}>
+      <SignUp />
+    </Provider>
+  );
   const user = userEvent.setup();
 
   await user.type(screen.getByLabelText(/Name/i), 'Test User');
@@ -62,8 +69,11 @@ test('failed API call err 409', async () => {
     data: { error: 'Bad Request' },
   });
 
-  render(<SignUp />);
-
+  render(
+    <Provider store={store}>
+      <SignUp />
+    </Provider>
+  );
   const user = userEvent.setup();
 
   await user.type(screen.getByLabelText(/Name/i), 'Test User');
