@@ -8,6 +8,9 @@ test('render footer', async () => {
   const user = userEvent.setup();
   render(<Footer />);
 
+  const gitHubItem = screen.getByTitle(/Visit my GitHub profile/i);
+  const linkedinItem = screen.getByTitle(/Visit my LinkedIn profile/i);
+  expect(gitHubItem).toHaveAttribute('href');
+  expect(linkedinItem).toHaveAttribute('href');
 
-  
 });

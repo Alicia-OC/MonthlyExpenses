@@ -1,4 +1,4 @@
-import { render, screen, waitFor } from '@testing-library/react';
+import { logRoles, render, screen, waitFor } from '@testing-library/react';
 import { expect, test, describe } from 'vitest';
 import userEvent from '@testing-library/user-event';
 import NavBar from '../Header';
@@ -9,7 +9,6 @@ import axios from 'axios';
 vi.mock('axios');
 const mockStore = configureStore([]);
 
-
 describe('Navbar component', async () => {
   test('renders navbar correctly', async () => {
     render(<NavBar />);
@@ -17,7 +16,6 @@ describe('Navbar component', async () => {
     expect(screen.getByText('Brand')).toBeInTheDocument();
     expect(screen.getByText('About')).toBeInTheDocument();
     expect(screen.getByText('LinkedIn')).toBeInTheDocument();
-    expect(screen.getByText('Account')).toBeInTheDocument();
   });
 
   test('dropdown menu appears when clicked', async () => {
@@ -25,7 +23,7 @@ describe('Navbar component', async () => {
 
     const user = userEvent.setup();
 
-    const dropdownToggle = screen.getByText('Account');
+    const dropdownToggle = screen.getByAltText(/avatar-img/i);
     await user.click(dropdownToggle);
 
     const dropdownMenu = screen.queryByRole('menu', { hidden: true });
@@ -47,7 +45,7 @@ describe('Navbar component', async () => {
     });
     const logoutItem = screen.findAllByText(/logout/i);
 
-    const dropdownToggle = screen.getByText('Account');
+    const dropdownToggle = screen.getByAltText(/avatar-img/i);
     await user.click(dropdownToggle);
 
     waitFor(async () => {

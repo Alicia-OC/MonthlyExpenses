@@ -3,6 +3,8 @@ import { expect, test, describe } from 'vitest';
 import { Provider } from 'react-redux';
 import store from '../../../state/store';
 import NavBar from '../../../components/Header/Header';
+import userEvent from '@testing-library/user-event';
+
 
 test('render header', async () => {
   render(
@@ -10,4 +12,8 @@ test('render header', async () => {
       <NavBar />
     </Provider>
   );
+
+    const user = userEvent.setup();
+  
+
 });

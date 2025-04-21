@@ -180,7 +180,7 @@ export const handlers = [
       return HttpResponse.json(
         {
           token: '9827542384',
-          user: { name: 'JaneDoe', email: 'test@example.com' },
+          user: { name: 'JaneDoe', email: 'test@example.com', image: '' },
           id: 'd98ds2a7w948',
         },
         { status: 200 }

@@ -11,7 +11,7 @@ vi.mock('axios');
 
 const initialState = {
   mode: 'pink',
-  user: { name: '', email: '' },
+  user: { name: '', email: '', image: '' },
   userID: '',
   token: null,
 };

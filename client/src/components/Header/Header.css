@@ -1,0 +1,10 @@
+.avatar-img{
+    width: 50px;
+    height: 50px;
+    object-fit: cover;
+}
+
+.navbar-element{
+    text-align: center;
+    justify-content: center;
+}

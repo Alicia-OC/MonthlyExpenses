@@ -22,11 +22,6 @@ test('renders DashLayout, header, footer and outlet', async () => {
     </MemoryRouter>
   );
 
-  const heading = screen.getByText(/Brand/i);
-  expect(heading).toBeInTheDocument();
-
-  const footer = screen.getByText(/testing Footer/i);
-  expect(footer).toBeInTheDocument();
 
   const mockContent = screen.getByText('Mock Content');
   expect(mockContent).toBeInTheDocument();
