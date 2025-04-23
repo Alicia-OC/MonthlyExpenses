@@ -22,8 +22,8 @@ const SignIn = () => {
       });
 
       if (response.status === 200) {
-        const { token, user, id, image } = response.data;
-        dispatch(setLogin({ token, user, id, image }));
+        const { token, user, id, avatar } = response.data;
+        dispatch(setLogin({ token, user, id, avatar }));
 
         window.location.replace('/');
       } else if (response.status === 400) {

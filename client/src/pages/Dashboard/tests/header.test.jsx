@@ -5,7 +5,6 @@ import store from '../../../state/store';
 import NavBar from '../../../components/Header/Header';
 import userEvent from '@testing-library/user-event';
 
-
 test('render header', async () => {
   render(
     <Provider store={store}>
@@ -13,7 +12,5 @@ test('render header', async () => {
     </Provider>
   );
 
-    const user = userEvent.setup();
-  
-
+  const user = userEvent.setup();
 });

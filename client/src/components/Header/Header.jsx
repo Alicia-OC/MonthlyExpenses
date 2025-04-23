@@ -4,13 +4,15 @@ import './Header.css';
 import { Navbar, Nav, NavDropdown, Container } from 'react-bootstrap';
 import Image from 'react-bootstrap/Image';
 import avatar from '../../assets/Anya.png';
+import LogOut from '../SignOut';
 
-const Linkedin = import.meta.env.REACT_APP_LINKEDIN
+const Linkedin = import.meta.env.REACT_APP_LINKEDIN;
 console.log('LinkedIn URL:', import.meta.env.REACT_APP_LINKEDIN);
 
 const NavBar = () => {
   const username = 'Account' || 'das';
   const image = '' || '';
+
   return (
     <Navbar expand="lg" bg="light" fixed="top" className="px-3">
       <Container fluid>
@@ -21,7 +23,10 @@ const NavBar = () => {
             <Nav.Link href="/about" className="navbar-element">
               About
             </Nav.Link>
-            <Nav.Link href={import.meta.env.REACT_APP_LINKEDIN} className="navbar-element">
+            <Nav.Link
+              href={import.meta.env.REACT_APP_LINKEDIN}
+              className="navbar-element"
+            >
               LinkedIn
             </Nav.Link>
             <NavDropdown
@@ -35,8 +40,11 @@ const NavBar = () => {
               }
               id="accountDropdown"
             >
-              <NavDropdown.Item href="/user/settings">Settings</NavDropdown.Item>
-              <NavDropdown.Item href="/logout">Logout</NavDropdown.Item>
+              <NavDropdown.Item href="/user">Profile</NavDropdown.Item>
+              <NavDropdown.Item href="/user/settings">
+                Settings
+              </NavDropdown.Item>
+              <NavDropdown.Item href="/SignOut">Logout</NavDropdown.Item>
             </NavDropdown>
           </Nav>
         </Navbar.Collapse>
