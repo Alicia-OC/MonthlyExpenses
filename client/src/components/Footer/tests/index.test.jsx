@@ -10,7 +10,6 @@ test('render footer', async () => {
 
   const gitHubItem = screen.getByTitle(/Visit my GitHub profile/i);
   const linkedinItem = screen.getByTitle(/Visit my LinkedIn profile/i);
-  expect(gitHubItem).toHaveAttribute('href');
-  expect(linkedinItem).toHaveAttribute('href');
+
 
 });

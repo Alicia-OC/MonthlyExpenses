@@ -18,13 +18,11 @@ const persistConfig = {
   storage,
   whitelist: ['token', 'userID'],
   version: 1,
-}; 
+};
 const persistedReducer = persistReducer(persistConfig, authReducer);
 
 const store = configureStore({
-  reducer: {
-    auth: persistedReducer,
-  },
+  reducer: persistedReducer,
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware({
       serializableCheck: {
