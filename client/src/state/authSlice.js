@@ -2,7 +2,16 @@ import { createSlice } from '@reduxjs/toolkit';
 
 const initialState = {
   mode: 'pink',
-  user: { name: '', email: '', templates: [] },
+  user: {
+    name: '',
+    email: '',
+    cards: [
+      { id: '', month: '' },
+      { id: '', month: '' },
+      { id: '', month: '' },
+      { id: '', month: '' },
+    ],
+  },
   userID: '',
   token: null,
 };
