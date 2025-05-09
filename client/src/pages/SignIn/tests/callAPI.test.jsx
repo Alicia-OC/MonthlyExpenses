@@ -45,6 +45,7 @@ test('successfull API call', async () => {
 
   const response = await axios.post.mock.results[0].value;
   expect(response.data.token).toBe(mockToken);
+  
 });
 
 test('failed API call err 400', async () => {

@@ -15,17 +15,48 @@ const UserProfile = () => {
   const token = useSelector((state) => state.token);
 
   const [editMode, setEditMode] = useState(false);
+  const [newName, setNewName] = useState(null);
+  const [newMail, setNewMail] = useState(null)
+
+  const [password, setPassword] = useState(null)
+  const [password2, setPassword2] = useState(null)
+
 
   const userName = user?.name || 'Undefined';
   const handlePasswordChange = () => {
     setEditMode(!editMode);
   };
 
-  const handleSave = () => {
+  const handleSave = async () => {
     setEditMode(false);
+    
 
     const modal = new Modal(document.getElementById('saveAlertModal'));
     modal.show();
+
+    try {
+      const response = await axios.post(`http://localhost:3030/users/${user.id}/update`, {
+        token: token,
+        userId: user.id,
+        name: newName,
+        email: newMail,
+        password: password,
+      });
+
+      if (response.status === 200) {
+        const { name, email} = response.data;
+        dispatch(setLogin({ name, email}));
+        console.log('dasd');
+      } else if (response.status === 400) {
+        setMessage('Missing required fields');
+      } else if (response.status === 401) {
+        setMessage('Incorrect password');
+      }
+    } catch (error) {
+      console.log(error);
+      setMessage('Please try again or reset your password.');
+    }
+
   };
 
   const ifNotEditMode = () => {
@@ -34,11 +65,11 @@ const UserProfile = () => {
         <>
           <div>
             <p>
-              <label className="font-semibold mr-1">Name: </label>
+              <label className="font-semibold ">Name: </label>
               <span className="font-italic"> {user?.name || 'Undefined'}</span>
             </p>
             <p>
-              <label className="font-semibold mr-1">Mail: </label>
+              <label className="font-semibold ">Mail: </label>
               <span className="font-italic"> {user?.email || 'Undefined'}</span>
             </p>
           </div>
@@ -47,54 +78,54 @@ const UserProfile = () => {
     } else {
       return (
         <>
-          <div>
-            <p>
-              <label className="font-semibold mr-1">Name: </label>
-              <span className="font-italic">
-                {' '}
-                <input type="text"></input>
+          <div className="form-grid">
+            <div className="form-row">
+              <label htmlFor="name" className="font-semibold">Name:</label>
+              <span className="input-wrapper">
+                <input id='name' type="text" onChange={(e) => setNewName(e.target.value)} />
+                <i
+                  className="info-warning"
+                  data-bs-toggle="tooltip"
+                  data-bs-placement="top"
+                  title="your name can only be updated once every 3 months"
+                >
+                  <FontAwesomeIcon icon={faCircleInfo} />
+                </i>
               </span>
-              <i className="info-warning"
-                data-bs-toggle="tooltip"
-                data-bs-placement="top"
-                title="your name can only be updated once every 3 months">
-                {' '}
-                <FontAwesomeIcon icon={faCircleInfo} />
-              </i>
-            </p>
-            <p>
-              <label className="font-semibold mr-1">Mail: </label>
-              <span className="font-italic">
-                {' '}
-                <input type="text"></input>
+            </div>
+
+            <div className="form-row">
+              <label htmlFor="mail" className="font-semibold">Mail:</label>
+              <span className="input-wrapper">
+                <input id='mail' type="text" onChange={(e) => setNewMail(e.target.value)}/>
+                <i
+                  className="info-warning"
+                  data-bs-toggle="tooltip"
+                  data-bs-placement="top"
+                  title="your mail can only be updated once every 6 months"
+                >
+                  <FontAwesomeIcon icon={faCircleInfo} />
+                </i>
               </span>
-              <i
-                className="info-warning"
-                data-bs-toggle="tooltip"
-                data-bs-placement="top"
-                title="your mail can only be updated once every 6 months"
-              >
-                {' '}
-                <FontAwesomeIcon icon={faCircleInfo} />
-              </i>
-            </p>
-            <p>
-              {' '}
-              <label>New password</label>
-              <span>
-                <input type="password"></input>
+            </div>
+
+            <div className="form-row">
+              <label htmlFor="password1">New password:</label>
+              <span className="input-wrapper">
+                <input id='password1' type="password" onChange={(e) => setPassword(e.target.value)}/>
               </span>
-            </p>
-            <p>
-              {' '}
-              <label>Repeat new password</label>
-              <span>
-                <input type="password"></input>
+            </div>
+
+            <div className="form-row">
+              <label htmlFor="password2">Repeat new password:</label>
+              <span className="input-wrapper">
+                <input id='password2' type="password" onChange={(e) => setPassword2(e.target.value)}/>
               </span>
-            </p>
+            </div>
+
             <button className="btn btn-dark" onClick={handleSave}>
               Save
-            </button>{' '}
+            </button>
           </div>
         </>
       );
@@ -167,7 +198,8 @@ const UserProfile = () => {
                   </button>
                 </div>
               </div>
-              <div className="p-4 text-black bg-body-tertiary">
+
+              <div className="savings-div  p-4 text-black bg-body-tertiary">
                 <div className="d-flex justify-content-end text-center py-1 text-body">
                   <div>
                     <p className="mb-1 h5">253</p>
