@@ -301,23 +301,30 @@ export const handlers = [
     await delay(400);
 
     const { token } = req.body;
+    const { userId } = params;
+    const { name } = req.body;
+    const { email } = req.body;
 
-    if (!token || !params.userId) {
+    if (!token || !userId) {
       return HttpResponse.json(
         { error: 'Missing token or userId' },
         { status: 400 }
       );
     }
 
-    if (token !== 'placeholderToken') {
+    if (token !== 'mocked-jwt-token') {
       return HttpResponse.json({ error: 'Invalid token' }, { status: 403 });
     }
 
-    if (params.userId !== 'placeholderId') {
+    if (userId !== '76das78f87asdv87h7gf9') {
       return HttpResponse.json({ error: 'User not found' }, { status: 404 });
     }
 
     return HttpResponse.json(
+      {
+        user: { name: {name}, email: {email} },
+        id: 'd98ds2a7w948',
+      },
       { message: `User ${params.userId} updated successfully` },
       { status: 200 }
     );

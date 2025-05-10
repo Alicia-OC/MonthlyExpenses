@@ -8,7 +8,7 @@ import NavBar from '../../components/Header/Header';
 const initialState = {
   mode: 'pink',
   user: { name: '', email: '' },
-  userID: '',
+  userId: '',
   token: null,
 };
 
@@ -26,7 +26,7 @@ test('update redux state on login', async () => {
 
   expect(newState.user.name).toBe('Alicia');
   expect(newState.token).toBe('mock-token');
-  expect(newState.userID).toBe('123');
+  expect(newState.userId).toBe('123');
 });
 
 
@@ -41,12 +41,12 @@ test('reset redux state on logout', async () => {
     ...initialState,
     user: { name: 'Alicia', email: 'alicia@example.com' },
     token: 'mock-token',
-    userID: '123',
+    userId: '123',
   };
 
   const newState = authReducer(loggedInState, setLogout());
 
   expect(newState.user).toEqual({ name: '', email: '', templates: [] });
   expect(newState.token).toBeNull();
-  expect(newState.userID).toEqual('')
+  expect(newState.userId).toEqual('')
 });

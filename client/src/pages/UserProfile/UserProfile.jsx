@@ -1,6 +1,6 @@
 import axios from 'axios';
 import { useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import { useSelector } from 'react-redux';
 import { Modal } from 'bootstrap';
 
 /** ICONS */
@@ -13,14 +13,14 @@ import avatar from '../../assets/Anya.png';
 const UserProfile = () => {
   const user = useSelector((state) => state.user); //
   const token = useSelector((state) => state.token);
+  const id = useSelector((state) => state.userId);
 
   const [editMode, setEditMode] = useState(false);
   const [newName, setNewName] = useState(null);
-  const [newMail, setNewMail] = useState(null)
+  const [newMail, setNewMail] = useState(null);
 
-  const [password, setPassword] = useState(null)
-  const [password2, setPassword2] = useState(null)
-
+  const [password, setPassword] = useState(null);
+  const [password2, setPassword2] = useState(null);
 
   const userName = user?.name || 'Undefined';
   const handlePasswordChange = () => {
@@ -29,34 +29,29 @@ const UserProfile = () => {
 
   const handleSave = async () => {
     setEditMode(false);
-    
-
     const modal = new Modal(document.getElementById('saveAlertModal'));
     modal.show();
 
     try {
-      const response = await axios.post(`http://localhost:3030/users/${user.id}/update`, {
-        token: token,
-        userId: user.id,
-        name: newName,
-        email: newMail,
-        password: password,
-      });
-
+      const response = await axios.patch(
+        `http://localhost:3030/users/${id}/update`,
+        {
+          token: token,
+          userId: id,
+          name: newName,
+          email: newMail,
+          password: password,
+        }
+      );
       if (response.status === 200) {
-        const { name, email} = response.data;
-        dispatch(setLogin({ name, email}));
+        const { name, email } = response.data;
+        dispatch(setLogin({ name, email }));
         console.log('dasd');
-      } else if (response.status === 400) {
-        setMessage('Missing required fields');
-      } else if (response.status === 401) {
-        setMessage('Incorrect password');
+        modal.show();
       }
     } catch (error) {
       console.log(error);
-      setMessage('Please try again or reset your password.');
     }
-
   };
 
   const ifNotEditMode = () => {
@@ -80,9 +75,15 @@ const UserProfile = () => {
         <>
           <div className="form-grid">
             <div className="form-row">
-              <label htmlFor="name" className="font-semibold">Name:</label>
+              <label htmlFor="name" className="font-semibold">
+                Name:
+              </label>
               <span className="input-wrapper">
-                <input id='name' type="text" onChange={(e) => setNewName(e.target.value)} />
+                <input
+                  id="name"
+                  type="text"
+                  onChange={(e) => setNewName(e.target.value)}
+                />
                 <i
                   className="info-warning"
                   data-bs-toggle="tooltip"
@@ -95,9 +96,15 @@ const UserProfile = () => {
             </div>
 
             <div className="form-row">
-              <label htmlFor="mail" className="font-semibold">Mail:</label>
+              <label htmlFor="mail" className="font-semibold">
+                Mail:
+              </label>
               <span className="input-wrapper">
-                <input id='mail' type="text" onChange={(e) => setNewMail(e.target.value)}/>
+                <input
+                  id="mail"
+                  type="text"
+                  onChange={(e) => setNewMail(e.target.value)}
+                />
                 <i
                   className="info-warning"
                   data-bs-toggle="tooltip"
@@ -112,14 +119,22 @@ const UserProfile = () => {
             <div className="form-row">
               <label htmlFor="password1">New password:</label>
               <span className="input-wrapper">
-                <input id='password1' type="password" onChange={(e) => setPassword(e.target.value)}/>
+                <input
+                  id="password1"
+                  type="password"
+                  onChange={(e) => setPassword(e.target.value)}
+                />
               </span>
             </div>
 
             <div className="form-row">
               <label htmlFor="password2">Repeat new password:</label>
               <span className="input-wrapper">
-                <input id='password2' type="password" onChange={(e) => setPassword2(e.target.value)}/>
+                <input
+                  id="password2"
+                  type="password"
+                  onChange={(e) => setPassword2(e.target.value)}
+                />
               </span>
             </div>
 

@@ -12,7 +12,7 @@ const initialState = {
       { id: '', month: '' },
     ],
   },
-  userID: '',
+  userId: 's',
   token: null,
 };
 
@@ -26,12 +26,12 @@ export const authSlice = createSlice({
     setLogin: (state, action) => {
       state.user = action.payload.user;
       state.token = action.payload.token;
-      state.userID = action.payload.id;
+      state.userId = action.payload.id;
     },
     setLogout: (state) => {
       state.user = { name: '', email: '', templates: [] };
       state.token = null;
-      state.userID = '';
+      state.userId = '';
     },
     setMonthCards: (state, action) => {
       if (state.user) {
