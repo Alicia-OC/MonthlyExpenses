@@ -29,20 +29,7 @@ const store = configureStore({
   },
 });
 
-test('input values reach the backend and update it', async () => {
-  const mockToken = 'mocked-jwt-token';
-  const mockUserId = '76das78f87asdv87h7gf9';
-
-  axios.patch.mockResolvedValue({
-    data: {
-      cards: [
-        { id: '21', month: 'March' },
-        { id: '324', month: 'April' },
-        { id: 'fs5d', month: 'May' },
-        { id: '533', month: 'June' },
-      ],
-    },
-  });
+test('renders user cards from Redux store', async () => {
 
   render(
     <Provider store={store}>
@@ -50,8 +37,11 @@ test('input values reach the backend and update it', async () => {
     </Provider>
   );
 
-  const user = userEvent.setup();
-
+  expect(screen.getByText(/March/i)).toBeInTheDocument();
+  expect(screen.getByText(/April/i)).toBeInTheDocument();
+  expect(screen.getByText(/May/i)).toBeInTheDocument();
+  expect(screen.getByText(/June/i)).toBeInTheDocument();
+  
   /** expect(axios.get).toHaveBeenCalledWith(
     `http://localhost:3030/users/${mockUserId}/update`,
     {

@@ -78,6 +78,10 @@ test('input values reach the backend and update it', async () => {
     }
   );
 
+  expect(
+    screen.queryByText(/Please make sure both password fields are the same./i)
+  ).not.toBeInTheDocument();
+
   const response = await axios.patch.mock.results[0].value;
 
   expect(response.data.name).toBe('Alicia');
@@ -85,7 +89,6 @@ test('input values reach the backend and update it', async () => {
 });
 
 test('input values do not reach the backend', async () => {
-
   render(
     <Provider store={store}>
       <UserProfile />
@@ -113,5 +116,4 @@ test('input values do not reach the backend', async () => {
   expect(
     screen.getByText(/Please make sure both password fields are the same./i)
   ).toBeInTheDocument();
-
 });

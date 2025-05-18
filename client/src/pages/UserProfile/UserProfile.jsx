@@ -5,10 +5,18 @@ import { Modal } from 'bootstrap';
 
 /** ICONS */
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faPenToSquare, faCircleInfo } from '@fortawesome/free-solid-svg-icons';
+import {
+  faPenToSquare,
+  faCircleInfo,
+  faPiggyBank,
+  faBasketShopping,
+  faMoneyBillWave,
+} from '@fortawesome/free-solid-svg-icons';
 import { Container, Image } from 'react-bootstrap';
 
 import avatar from '../../assets/Anya.png';
+
+import CardWidget from '../../components/cardWidget/cardWidget';
 
 const UserProfile = () => {
   const user = useSelector((state) => state.user); //
@@ -25,6 +33,7 @@ const UserProfile = () => {
   const [errMsgPassword, setErrMsgPassword] = useState(null);
 
   const userName = user?.name || 'Undefined';
+  const currency = '€';
 
   const handlePasswordChange = () => {
     setEditMode(!editMode);
@@ -38,6 +47,8 @@ const UserProfile = () => {
         </div>
       );
       return false;
+    } else {
+      setErrMsgPassword(null);
     }
     return true;
   };
@@ -235,18 +246,26 @@ const UserProfile = () => {
               </div>
 
               <div className="savings-div  p-4 text-black bg-body-tertiary">
-                <div className="d-flex justify-content-end text-center py-1 text-body">
+                <div className="d-flex justify-content-center py-1 text-body">
                   <div>
-                    <p className="mb-1 h5">253</p>
-                    <p className="small text-muted mb-0">yearly money saved</p>
+                    <p className="mb-1 h5">
+                      <FontAwesomeIcon icon={faPiggyBank} /> 253{currency}
+                    </p>
+                    <p className="small text-muted mb-0">money saved</p>
                   </div>
                   <div className="px-3">
-                    <p className="mb-1 h5">1026</p>
-                    <p className="small text-muted mb-0">yearly money spent</p>
+                    <p className="mb-1 h5">
+                      <FontAwesomeIcon icon={faBasketShopping} />
+                      1026{currency}
+                    </p>
+                    <p className="small text-muted mb-0">money spent</p>
                   </div>
                   <div>
-                    <p className="mb-1 h5">478</p>
-                    <p className="small text-muted mb-0">yearly money earnt</p>
+                    <p className="mb-1 h5">
+                      <FontAwesomeIcon icon={faMoneyBillWave} />
+                      478{currency}
+                    </p>
+                    <p className="small text-muted mb-0">money earnt</p>
                   </div>
                 </div>
               </div>
@@ -254,38 +273,7 @@ const UserProfile = () => {
                 <div className="mb-5  text-body">
                   <div className="p-4 bg-body-tertiary">{ifNotEditMode()}</div>
                 </div>
-                <div className="d-flex justify-content-between align-items-center mb-4 text-body">
-                  <p className="lead fw-normal mb-0">Recent Cards</p>
-                  <p className="mb-0">
-                    <a href="#!" className="text-muted">
-                      See all
-                    </a>
-                  </p>
-                </div>
-                <div className="row g-2">
-                  <div className="col mb-2">
-                    <h3 id={user?.cards[0].id}>
-                      {user?.cards[0].month || 'card 1'}
-                    </h3>
-                  </div>
-                  <div className="col mb-2">
-                    <h3 id={user?.cards[1].id}>
-                      {user?.cards[1].month || 'card 2'}
-                    </h3>
-                  </div>
-                </div>
-                <div className="row g-2">
-                  <div className="col">
-                    <h3 id={user?.cards[2].id}>
-                      {user?.cards[2].month || 'card 3'}
-                    </h3>
-                  </div>
-                  <div className="col">
-                    <h3 id={user?.cards[3].id}>
-                      {user?.cards[3].month || 'card 4'}
-                    </h3>
-                  </div>
-                </div>
+                <CardWidget />
               </div>
             </div>
           </div>

@@ -123,7 +123,7 @@ span {
 
 .form-row {
   display: grid;
-  grid-template-columns: 140px 1fr; 
+  grid-template-columns: 140px 1fr;
   align-items: center;
   gap: 0.25em;
 }
@@ -140,6 +140,36 @@ input {
   box-sizing: border-box;
 }
 
-.errMsgPassword{
+.errMsgPassword {
   color: red;
+}
+
+.widget-card-link {
+  color: black;
+  background-color: transparent;
+  font-size: 1.8em;
+  cursor: pointer;
+  transition: color 0.3s ease, font-size 0.3s ease;
+  text-decoration: none;
+
+}
+
+.widget-card-link:hover {
+  color: var(--pink-theme_main);
+  font-size: 2em;
+  text-decoration: none;
+}
+
+.see-all-link {
+  color: black;
+  background-color: transparent;
+  text-decoration: none;
+  font-size: 1.25rem;
+  cursor: pointer;
+  transition: color 0.3s ease, font-size 0.3s ease;
+}
+
+.see-all-link:hover {
+  color: rgb(59, 59, 59);
+  text-decoration: underline;
 }
