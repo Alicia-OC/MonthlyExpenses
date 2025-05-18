@@ -139,3 +139,7 @@ input {
   padding: 4px 8px;
   box-sizing: border-box;
 }
+
+.errMsgPassword{
+  color: red;
+}

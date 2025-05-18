@@ -37,7 +37,7 @@ test('input values reach the backend and update it', async () => {
     data: {
       name: 'Alicia',
       email: 'mail@mail',
-      password: 'p12345'
+      password: 'p12345',
     },
   });
 
@@ -57,12 +57,15 @@ test('input values reach the backend and update it', async () => {
   await user.type(screen.getByLabelText(/name/i), 'Alicia');
   await user.type(screen.getByLabelText(/mail/i), 'mail@mail');
   const passwordInput = await screen.findByLabelText(/^New password:$/i);
+  const passwordInput2 = await screen.findByLabelText(
+    /^Repeat new password:$/i
+  );
+
   await user.type(passwordInput, 'p12345');
+  await user.type(passwordInput2, 'p12345');
 
   const saveButton = await screen.findByRole('button', { name: /save/i });
   await user.click(saveButton);
-
-  expect(axios.patch).toHaveBeenCalled();
 
   expect(axios.patch).toHaveBeenCalledWith(
     `http://localhost:3030/users/${mockUserId}/update`,
@@ -79,4 +82,36 @@ test('input values reach the backend and update it', async () => {
 
   expect(response.data.name).toBe('Alicia');
   expect(response.data.email).toBe('mail@mail');
+});
+
+test('input values do not reach the backend', async () => {
+
+  render(
+    <Provider store={store}>
+      <UserProfile />
+    </Provider>
+  );
+
+  const user = userEvent.setup();
+
+  const updateButton = screen.getByRole('button', {
+    name: /Update profile or password/i,
+  });
+  await user.click(updateButton);
+
+  const passwordInput = await screen.findByLabelText(/^New password:$/i);
+  const passwordInput2 = await screen.findByLabelText(
+    /^Repeat new password:$/i
+  );
+
+  await user.type(passwordInput, 'p12345');
+  await user.type(passwordInput2, 'p12345A');
+
+  const saveButton = await screen.findByRole('button', { name: /save/i });
+  await user.click(saveButton);
+
+  expect(
+    screen.getByText(/Please make sure both password fields are the same./i)
+  ).toBeInTheDocument();
+
 });

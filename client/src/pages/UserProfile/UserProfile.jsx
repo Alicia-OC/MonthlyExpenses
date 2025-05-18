@@ -22,13 +22,33 @@ const UserProfile = () => {
   const [password, setPassword] = useState(null);
   const [password2, setPassword2] = useState(null);
 
+  const [errMsgPassword, setErrMsgPassword] = useState(null);
+
   const userName = user?.name || 'Undefined';
+
   const handlePasswordChange = () => {
     setEditMode(!editMode);
   };
 
+  const validatePassword = (pw1, pw2) => {
+    if (pw1 !== pw2) {
+      setErrMsgPassword(
+        <div className="errMsgPassword">
+          Please make sure both password fields are the same.
+        </div>
+      );
+      return false;
+    }
+    return true;
+  };
+
   const handleSave = async () => {
+    if (!validatePassword(password, password2)) {
+      return;
+    }
+
     setEditMode(false);
+
     const modal = new Modal(document.getElementById('saveAlertModal'));
     modal.show();
 
@@ -46,7 +66,6 @@ const UserProfile = () => {
       if (response.status === 200) {
         const { name, email } = response.data;
         dispatch(setLogin({ name, email }));
-        console.log('dasd');
         modal.show();
       }
     } catch (error) {
@@ -137,6 +156,7 @@ const UserProfile = () => {
                 />
               </span>
             </div>
+            {errMsgPassword}
 
             <button className="btn btn-dark" onClick={handleSave}>
               Save
