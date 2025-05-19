@@ -19,6 +19,7 @@ const userSchema = new mongoose.Schema(
       required: true,
       minlength: 6,
     },
+    avatar: { type: String, default: "../public/images/default-avatar.jpg" },
     cards: [
       {
         type: mongoose.Schema.Types.ObjectId,
@@ -26,10 +27,28 @@ const userSchema = new mongoose.Schema(
         default: new mongoose.Types.ObjectId("67b379cc31d54e6b6a38479d"),
       },
     ],
-    avatar: {
-      type: String,
-      default: "/images/default-avatar.jpg",
-    },
+    dataByYear: [
+      {
+        type: [
+          {
+            year: Number,
+            month: String,
+            savings: Number,
+            expenses: Number,
+            income: Number,
+          },
+        ],
+        default: () => [
+          {
+            year: 2025,
+            month: "April",
+            savings: 100,
+            expenses: 1000,
+            income: 1100,
+          },
+        ],
+      },
+    ],
   },
   { timestamps: true }
 );

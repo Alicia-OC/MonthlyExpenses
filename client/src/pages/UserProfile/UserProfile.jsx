@@ -14,14 +14,15 @@ import {
 } from '@fortawesome/free-solid-svg-icons';
 import { Container, Image } from 'react-bootstrap';
 
-import avatar from '../../assets/Anya.png';
-
 import CardWidget from '../../components/cardWidget/cardWidget';
+import { useEffect } from 'react';
 
 const UserProfile = () => {
   const user = useSelector((state) => state.user); //
   const token = useSelector((state) => state.token);
   const id = useSelector((state) => state.userId);
+
+  const userAvatar = user?.avatar;
 
   const [editMode, setEditMode] = useState(false);
   const [newName, setNewName] = useState(null);
@@ -32,8 +33,19 @@ const UserProfile = () => {
 
   const [errMsgPassword, setErrMsgPassword] = useState(null);
 
-  const userName = user?.name || 'Undefined';
   const currency = '€';
+
+  const [userExpenses, setUserExpenses] = useState('loading');
+  const [userSavings, setUserSavings] = useState('loading');
+  const [userIncome, setUserIncome] = useState('loading');
+
+  useEffect(() => {
+    if (user?.dataByYear?.[0]) {
+      setUserExpenses(user.dataByYear[0].expenses || 'loading');
+      setUserSavings(user.dataByYear[0].savings || 'loading');
+      setUserIncome(user.dataByYear[0].income || 'loading');
+    }
+  }, [user]);
 
   const handlePasswordChange = () => {
     setEditMode(!editMode);
@@ -221,10 +233,10 @@ const UserProfile = () => {
         <div className="container py-5 h-100">
           <div className="col col-lg-9 col-xl-12">
             <div className="card">
-              <div className="rounded-top text-white d-flex flex-row">
-                <div className="ms-4 mt-5 d-flex flex-column">
+              <div className="rounded-top text-white justify-content-center d-flex flex-row">
+                <div className=" mt-5 d-flex flex-column">
                   <Image
-                    src={avatar}
+                    src={userAvatar}
                     style={{ width: '400px' }}
                     className="img-fluid img-thumbnail mt-6 mb-2"
                     alt="User avatar"
@@ -249,23 +261,24 @@ const UserProfile = () => {
                 <div className="d-flex justify-content-center py-1 text-body">
                   <div>
                     <p className="mb-1 h5">
-                      <FontAwesomeIcon icon={faPiggyBank} /> 253{currency}
+                      <FontAwesomeIcon icon={faPiggyBank} />{' '}
+                      {userSavings + ' ' + currency}{' '}
                     </p>
-                    <p className="small text-muted mb-0">money saved</p>
+                    <p className="small text-muted mb-0">savings</p>
                   </div>
                   <div className="px-3">
                     <p className="mb-1 h5">
                       <FontAwesomeIcon icon={faBasketShopping} />
-                      1026{currency}
+                      {userExpenses + ' ' + currency}
                     </p>
-                    <p className="small text-muted mb-0">money spent</p>
+                    <p className="small text-muted mb-0">expenses</p>
                   </div>
                   <div>
                     <p className="mb-1 h5">
                       <FontAwesomeIcon icon={faMoneyBillWave} />
-                      478{currency}
+                      {`${userIncome + ' ' + currency}`}{' '}
                     </p>
-                    <p className="small text-muted mb-0">money earnt</p>
+                    <p className="small text-muted mb-0">income</p>
                   </div>
                 </div>
               </div>

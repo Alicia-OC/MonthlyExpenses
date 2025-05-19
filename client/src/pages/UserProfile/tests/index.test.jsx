@@ -22,6 +22,22 @@ const store = configureStore({
         { id: 'fs5d', month: 'May' },
         { id: '533', month: 'June' },
       ],
+      dataByYear: [
+        {
+          year: 2025,
+          month: 'April',
+          savings: 123,
+          expenses: 756,
+          income: 444,
+        },
+        {
+          year: 2025,
+          month: 'May',
+          savings: 123,
+          expenses: 756,
+          income: 444,
+        },
+      ],
     },
 
     userId: '76das78f87asdv87h7gf9',
@@ -42,6 +58,8 @@ test('Render and get redux state content', () => {
 
   expect(screen.getByText(/April/i)).toBeInTheDocument();
   expect(screen.getByText(/June/i)).toBeInTheDocument();
+
+  expect(screen.getByText(/123/i)).toBeInTheDocument();
 });
 
 test('inputs store the changes', async () => {

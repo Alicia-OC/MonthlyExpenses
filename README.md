@@ -8,6 +8,7 @@ POST:
 
 GET:
 -get card with jwt
+-get all cards with jwt
 
 PATCH:
 -update user details with jwt

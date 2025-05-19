@@ -1,5 +1,7 @@
 import { createSlice } from '@reduxjs/toolkit';
 
+import avatar from '../assets/Anya.png';
+
 const initialState = {
   mode: 'pink',
   user: {
@@ -11,6 +13,16 @@ const initialState = {
       { id: '', month: '' },
       { id: '', month: '' },
     ],
+    dataByYear: [
+      {
+        year: '',
+        month: '',
+        savings: '',
+        expenses: 'dsa',
+        income: '',
+      },
+    ],
+    avatar: avatar,
   },
   userId: 's',
   token: null,

@@ -9,7 +9,6 @@ const SignIn = () => {
   const [message, setMessage] = useState();
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const [token, setToken] = useState('');
 
   const handleSubmit = async (e) => {
     e.preventDefault();
