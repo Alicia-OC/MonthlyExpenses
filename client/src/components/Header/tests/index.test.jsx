@@ -2,16 +2,49 @@ import { logRoles, render, screen, waitFor } from '@testing-library/react';
 import { expect, test, describe } from 'vitest';
 import userEvent from '@testing-library/user-event';
 import NavBar from '../Header';
-import configureStore from 'redux-mock-store';
+import { Provider } from 'react-redux';
+
+import { configureStore } from '@reduxjs/toolkit';
+import authReducer from '../../../state/authSlice';
 
 import axios from 'axios';
 
 vi.mock('axios');
-const mockStore = configureStore([]);
+
+const store = configureStore({
+  reducer: authReducer,
+  preloadedState: {
+    user: {
+      name: 'Alicia',
+      email: 'placeholder@test',
+      cards: [
+        { id: '21', month: 'March' },
+        { id: '324', month: 'April' },
+        { id: 'fs5d', month: 'May' },
+        { id: '533', month: 'June' },
+      ],
+    },
+    dataByYear: [
+      {
+        year: 2025,
+        month: 'April',
+        savings: 100,
+        expenses: 1000,
+        income: 1100,
+      },
+    ],
+    userId: '76das78f87asdv87h7gf9',
+    token: 'mocked-jwt-token',
+  },
+});
 
 describe('Navbar component', async () => {
   test('renders navbar correctly', async () => {
-    render(<NavBar />);
+    render(
+      <Provider store={store}>
+        <NavBar />
+      </Provider>
+    );
 
     expect(screen.getByText('Brand')).toBeInTheDocument();
     expect(screen.getByText('About')).toBeInTheDocument();
@@ -19,8 +52,11 @@ describe('Navbar component', async () => {
   });
 
   test('dropdown menu appears when clicked', async () => {
-    render(<NavBar />);
-
+    render(
+      <Provider store={store}>
+        <NavBar />
+      </Provider>
+    );
     const user = userEvent.setup();
 
     const dropdownToggle = screen.getByAltText(/avatar-img/i);
@@ -36,8 +72,11 @@ describe('Navbar component', async () => {
 
   test('logout button calls API', async () => {
     const user = userEvent.setup();
-    render(<NavBar />);
-
+    render(
+      <Provider store={store}>
+        <NavBar />
+      </Provider>
+    );
     const mockToken = 'mocked-jwt-token';
     axios.post.mockResolvedValue({
       status: 200,
@@ -56,5 +95,9 @@ describe('Navbar component', async () => {
 
 test('all navbar items are functional', async () => {
   const user = userEvent.setup();
-  render(<NavBar />);
+  render(
+    <Provider store={store}>
+      <NavBar />
+    </Provider>
+  );
 });

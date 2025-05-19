@@ -21,6 +21,7 @@ const UserProfile = () => {
   const user = useSelector((state) => state.user); //
   const token = useSelector((state) => state.token);
   const id = useSelector((state) => state.userId);
+  const currency = useSelector((state) => state.currency);
 
   const userAvatar = user?.avatar;
 
@@ -32,8 +33,6 @@ const UserProfile = () => {
   const [password2, setPassword2] = useState(null);
 
   const [errMsgPassword, setErrMsgPassword] = useState(null);
-
-  const currency = '€';
 
   const [userExpenses, setUserExpenses] = useState('loading');
   const [userSavings, setUserSavings] = useState('loading');

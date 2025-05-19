@@ -26,6 +26,7 @@ const initialState = {
   },
   userId: 's',
   token: null,
+  currency: '€'
 };
 
 export const authSlice = createSlice({
@@ -50,10 +51,13 @@ export const authSlice = createSlice({
         state.user.templates = action.payload.templates;
       } else console.log("You haven't created any template yet");
     },
+     setCurrency: (state, action) => {
+      state.currency = action.payload.currency;
+    },
   },
 });
 
-export const { setMode, setLogin, setLogout, setMonthCards } =
+export const { setMode, setLogin, setLogout, setMonthCards, setCurrency } =
   authSlice.actions;
 
 export default authSlice.reducer;

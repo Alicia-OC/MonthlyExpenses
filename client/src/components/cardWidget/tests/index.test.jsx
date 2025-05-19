@@ -22,7 +22,15 @@ const store = configureStore({
         { id: '533', month: 'June' },
       ],
     },
-
+    dataByYear: [
+      {
+        year: 2025,
+        month: 'April',
+        savings: 100,
+        expenses: 1000,
+        income: 1100,
+      },
+    ],
     userId: '76das78f87asdv87h7gf9',
     token: 'mocked-jwt-token',
   },
