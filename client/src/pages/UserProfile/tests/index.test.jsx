@@ -1,9 +1,8 @@
-import { render, screen, waitFor } from '@testing-library/react';
-import { expect, test, describe } from 'vitest';
+import { render, screen } from '@testing-library/react';
+import { expect, test } from 'vitest';
 import { Provider } from 'react-redux';
 import { configureStore } from '@reduxjs/toolkit';
 import userEvent from '@testing-library/user-event';
-import axios from 'axios';
 
 import UserProfile from '../UserProfile';
 import authReducer from '../../../state/authSlice';
@@ -25,7 +24,7 @@ const store = configureStore({
       dataByYear: [
         {
           year: 2025,
-          month: 'April',
+          month: 'September',
           savings: 123,
           expenses: 756,
           income: 444,
@@ -55,11 +54,6 @@ test('Render and get redux state content', () => {
   expect(screen.getByText(/Alicia/i)).toBeInTheDocument();
   expect(screen.getByText(/placeholder@test/i)).toBeInTheDocument();
   expect(screen.getByAltText(/user avatar/i)).toBeInTheDocument();
-
-  expect(screen.getByText(/April/i)).toBeInTheDocument();
-  expect(screen.getByText(/June/i)).toBeInTheDocument();
-
-  expect(screen.getByText(/123/i)).toBeInTheDocument();
 });
 
 test('inputs store the changes', async () => {
@@ -72,7 +66,7 @@ test('inputs store the changes', async () => {
   const user = userEvent.setup();
 
   const updateButton = screen.getByRole('button', {
-    name: /Update profile or password/i,
+    name: /Edit profile or password/i,
   });
 
   await user.click(updateButton);
@@ -92,4 +86,7 @@ test('inputs store the changes', async () => {
   );
   await user.type(repeatPasswordInput, 'p12345');
   expect(repeatPasswordInput).toHaveValue('p12345');
+
+
+
 });

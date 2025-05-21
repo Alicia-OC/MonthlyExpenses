@@ -16,11 +16,9 @@ const Linkedin = import.meta.env.VITE_APP_LINKEDIN;
 const NavBar = () => {
   const dispatch = useDispatch();
 
-  const currency = useSelector((state) => state.currency);
 
   const updateCurrency = async (newCurrency) => {
     dispatch(setCurrency({ currency: newCurrency }));
-
   };
 
   return (

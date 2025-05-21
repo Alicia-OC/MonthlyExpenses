@@ -2,8 +2,7 @@ import { useSelector } from 'react-redux';
 
 const CardWidget = () => {
   const user = useSelector((state) => state.user); //
-
-  
+  const userId = useSelector((state) => state.userId);
 
   return (
     <div>
@@ -21,7 +20,11 @@ const CardWidget = () => {
           <div className="col mb-2">
             <p id={user?.cards[0].id}>
               {' '}
-              <a className="widget-card-link" href={`/${user?.cards[0].id} `}>
+              <a
+                data-testid="card-month-display"
+                className="widget-card-link"
+                href={`/${userId}/${user?.cards[0].id || 'not found'} `}
+              >
                 {' '}
                 {user?.cards[0].month || 'card 1'}
               </a>
@@ -29,7 +32,10 @@ const CardWidget = () => {
           </div>
           <div className="col mb-2">
             <p id={user?.cards[1].id}>
-              <a className="widget-card-link" href={`/${user?.cards[1].id} `}>
+              <a
+                className="widget-card-link"
+                href={`/${userId}/${user?.cards[1].id || 'not found'} `}
+              >
                 {' '}
                 {user?.cards[1].month || 'card 2'}
               </a>
@@ -40,7 +46,10 @@ const CardWidget = () => {
           <div className="col">
             <p id={user?.cards[2].id}>
               {' '}
-              <a className="widget-card-link" href={`/${user?.cards[2].id}`}>
+              <a
+                className="widget-card-link"
+                href={`/${userId}/${user?.cards[2].id || 'not found'}`}
+              >
                 {' '}
                 {user?.cards[2].month || 'card 3'}
               </a>
@@ -49,7 +58,10 @@ const CardWidget = () => {
           <div className="col">
             <p id={user?.cards[3].id}>
               {' '}
-              <a className="widget-card-link" href={`/${user?.cards[3].id}`}>
+              <a
+                className="widget-card-link"
+                href={`/${userId}/${user?.cards[3].id || 'not found'}`}
+              >
                 {' '}
                 {user?.cards[3].month || 'card 4'}
               </a>

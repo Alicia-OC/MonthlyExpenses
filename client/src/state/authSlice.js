@@ -12,6 +12,20 @@ const initialState = {
       { id: '', month: '' },
       { id: '', month: '' },
       { id: '', month: '' },
+      { id: '', month: '' },
+      { id: '', month: '' },
+      { id: '', month: '' },
+      { id: '', month: '' },
+      { id: '', month: '' },
+      { id: '', month: '' },
+      { id: '', month: '' },
+      { id: '', month: '' },
+      { id: '', month: '' },
+      { id: '', month: '' },
+      { id: '', month: '' },
+      { id: '', month: '' },
+      { id: '', month: '' },
+      { id: '', month: '' },
     ],
     dataByYear: [
       {
@@ -26,7 +40,7 @@ const initialState = {
   },
   userId: 's',
   token: null,
-  currency: '€'
+  currency: '€',
 };
 
 export const authSlice = createSlice({
@@ -51,7 +65,7 @@ export const authSlice = createSlice({
         state.user.templates = action.payload.templates;
       } else console.log("You haven't created any template yet");
     },
-     setCurrency: (state, action) => {
+    setCurrency: (state, action) => {
       state.currency = action.payload.currency;
     },
   },

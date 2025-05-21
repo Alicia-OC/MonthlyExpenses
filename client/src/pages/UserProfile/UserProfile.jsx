@@ -2,20 +2,18 @@ import axios from 'axios';
 import { useState } from 'react';
 import { useSelector } from 'react-redux';
 import { Modal } from 'bootstrap';
+import { useEffect } from 'react';
 
 /** ICONS */
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import {
   faPenToSquare,
   faCircleInfo,
-  faPiggyBank,
-  faBasketShopping,
-  faMoneyBillWave,
 } from '@fortawesome/free-solid-svg-icons';
 import { Container, Image } from 'react-bootstrap';
 
 import CardWidget from '../../components/cardWidget/cardWidget';
-import { useEffect } from 'react';
+import ExpensesSummary from '../ExpensesSummary/ExpensesSummary';
 
 const UserProfile = () => {
   const user = useSelector((state) => state.user); //
@@ -250,43 +248,18 @@ const UserProfile = () => {
                     onClick={handlePasswordChange}
                   >
                     {!editMode
-                      ? 'Update profile or password'
+                      ? 'Edit profile or password'
                       : 'Exit editing mode'}
                   </button>
                 </div>
               </div>
-
-              <div className="savings-div  p-4 text-black bg-body-tertiary">
-                <div className="d-flex justify-content-center py-1 text-body">
-                  <div>
-                    <p className="mb-1 h5">
-                      <FontAwesomeIcon icon={faPiggyBank} />{' '}
-                      {userSavings + ' ' + currency}{' '}
-                    </p>
-                    <p className="small text-muted mb-0">savings</p>
-                  </div>
-                  <div className="px-3">
-                    <p className="mb-1 h5">
-                      <FontAwesomeIcon icon={faBasketShopping} />
-                      {userExpenses + ' ' + currency}
-                    </p>
-                    <p className="small text-muted mb-0">expenses</p>
-                  </div>
-                  <div>
-                    <p className="mb-1 h5">
-                      <FontAwesomeIcon icon={faMoneyBillWave} />
-                      {`${userIncome + ' ' + currency}`}{' '}
-                    </p>
-                    <p className="small text-muted mb-0">income</p>
-                  </div>
-                </div>
-              </div>
+              <ExpensesSummary />
               <div className="card-body p-4 text-black">
-                <div className="mb-5  text-body">
+                <div className="text-body">
                   <div className="p-4 bg-body-tertiary">{ifNotEditMode()}</div>
                 </div>
-                <CardWidget />
               </div>
+              <CardWidget />
             </div>
           </div>
         </div>

@@ -50,7 +50,7 @@ test('input values reach the backend and update it', async () => {
   const user = userEvent.setup();
 
   const updateButton = screen.getByRole('button', {
-    name: /Update profile or password/i,
+    name: /Edit profile or password/i,
   });
   await user.click(updateButton);
 
@@ -98,7 +98,7 @@ test('input values do not reach the backend', async () => {
   const user = userEvent.setup();
 
   const updateButton = screen.getByRole('button', {
-    name: /Update profile or password/i,
+    name: /Edit profile or password/i,
   });
   await user.click(updateButton);
 

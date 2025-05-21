@@ -86,30 +86,7 @@ export const handlers = [
     ]);
   }),
 
-  http.get('/users/:userId/cards', async ({ params }) => {
-    const { token } = req.body;
 
-    if (!params.userId || !token || !params.cardId) {
-      return HttpResponse.json(
-        { error: 'Missing token or userId' },
-        { status: 400 }
-      );
-    }
-
-    if (params.userId !== 'placeholderId' || token !== 'placeholderToken') {
-      return HttpResponse.json({ error: 'Invalid credentials' });
-    }
-    return HttpResponse.json([
-      {
-        cardId: '67b39f575ee98cc48c17cec5',
-        month: 'March',
-      },
-      {
-        cardId: '67b39f9c8e5bc6f868faf427',
-        month: 'May',
-      },
-    ]);
-  }),
 
   http.get('http://localhost:3030/categories', async (req) => {
     const { userId, token } = req.body;
@@ -222,7 +199,7 @@ export const handlers = [
     }
   }),
 
-  http.post('http://localhost:3030/monthcards/new', async (req) => {
+  http.post('http://localhost:3030/:userId/:cardId', async (req) => {
     await delay(400);
 
     const { userId, token } = req.body;
@@ -267,7 +244,7 @@ export const handlers = [
     );
   }),
 
-  http.patch('monthcards/update/:cardId', async ({ params, req }) => {
+  http.patch('/:userId/:cardId', async ({ params, req }) => {
     await delay(400);
 
     const { userId, token } = req.body;
@@ -295,6 +272,56 @@ export const handlers = [
       { message: `Card ${params.cardId} updated` },
       { status: 200 }
     );
+  }),
+
+    http.get('/:userId/:cardId', async ({ params }) => {
+    const { token} = req.body;
+
+    if (!params.userId || !token || !params.cardId) {
+      return HttpResponse.json(
+        { error: 'Missing token or userId' },
+        { status: 400 }
+      );
+    }
+
+    if (params.userId !== 'placeholderId' || token !== 'placeholderToken') {
+      return HttpResponse.json({ error: 'Invalid credentials' });
+    }
+    return HttpResponse.json([
+      {
+        cardId: '67b39f575ee98cc48c17cec5',
+        month: 'March',
+      },
+      {
+        cardId: '67b39f9c8e5bc6f868faf427',
+        month: 'May',
+      },
+    ]);
+  }),
+
+    http.get('/:userId/cards', async ({ params }) => {
+    const { token } = req.body;
+
+    if (!params.userId || !token ) {
+      return HttpResponse.json(
+        { error: 'Missing token or userId' },
+        { status: 400 }
+      );
+    }
+
+    if (params.userId !== 'placeholderId' || token !== 'placeholderToken') {
+      return HttpResponse.json({ error: 'Invalid credentials' });
+    }
+    return HttpResponse.json([
+      {
+        cardId: '67b39f575ee98cc48c17cec5',
+        month: 'March',
+      },
+      {
+        cardId: '67b39f9c8e5bc6f868faf427',
+        month: 'May',
+      },
+    ]);
   }),
 
   http.patch('/users/:userId/update', async ({ req, params }) => {

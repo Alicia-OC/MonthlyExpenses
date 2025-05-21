@@ -173,3 +173,7 @@ input {
   color: rgb(59, 59, 59);
   text-decoration: underline;
 }
+
+.card-library{
+  max-width: 540px;
+}
