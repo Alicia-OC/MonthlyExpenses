@@ -8,7 +8,7 @@ const initialState = {
     name: '',
     email: '',
     cards: [
-      { id: '', month: '' },
+      { id: 'testId', month: 'June' },
       { id: '', month: '' },
       { id: '', month: '' },
       { id: '', month: '' },

@@ -26,7 +26,7 @@ function App() {
           <Route path="/SignIn" element={<SignIn />} />
           <Route path="/SignOut" element={<SignOut />} />
           <Route path="/:userId" element={<UserProfile />} />
-          <Route path="/:userId/settings" element={<UserProfile />} />
+          <Route path="/:userId/settings" element={<NoMatch />} />
           <Route path="/:userId/cards" element={<CardsLibrary />} />
           <Route path="/:userId/not found" element={<NoMatch />} />
           <Route path="/:userId/:cardId" element={<MonthCard />} />

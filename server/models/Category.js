@@ -12,13 +12,13 @@ const Category = mongoose.model("Category", CategorySchema);
 
 
 const unexpectedExpenseCategory = new Category({
-  name: "Unexpected expense",
+  name: "Unexpected",
   description: "Unexpected expenses like vet, medicine, replacement, etc.",
 });
 
 
 const guiltyPleasureCategory = new Category({
-  name: "Guilty pleasure expense",
+  name: "Guilty pleasure",
   description:
     "Spontaneous or unnecessary purchases like snacks, takeout or something not 100% necessary.",
 });

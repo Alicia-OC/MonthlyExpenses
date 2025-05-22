@@ -1,4 +1,4 @@
-import { logRoles, render, screen, waitFor } from '@testing-library/react';
+import {  render, screen, waitFor } from '@testing-library/react';
 import { expect, test, describe } from 'vitest';
 import userEvent from '@testing-library/user-event';
 import NavBar from '../Header';

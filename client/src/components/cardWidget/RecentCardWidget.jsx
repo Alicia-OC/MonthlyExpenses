@@ -1,6 +1,6 @@
 import { useSelector } from 'react-redux';
 
-const CardWidget = () => {
+const RecentCardWidget = () => {
   const user = useSelector((state) => state.user); //
   const userId = useSelector((state) => state.userId);
 
@@ -73,4 +73,4 @@ const CardWidget = () => {
   );
 };
 
-export default CardWidget;
+export default RecentCardWidget;

@@ -55,6 +55,20 @@ const monthCardSchema = new mongoose.Schema(
       },
     ],
     transportExpenses: { type: Number, required: true, default: 0 },
+
+    groceriesItems: [
+      {
+        description: String,
+        amount: Number,
+        category: {
+          type: mongoose.Schema.Types.ObjectId,
+          ref: "Category", // Reference to the Category model
+          required: true,
+        },
+        date: Date,
+      },
+    ],
+    groceriesExpenses: { type: Number, required: true, default: 0 },
   },
   { timestamps: true }
 );

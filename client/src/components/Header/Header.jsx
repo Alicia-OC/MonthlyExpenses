@@ -4,22 +4,21 @@ import './Header.css';
 import { Navbar, Nav, NavDropdown, Container } from 'react-bootstrap';
 import Image from 'react-bootstrap/Image';
 import avatar from '../../assets/Anya.png';
-import { useState } from 'react';
-import { useSelector } from 'react-redux';
 
 import { setCurrency } from '../../state/authSlice';
 
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 
 const Linkedin = import.meta.env.VITE_APP_LINKEDIN;
 
 const NavBar = () => {
   const dispatch = useDispatch();
 
-
   const updateCurrency = async (newCurrency) => {
     dispatch(setCurrency({ currency: newCurrency }));
   };
+
+  const userId = useSelector((state) => state.userId);
 
   return (
     <Navbar expand="lg" bg="light" fixed="top" className="px-3">
@@ -46,9 +45,9 @@ const NavBar = () => {
               id="accountDropdown"
             >
               <NavDropdown.Item href="/user">Profile</NavDropdown.Item>
-              <NavDropdown.Item href="/user/settings">
-                Settings
-              </NavDropdown.Item>
+              <NavDropdown.Item href={`/${userId}/cards`}>Library</NavDropdown.Item>
+
+              <NavDropdown.Item href={`/${userId}/settings`}>Settings</NavDropdown.Item>
               <NavDropdown.Item href="/SignOut">Logout</NavDropdown.Item>
             </NavDropdown>
 

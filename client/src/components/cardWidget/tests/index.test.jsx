@@ -3,7 +3,7 @@ import { expect, test } from 'vitest';
 import { Provider } from 'react-redux';
 import { configureStore } from '@reduxjs/toolkit';
 
-import CardWidget from '../cardWidget';
+import RecentCardWidget from '../RecentCardWidget';
 
 import authReducer from '../../../state/authSlice';
 
@@ -39,7 +39,7 @@ const store = configureStore({
 test('renders user cards from Redux store', async () => {
   render(
     <Provider store={store}>
-      <CardWidget />
+      <RecentCardWidget />
     </Provider>
   );
 

@@ -1,7 +1,5 @@
-import axios from 'axios';
 import { useState } from 'react';
 import { useSelector } from 'react-redux';
-import Pagination from 'react-bootstrap/Pagination';
 
 const CardsLibrary = () => {
   const user = useSelector((state) => state.user); //
@@ -30,7 +28,7 @@ const CardsLibrary = () => {
   const testCardsUI = currentCards.map((item) => (
     <div class="col">
       <div class="card">
-        <div class="card-body">
+        <div class="card-body" key={item.id} data-testid={item.id}>
           <h5 class="card-title">item</h5>
           <p class="card-text">
             You have spent X {currency} in groceries, X {currency} in
@@ -43,7 +41,17 @@ const CardsLibrary = () => {
 
   return (
     <>
-      <div class="row row-cols-1 row-cols-md-2 g-4 justify-content-around align-items-center">
+      <div class="col row-cols-1 g-4 justify-content-around align-items-center">
+        <div class="card ">
+          <div class="card-body">
+            <p class="card-text">Navigation per year/month coming soon...</p>
+          </div>
+        </div>
+      </div>
+      <div
+        style={{ marginTop: '0.05rem' }}
+        class="row row-cols-1 row-cols-md-2 g-4 justify-content-around align-items-center"
+      >
         {testCardsUI}{' '}
       </div>
       <div style={{ marginTop: '1rem' }}>
@@ -51,55 +59,14 @@ const CardsLibrary = () => {
           Previous
         </button>
 
-        <button
-          style={{ margin: '0 1rem' }}
-          onClick={prevPage}
-          disabled={currentPage === 1}
-        >
-          {currentPage - 1}
-        </button>
-
         <span style={{ margin: '0 1rem' }}>
           Page {currentPage} of {totalPages}
         </span>
-
-        <button
-          style={{ margin: '0 1rem' }}
-          onClick={prevPage}
-          disabled={currentPage === 1}
-        >
-          {currentPage + 1}
-        </button>
 
         <button onClick={nextPage} disabled={currentPage === totalPages}>
           Next
         </button>
       </div>
-
-      <Pagination>
-        <Pagination.First
-          onClick={(e) => {
-            setCurrentPage(1);
-          }}
-        />
-        <Pagination.Prev onClick={prevPage} />
-        <Pagination.Ellipsis />
-
-        <Pagination.Item>{currentPage}</Pagination.Item>
-        <Pagination.Item>{currentPage + 1}</Pagination.Item>
-        <Pagination.Item>{currentPage + 2}</Pagination.Item>
-        <Pagination.Item>{currentPage + 3}</Pagination.Item>
-
-        <Pagination.Ellipsis />
-        <Pagination.Item>{totalPages}</Pagination.Item>
-
-        <Pagination.Next onClick={nextPage} disabled={currentPage === totalPages} />
-        <Pagination.Last
-          onClick={(e) => {
-            setCurrentPage(totalPages);
-          }}
-        />
-      </Pagination>
     </>
   );
 };

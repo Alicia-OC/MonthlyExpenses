@@ -12,7 +12,7 @@ import {
 } from '@fortawesome/free-solid-svg-icons';
 import { Container, Image } from 'react-bootstrap';
 
-import CardWidget from '../../components/cardWidget/cardWidget';
+import RecentCardWidget from '../../components/cardWidget/RecentCardWidget';
 import ExpensesSummary from '../ExpensesSummary/ExpensesSummary';
 
 const UserProfile = () => {
@@ -259,7 +259,7 @@ const UserProfile = () => {
                   <div className="p-4 bg-body-tertiary">{ifNotEditMode()}</div>
                 </div>
               </div>
-              <CardWidget />
+              <RecentCardWidget />
             </div>
           </div>
         </div>
