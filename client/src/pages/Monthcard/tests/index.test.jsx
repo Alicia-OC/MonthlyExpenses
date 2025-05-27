@@ -1,32 +1,121 @@
 import { render, screen, waitFor } from '@testing-library/react';
+import axios from 'axios';
+import userEvent from '@testing-library/user-event';
+import { MemoryRouter, Route, Routes } from 'react-router-dom';
+import { waitForElementToBeRemoved } from '@testing-library/react';
 
 import MonthCard from '../MonthCard';
 import { Provider } from 'react-redux';
 import { configureStore } from '@reduxjs/toolkit';
 import authReducer from '../../../state/authSlice';
 
+vi.mock('axios');
+
+const mockToken = 'mocked-jwt-token';
+const mockUserId = '76das78f87asdv87h7gf9';
+const mockCardId = '67a910c50f2e7168975baaf6';
+
 const store = configureStore({
   reducer: authReducer,
   preloadedState: {
-    user: {
-      name: 'Alicia',
-      email: 'placeholder@test',
-      cards: [
-        { id: '21', month: 'March' },
-        { id: '324', month: 'April' },
-        { id: 'fs5d', month: 'May' },
-        { id: '533', month: 'June' },
-      ],
-    },
-
-    userId: '76das78f87asdv87h7gf9',
-    token: 'mocked-jwt-token',
+    userId: mockUserId,
+    token: mockToken,
   },
 });
-test('render', async () => {
+
+test('get data', async () => {
+  axios.get.mockResolvedValue({
+    status: 200,
+    data: {
+      cardId: mockCardId,
+      year: 2024,
+      month: 2,
+      totalExpenses: 1200,
+      totalIncome: 1600,
+      totalSavings: 400,
+      fixedItems: [
+        {
+          description: 'rent+bills+food',
+          amount: 605,
+          date: new Date('2025-02-01'),
+        },
+      ],
+      subscriptionItems: [
+        {
+          description: 'HBO',
+          amount: 4.99,
+          date: new Date('2025-02-01'),
+        },
+        {
+          description: 'Amazon no ads',
+          amount: 1.99,
+          date: new Date('2025-02-01'),
+        },
+      ],
+      otherItems: [
+        {
+          description: 'print label + adhesive',
+          amount: 2.56,
+          category: '67a91f012213777227c723ca',
+          date: new Date('2025-02-01'),
+        },
+        {
+          description: 'Decathlon',
+          amount: 76,
+          category: '67a91f012213777227c723cb',
+          date: new Date('2025-02-01'),
+        },
+      ],
+      transportItems: [
+        {
+          description: 'cabify',
+          amount: 6.98,
+          category: '67a91f012213777227c723cb',
+
+          date: new Date('2025-02-01'),
+        },
+      ],
+
+      groceriesItems: [
+        {
+          description: 'cinnamon oreo',
+          amount: 4.99,
+          category: '67a91f012213777227c723cb',
+
+          date: new Date(),
+        },
+      ],
+      fixedExpenses: 9,
+      subscriptionExpenses: 9,
+      otherExpenses: 9,
+      transportExpenses: 9,
+      groceriesExpenses: 4.99,
+    },
+  });
+
   render(
     <Provider store={store}>
-      <MonthCard />
+      <MemoryRouter initialEntries={[`/${mockCardId}`]}>
+        <Routes>
+          <Route path="/:cardId" element={<MonthCard />} />
+        </Routes>
+      </MemoryRouter>
     </Provider>
   );
+
+  await waitFor(() => {
+    expect(axios.get).toHaveBeenCalledWith(
+      `http://localhost:3030/monthcards/${mockUserId}/${mockCardId}`,
+      { headers: { Authorization: `Bearer ${mockToken}` } }
+    );
+  });
+
+  await waitFor(() => {
+    expect(screen.queryByText(/Loading.../i)).not.toBeInTheDocument();
+    expect(screen.queryByText(/cinnamon oreo/i)).toBeInTheDocument();
+  });
+
+
+
 });
+

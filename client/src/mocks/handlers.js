@@ -1,93 +1,6 @@
 import { http, HttpResponse, delay } from 'msw';
 
 export const handlers = [
-  http.get('monthcards/:cardId', async ({ params }) => {
-    const { token } = req.body;
-
-    if (!params.userId || !token || !params.cardId) {
-      return HttpResponse.json(
-        { error: 'Missing token or userId' },
-        { status: 400 }
-      );
-    }
-
-    if (params.userId !== 'placeholderId' || token !== 'placeholderToken') {
-      return HttpResponse.json({ error: 'Invalid credentials' });
-    }
-    return HttpResponse.json([
-      {
-        userId: '67b39dae13026fd988907e92',
-        year: 2024,
-        month: 4,
-        totalIncome: 1600,
-        fixedItems: [
-          {
-            description: 'Phone',
-            amount: 9.99,
-          },
-          {
-            description: 'rent+bills+food',
-            amount: 605,
-          },
-          {
-            description: 'Pole Dance',
-            amount: 158,
-          },
-        ],
-        subscriptionItems: [
-          {
-            description: 'Amazon photos',
-            amount: 1.99,
-          },
-          {
-            description: 'Amazon Ads',
-            amount: 1.99,
-          },
-          {
-            description: 'HBO',
-            amount: 4.99,
-          },
-        ],
-        otherItems: [
-          {
-            description: 'Brunch in Madrid',
-            amount: 12,
-            category: '67a91f012213777227c723cb',
-          },
-          {
-            description: 'Vicens turrones',
-            amount: 16,
-            category: '67a91f012213777227c723cb',
-          },
-          {
-            description: 'Calvin Klein',
-            amount: 49,
-            category: '67a91f012213777227c723cb',
-          },
-          {
-            description: 'Decathlon',
-            amount: 76,
-            category: '67a91f012213777227c723cb',
-          },
-          {
-            description: 'Cena Liberty',
-            amount: 30,
-            category: '67a91f012213777227c723cb',
-          },
-        ],
-        transportItems: [
-          {
-            description: 'cabify',
-            amount: 6.98,
-            category: '67a91f012213777227c723cb',
-          },
-        ],
-      },
-    ]);
-  }),
-
-
-
   http.get('http://localhost:3030/categories', async (req) => {
     const { userId, token } = req.body;
 
@@ -274,8 +187,8 @@ export const handlers = [
     );
   }),
 
-    http.get('/:userId/:cardId', async ({ params }) => {
-    const { token} = req.body;
+  http.get('/:userId/:cardId', async ({ request, params }) => {
+    const token = request.headers.get('Authorization');
 
     if (!params.userId || !token || !params.cardId) {
       return HttpResponse.json(
@@ -284,25 +197,21 @@ export const handlers = [
       );
     }
 
+    const bearer = token.replace('Bearer ', '');
+
     if (params.userId !== 'placeholderId' || token !== 'placeholderToken') {
-      return HttpResponse.json({ error: 'Invalid credentials' });
+      return HttpResponse.json(
+        { error: 'Invalid credentials' },
+        { status: 401 }
+      );
     }
-    return HttpResponse.json([
-      {
-        cardId: '67b39f575ee98cc48c17cec5',
-        month: 'March',
-      },
-      {
-        cardId: '67b39f9c8e5bc6f868faf427',
-        month: 'May',
-      },
-    ]);
+    return HttpResponse.json(cardItem, { status: 200 });
   }),
 
-    http.get('/:userId/cards', async ({ params }) => {
+  http.get('/:userId/cards', async ({ params }) => {
     const { token } = req.body;
 
-    if (!params.userId || !token ) {
+    if (!params.userId || !token) {
       return HttpResponse.json(
         { error: 'Missing token or userId' },
         { status: 400 }
@@ -349,7 +258,7 @@ export const handlers = [
 
     return HttpResponse.json(
       {
-        user: { name: {name}, email: {email} },
+        user: { name: { name }, email: { email } },
         id: 'd98ds2a7w948',
       },
       { message: `User ${params.userId} updated successfully` },
