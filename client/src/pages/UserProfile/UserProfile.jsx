@@ -6,10 +6,7 @@ import { useEffect } from 'react';
 
 /** ICONS */
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import {
-  faPenToSquare,
-  faCircleInfo,
-} from '@fortawesome/free-solid-svg-icons';
+import { faPenToSquare, faCircleInfo } from '@fortawesome/free-solid-svg-icons';
 import { Container, Image } from 'react-bootstrap';
 
 import RecentCardWidget from '../../components/cardWidget/RecentCardWidget';
@@ -186,7 +183,21 @@ const UserProfile = () => {
       );
     }
   };
-
+  const months = [
+    'January',
+    'February',
+    'March',
+    'April',
+    'May',
+    'June',
+    'July',
+    'August',
+    'September',
+    'October',
+    'November',
+    'December',
+  ];
+  const currentMonth = new Date().getUTCMonth();
   return (
     <>
       <Container>
@@ -253,7 +264,12 @@ const UserProfile = () => {
                   </button>
                 </div>
               </div>
-              <ExpensesSummary />
+
+              <div className="savings-div  p-4 text-black bg-body-tertiary">
+                {' '}
+                <h4>{months[currentMonth]} finances</h4> <ExpensesSummary />
+              </div>
+
               <div className="card-body p-4 text-black">
                 <div className="text-body">
                   <div className="p-4 bg-body-tertiary">{ifNotEditMode()}</div>

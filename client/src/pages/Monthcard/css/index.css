@@ -1,0 +1,56 @@
+.month-card-component {
+    min-width: 100vh;
+    min-height: 70vh;
+}
+
+
+.month-card-h5 {
+    color: var(--pink-theme_h5);
+   /** border-bottom: 2px solid var(--pink-theme_h5);**/
+
+}
+
+.month-card-container li {
+    color: black;
+    font-size: 1em;
+}
+
+.month-card-container {
+    padding-top: 1em;
+}
+
+.card-category {
+    align-items: left;
+}
+
+.month-card-item-description {
+    text-align: left;
+}
+
+.month-card-item-money {
+    text-align: right;
+}
+
+.multi-column {
+    column-count: 2;
+    column-gap: 2rem;
+
+}
+
+.month-card-body {
+    border-bottom: 1px solid #ccc;
+
+    padding-top: 0.5rem;
+    margin-top: 0.5rem;
+    padding-bottom: 0;
+    margin-bottom: 0
+}
+
+.block {
+    break-inside: avoid;
+}
+
+.list-unstyled.month-card-item {
+
+    margin-bottom: 0;
+}

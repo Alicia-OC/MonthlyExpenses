@@ -111,7 +111,7 @@ test('get data', async () => {
   });
 
   await waitFor(() => {
-    expect(screen.queryByText(/Loading.../i)).not.toBeInTheDocument();
+    expect(screen.queryByText(/Loading data/i)).not.toBeInTheDocument();
     expect(screen.queryByText(/cinnamon oreo/i)).toBeInTheDocument();
   });
 

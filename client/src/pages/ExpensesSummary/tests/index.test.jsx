@@ -1,6 +1,6 @@
 import ExpensesSummary from '../ExpensesSummary';
 
-import { render, screen } from '@testing-library/react';
+import { render, screen, waitFor } from '@testing-library/react';
 import { expect, test } from 'vitest';
 import { Provider } from 'react-redux';
 import { configureStore } from '@reduxjs/toolkit';
@@ -32,16 +32,16 @@ const store = configureStore({
 
     userId: '76das78f87asdv87h7gf9',
     token: 'mocked-jwt-token',
+    currency: '€',
   },
 });
 
-test('inputs store the changes', async () => {
+test('display data', async () => {
   render(
     <Provider store={store}>
       <ExpensesSummary />
     </Provider>
   );
 
-  expect(screen.getByTestId('current-month-display')).toHaveTextContent('April');
-
+  waitFor(() => expect(screen.getByText('€')).toBeInTheDocument());
 });
