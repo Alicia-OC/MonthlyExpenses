@@ -14,6 +14,7 @@ const MonthCard = () => {
 
   const [isLoading, setIsLoading] = useState(false);
   const [card, setCard] = useState();
+  const [cardBlocksContent, setCardBlocksContent] = useState([]);
 
   const { cardId } = useParams();
 
@@ -27,6 +28,13 @@ const MonthCard = () => {
         }
       );
       setCard(res.data);
+      setCardBlocksContent([
+        res.data.fixedItems,
+        res.data.subscriptionItems,
+        res.data.otherItems,
+        res.data.transportItems,
+        res.data.groceriesItems,
+      ]);
     } catch (error) {
       console.error('Error fetching card:', error);
     } finally {
@@ -119,7 +127,7 @@ const MonthCard = () => {
     transportExpenses: 9,
     groceriesExpenses: 4.99,
   };
-  const card_content = [
+  const mockCardBlocks = [
     { title: 'The Non-Negotiables', items: mockCard.fixedItems },
     { title: 'On Repeat', items: mockCard.subscriptionItems },
     { title: 'Little Life Things', items: mockCard.otherItems },
@@ -254,16 +262,16 @@ const MonthCard = () => {
 
   const contentLoaded = () => {
     return (
-      <Card className="month-card-component">
+      <Card className="month-card-component col-12 col-md-6 col-lg-4">
         {' '}
         <h2>{months[mockCard.month]}</h2>
         <div className="savings-div p-4 text-black bg-body-tertiary">
           <ExpensesSummary />
         </div>
-        <div class="container "> </div>
+        <div className="container "> </div>
         <div className="p-3 month-card-container">
           <div className="multi-column">
-            {card_content.map((group) => (
+            {mockCardBlocks.map((group) => (
               <>
                 <div className="month-card-h5" key={`${group.title}-title`}>
                   <h5>{group.title}</h5>
