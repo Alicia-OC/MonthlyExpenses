@@ -17,6 +17,7 @@ const UserProfile = () => {
   const token = useSelector((state) => state.token);
   const id = useSelector((state) => state.userId);
   const currency = useSelector((state) => state.currency);
+    console.log(token) ;
 
   const userAvatar = user?.avatar;
 

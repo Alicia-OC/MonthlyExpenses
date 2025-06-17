@@ -17,12 +17,14 @@ const MonthCard = () => {
   const [cardBlocksContent, setCardBlocksContent] = useState([]);
 
   const { cardId } = useParams();
+// Inside your reducer:
 
+const backendLink = import.meta.env.VITE_APP_GETCARD
   const cardInScope = async () => {
     try {
       setIsLoading(true);
       const res = await Axios.get(
-        `${import.meta.env.VITE_APP_GETCARD}/${userId}/${cardId}`,
+        `${backendLink}/${userId}/${cardId}`,
         {
           headers: { Authorization: `Bearer ${token}` },
         }
@@ -136,8 +138,10 @@ const MonthCard = () => {
   ];
 
   useEffect(() => {
+    console.log(token) ;
     if (userId && token) {
       cardInScope();
+      console.log('dsad');
     }
   }, [userId, token]);
 

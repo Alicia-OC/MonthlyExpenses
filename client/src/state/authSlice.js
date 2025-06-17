@@ -26,7 +26,7 @@ const initialState = {
     avatar: avatar,
   },
   userId: 's',
-  token: null,
+  token: 'mocked-jwt-token',
   currency: '€',
 };
 

@@ -13,6 +13,7 @@ import UserProfile from './pages/UserProfile/UserProfile';
 import DashLayout from './pages/Dashboard/Dashboard';
 import MonthCard from './pages/Monthcard/MonthCard';
 import CardsLibrary from './pages/MonthCardsLibrary/CardsLibrary';
+import About from './pages/About/About';
 
 function App() {
   return (
@@ -22,6 +23,8 @@ function App() {
         <Route path="*" element={<NoMatch />} />{' '}
         <Route path="/" element={<DashLayout />}>
           <Route index element={<Home />} />
+          <Route path="/about" element={<About />} />{' '}
+
           <Route path="/signup" element={<SignUp />} />
           <Route path="/SignIn" element={<SignIn />} />
           <Route path="/SignOut" element={<SignOut />} />
