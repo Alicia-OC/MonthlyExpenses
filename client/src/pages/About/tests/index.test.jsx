@@ -1,6 +1,5 @@
-import { render, screen, waitFor } from '@testing-library/react';
-import userEvent from '@testing-library/user-event';
-import { MemoryRouter, Route, Routes } from 'react-router-dom';
+import { render} from '@testing-library/react';
+
 
 import { Provider } from 'react-redux';
 import { configureStore } from '@reduxjs/toolkit';

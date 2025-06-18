@@ -10,11 +10,7 @@ const Home = () => {
 
   return (
     <>
-      <h1>Your monthly expenses at glance!</h1><div className="card"> 
-    
-          <ExpensesSummary />
-
-     </div>
+      <h1>Your monthly expenses at glance!</h1>
       <EditingCard />
 
     </>

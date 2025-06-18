@@ -1,0 +1,111 @@
+.month-card-component {
+  width: 100%;
+  max-width: 500px;
+  margin: 0 auto;
+  padding: 1rem;
+}
+
+@media (min-width: 768px) {
+  .month-card-component {
+    max-width: 600px;
+  }
+}
+
+@media (min-width: 992px) {
+  .month-card-component {
+    max-width: 800px;
+  }
+}
+
+
+.month-card-h5 {
+    color: var(--pink-theme_h5);
+    /** border-bottom: 2px solid var(--pink-theme_h5);**/
+    padding: 5px;
+
+}
+
+.month-card-container li {
+    color: black;
+    font-size: 1em;
+    
+}
+
+.month-card-container {
+    padding-top: 1em;
+    
+}
+
+.card-category {
+    align-items: left;
+}
+
+.month-card-item-description {
+    text-align: left;
+}
+
+.month-card-item-money {
+    text-align: right;
+}
+
+
+@media (max-width: 768px) {
+    .multi-column {
+        column-count: 1 !important;
+    }
+
+    .month-card-h5 {
+        text-align: left;
+    }
+
+    .month-card-item-money {
+        text-align: left;
+    }
+    .container {
+        max-width: 400;
+    }
+}
+
+.multi-column {
+    column-count: 2;
+    column-gap: 2rem;
+}
+
+.group-column {
+
+  padding: 1rem;
+  margin-top: 1rem;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+.month-card-body {
+    border-bottom: 1px solid #ccc;
+    padding-top: 0.5rem;
+    margin-top: 0.5rem;
+    padding-bottom: 0;
+    margin-bottom: 0
+}
+
+.block {
+    break-inside: avoid;
+}
+
+.list-unstyled.month-card-item {
+
+    margin-bottom: 0;
+}
+
+.input-wrapper button {
+  background: var(--pink-theme_h5);
+  color: white;
+  border: none;
+  padding: 0 0.75rem;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.input-wrapper button:hover {
+  background: #0056b3;
+}
+
+
