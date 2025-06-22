@@ -1,78 +1,64 @@
 import { Container } from "react-bootstrap"
-import { Card } from "react-bootstrap";
-import mockCard from "./mockCard"
+import { useEffect, useState } from "react";
 import { useSelector } from 'react-redux';
 
 import ExpensesSummary from "../ExpensesSummary/ExpensesSummary";
-
-
+import mockCard from "./mockCard"
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import {
-    faPlus
+    faMinus
 } from '@fortawesome/free-solid-svg-icons';
-import { useState } from "react";
 
+import './css/index.css';
 
-const EditingCard = () => {
+import ExpenseInputFields from "../../components/addExpenseInline/ExpenseInputFields";
+
+const MonthCard = () => {
     const token = useSelector((state) => state.token);
     const userId = useSelector((state) => state.userId);
     const currency = useSelector((state) => state.currency);
+    const [expenseBlocks, setExpenseBlocks] = useState([
 
-    const [newFixedItem, setNewFixedItem] = useState('')
-    const [newSubscriptionItems, setNewSubscriptionItems] = useState('')
-    const [newOtherItems, setNewOtherItems] = useState('')
-    const [newTransportItems, setNewTransportItems] = useState('')
+    ]);
 
-    const mockCardBlocks = [
-        { title: 'The Non-Negotiables', items: mockCard.fixedItems },
-        { title: 'On Repeat', items: mockCard.subscriptionItems },
-        { title: 'Little Life Things', items: mockCard.otherItems },
-        { title: 'Out & About', items: mockCard.transportItems },
-        { title: 'Bits & Bites', items: mockCard.groceriesItems },
-    ];
-
-    const inputsLoop = (index) => {
-        switch (index) {
-            case 0:
-                return <input
-                    id="name"
-                    type="text"
-                    placeholder="Add a new non-negotiable"
-                    onChange={(e) => setNewFixedItem(e.target.value)}
-                />
-            case 1:
-                return <input
-                    id="name"
-                    type="text"
-                    placeholder="Add your on repeat"
-                    onChange={(e) => setNewFixedItem(e.target.value)}
-                />
-            case 2:
-                return <input
-                    id="name"
-                    type="text"
-                    placeholder="Add your little life thing"
-                    onChange={(e) => setNewFixedItem(e.target.value)}
-                />
-            case 3:
-                return <input
-                    id="name"
-                    type="text"
-                    placeholder="Add your out&about"
-                    onChange={(e) => setNewFixedItem(e.target.value)}
-                />
-
-            case 4:
-                return <input
-                    id="name"
-                    type="text"
-                    placeholder="Add your groceries"
-                    onChange={(e) => setNewFixedItem(e.target.value)}
-                />
-            default:
-            // code block
+    useEffect(() => {
+        if (mockCard) {
+            setExpenseBlocks([
+                { name: mockCard.fixedItems.name, items: mockCard.fixedItems.items },
+                { name: mockCard.subscriptionItems.name, items: mockCard.subscriptionItems.items },
+                { name: mockCard.otherItems.name, items: mockCard.otherItems.items },
+                { name: mockCard.transportItems.name, items: mockCard.transportItems.items },
+                { name: mockCard.foodItems.name, items: mockCard.foodItems.items },
+            ])
         }
-    }
+        console.log('mockCard.otherItems.items:', mockCard.otherItems.items);
+
+    }, [mockCard]);
+
+
+    const handleAddItem = (newItemAdded) => {
+        setExpenseBlocks((prevBlocks) =>
+            prevBlocks.map((block) =>
+                block.name === newItemAdded.category
+                    ? { ...block, items: [...block.items, newItemAdded] }
+                    : block
+            )
+        );
+    };
+
+    const handleDeleteItem = (e, blockName, indexToDelete) => {
+        e.preventDefault();
+        setExpenseBlocks((prevBlocks) =>
+            prevBlocks.map((block) =>
+                block.name === blockName
+                    ? {
+                        ...block,
+                        items: block.items.filter((_, index) => index !== indexToDelete),
+                    }
+                    : block
+            )
+        );
+    };
 
     return <Container><div className="card py-5 h-100">
 
@@ -83,36 +69,34 @@ const EditingCard = () => {
             <div className="container "> </div>
             <div className="p-3 month-card-container">
                 <div className="multi-column ">
-                    {mockCardBlocks.map((group, index) => (
-                        <><div className="group-column"><div className="month-card-h5 " key={`${group.title}-title`}>
-                            <h5>{group.title}</h5>
-                        </div>
-                            {group.items.map((item, index) => (
+
+                    {expenseBlocks.map((group, index) => (
+                        <><div className="group-column" key={`${group.name}-name`}>
+                            <div className="month-card-h5 " >
+                                <h5>{group.name}</h5>
+                            </div>
+                            {group.items.map((element, index) => (
                                 <div
                                     className="item mb-3 month-card-body multi-column"
-                                    key={`${group.title}-${index}`}
-                                >
+                                    key={element.id}                                >
                                     <ul className="list-unstyled month-card-item">
                                         <li className="month-card-item-description">
-                                            {item.description}
+                                            {element.description}
                                         </li>
-                                        <li className="month-card-item-money">
-                                            {item.amount} {currency}
+                                        <li className="month-card-item-money ">
+                                            {element.price} {currency}
+                                            <button onClick={(e) => handleDeleteItem(e, group.name, index)} className="delete-list-item-btn"><FontAwesomeIcon icon={faMinus} /> </button>
                                         </li>
                                     </ul>
 
                                 </div>
                             ))}
-                            <div>
-                                { }
-                                <span className="input-wrapper">
-                                    {inputsLoop(index)}
-                                    <button>
-                                        <FontAwesomeIcon icon={faPlus} />
-                                    </button>
-                                </span>
 
-                            </div></div>
+                            <ExpenseInputFields
+                                blockName={group.name}
+                                onAdd={(newItemAdded) => handleAddItem(newItemAdded)}
+                            />
+                        </div>
 
                         </>
                     ))}
@@ -123,4 +107,4 @@ const EditingCard = () => {
     </Container>
 }
 
-export default EditingCard
+export default MonthCard 
