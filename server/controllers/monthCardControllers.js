@@ -19,6 +19,7 @@ const newCard = asyncHandler(async (req, res) => {
       subscriptionItems,
       otherItems,
       transportItems,
+      foodItems
     } = req.body;
 
     const user = await User.findById(userId);
@@ -66,19 +67,27 @@ const newCard = asyncHandler(async (req, res) => {
       return sum;
     };
 
+    const calcFoodExpenses = () => {
+      let sum = 0;
+      for (let index = 0; index < transportItems.length; index++) {
+        sum += transportItems[index].amount;
+      }
+      return sum;
+    };
+
     const calcTotalExpenses = () => {
       const result =
         calcFixedExpenses() +
         calcSubscriptionExpenses() +
         calcOtherExpenses() +
-        calcTransportExpenses();
+        calcTransportExpenses() + calcFoodExpenses();
       return result;
     };
 
     const calcTotalSavings = () => {
       return totalIncome - calcTotalExpenses();
     };
-    
+
     const cardObject = {
       user: userId,
       year: year,
@@ -86,14 +95,18 @@ const newCard = asyncHandler(async (req, res) => {
       totalExpenses: calcTotalExpenses(),
       totalIncome: totalIncome,
       totalSavings: calcTotalSavings(),
+
       fixedItems: fixedItems,
       subscriptionItems: subscriptionItems,
       otherItems: otherItems,
       transportItems: transportItems,
+      foodItems: foodItems,
+
       fixedExpenses: calcFixedExpenses(),
       subscriptionExpenses: calcSubscriptionExpenses(),
       otherExpenses: calcOtherExpenses(),
       transportExpenses: calcTransportExpenses(),
+      foodExpenses: calcFoodExpenses()
     };
 
     const newCard = await MonthCard.create(cardObject);
@@ -102,7 +115,7 @@ const newCard = asyncHandler(async (req, res) => {
       user.cards.push(newCard._id);
       await user.save();
 
-      res.status(200).json({ message: "Month card created succesfully with id " + newCard._id});
+      res.status(200).json({ message: "Month card created succesfully with id " + newCard._id });
     } else {
       console.log("There has been an error, please try again");
     }
@@ -149,11 +162,13 @@ const updateCard = asyncHandler(async (req, res) => {
       subscriptionItems,
       otherItems,
       transportItems,
+      foodItems,
 
       fixedExpenses,
       subscriptionExpenses,
       otherExpenses,
       transportExpenses,
+      foodExpenses
     } = req.body;
 
     if (!userId || !cardId) {
@@ -213,6 +228,17 @@ const updateCard = asyncHandler(async (req, res) => {
       return sum;
     };
 
+
+    const calcFoodExpenses = () => {
+      let items = card.foodItems;
+
+      let sum = 0;
+      for (let index = 0; index < items.length; index++) {
+        sum += items[index].amount;
+      }
+      return sum;
+    };
+
     // Update the fields
     if (year) card.year = year;
     if (month) card.month = month;
@@ -234,13 +260,17 @@ const updateCard = asyncHandler(async (req, res) => {
       card.transportItems = transportItems;
       card.transportExpenses = calcTransportExpenses();
     }
+  if (foodItems) {
+      card.foodItems = foodItems;
+      card.foodExpenses = calcFoodExpenses();
+    }
 
     const calcTotalExpenses = () => {
       const result =
         calcFixedExpenses() +
         calcSubscriptionExpenses() +
         calcOtherExpenses() +
-        calcTransportExpenses();
+        calcTransportExpenses() + calcFoodExpenses();
       return result;
     };
 
@@ -264,6 +294,6 @@ const updateCard = asyncHandler(async (req, res) => {
 });
 
 //return the default items stored by the user
-const setUpInitialCard = asyncHandler(async (req, res) => {});
+const setUpInitialCard = asyncHandler(async (req, res) => { });
 
 module.exports = { newCard, updateCard, getCard };

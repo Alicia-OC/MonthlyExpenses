@@ -12,63 +12,74 @@ const monthCardSchema = new mongoose.Schema(
     totalExpenses: { type: Number, required: true, default: 0 },
     totalIncome: { type: Number, required: true, default: 0 },
     totalSavings: { type: Number, required: true, default: 0 },
-    fixedItems: [
-      {
+    fixedItems: {
+      name: 'The Non-Negotiable',
+      items: [{
         description: String,
         amount: Number,
         date: Date,
-      },
-    ],
+      }]
+    },
     fixedExpenses: { type: Number, required: true, default: 0 },
-    subscriptionItems: [
-      {
+    subscriptionItems: {
+      name: 'On Repeat',
+      items: [{
         description: String,
         amount: Number,
         date: Date,
-      },
-    ],
+      }]
+    },
     subscriptionExpenses: { type: Number, required: true, default: 0 },
-    otherItems: [
-      {
-        description: String,
-        amount: Number,
-        category: {
-          type: mongoose.Schema.Types.ObjectId,
-          ref: "Category", // Reference to the Category model
-          required: true,
+    otherItems: {
+      name: 'Little Life Things',
+      items: [
+        {
+          description: String,
+          amount: Number,
+          category: {
+            type: mongoose.Schema.Types.ObjectId,
+            ref: "Category", // Reference to the Category model
+            required: true,
+          },
+          date: Date,
         },
-        date: Date,
-      },
-    ],
+      ]
+    },
     otherExpenses: { type: Number, required: true, default: 0 },
 
-    transportItems: [
-      {
-        description: String,
-        amount: Number,
-        category: {
-          type: mongoose.Schema.Types.ObjectId,
-          ref: "Category", // Reference to the Category model
-          required: true,
+    transportItems: {
+      name: 'Out & About',
+      items: [
+        {
+          description: String,
+          amount: Number,
+          category: {
+            type: mongoose.Schema.Types.ObjectId,
+            ref: "Category", // Reference to the Category model
+            required: true,
+          },
+          date: Date,
         },
-        date: Date,
-      },
-    ],
+      ]
+    },
     transportExpenses: { type: Number, required: true, default: 0 },
 
-    groceriesItems: [
-      {
-        description: String,
-        amount: Number,
-        category: {
-          type: mongoose.Schema.Types.ObjectId,
-          ref: "Category", // Reference to the Category model
-          required: true,
+    foodItems: {
+      name: 'Bits & Bites',
+      items: [
+        {
+          description: String,
+          amount: Number,
+          category: {
+            type: mongoose.Schema.Types.ObjectId,
+            ref: "Category", // Reference to the Category model
+            required: true,
+          },
+          date: Date,
         },
-        date: Date,
-      },
-    ],
-    groceriesExpenses: { type: Number, required: true, default: 0 },
+      ]
+    },
+    foodExpenses: { type: Number, required: true, default: 0 },
   },
   { timestamps: true }
 );
@@ -124,11 +135,21 @@ const mockupMonthCard = new MonthCard({
       date: new Date("2025-02-01"),
     },
   ],
+  foodItems: [
+      {
+        description: 'cinnamon oreo',
+        amount: 4.99,
+        category: '67a91f012213777227c723cb',
+
+        date: new Date(),
+      },
+    ],
 
   fixedExpenses: 9,
   subscriptionExpenses: 9,
   otherExpenses: 9,
   transportExpenses: 9,
+  foodExpenses: 24
 });
 
 module.exports = { MonthCard };
