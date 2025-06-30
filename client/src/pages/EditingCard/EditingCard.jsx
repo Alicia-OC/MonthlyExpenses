@@ -1,6 +1,8 @@
 import { Container } from "react-bootstrap"
 import { useEffect, useState } from "react";
 import { useSelector } from 'react-redux';
+import Axios from 'axios';
+import { useParams } from "react-router-dom";
 
 import ExpensesSummary from "../ExpensesSummary/ExpensesSummary";
 import mockCard from "./mockCard"
@@ -8,20 +10,41 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import {
     faMinus
 } from '@fortawesome/free-solid-svg-icons';
+import ExpenseInputFields from "../../components/addExpenseInline/ExpenseInputFields";
 
 import './css/index.css';
 
-import ExpenseInputFields from "../../components/addExpenseInline/ExpenseInputFields";
+const backendLink = import.meta.env.VITE_APP_GETCARD
 
-const MonthCard = () => {
+
+const EditingCard = () => {
     const token = useSelector((state) => state.token);
     const userId = useSelector((state) => state.userId);
     const currency = useSelector((state) => state.currency);
-    const [expenseBlocks, setExpenseBlocks] = useState([
+    const [expenseBlocks, setExpenseBlocks] = useState([]);
+    const [card, setCard] = useState({});
+    const { cardId } = useParams()
 
-    ]);
+    const getCard = async () => {
+        try {
+            const res = await Axios.get(
+                `${backendLink}/${userId}/${cardId}`,
+                {
+                    headers: { Authorization: `Bearer ${token}` },
+                }
+            );
+            setCard(res.data)
+        } catch (error) {
+
+        }
+    }
 
     useEffect(() => {
+        getCard();
+    }, [userId, token]);
+
+    useEffect(() => {
+
         if (mockCard) {
             setExpenseBlocks([
                 { name: mockCard.fixedItems.name, items: mockCard.fixedItems.items },
@@ -31,8 +54,6 @@ const MonthCard = () => {
                 { name: mockCard.foodItems.name, items: mockCard.foodItems.items },
             ])
         }
-        console.log('mockCard.otherItems.items:', mockCard.otherItems.items);
-
     }, [mockCard]);
 
 
@@ -107,4 +128,4 @@ const MonthCard = () => {
     </Container>
 }
 
-export default MonthCard 
+export default EditingCard 

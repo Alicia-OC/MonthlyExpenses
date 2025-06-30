@@ -17,7 +17,6 @@ const UserProfile = () => {
   const token = useSelector((state) => state.token);
   const id = useSelector((state) => state.userId);
   const currency = useSelector((state) => state.currency);
-    console.log(token) ;
 
   const userAvatar = user?.avatar;
 
@@ -202,7 +201,6 @@ const UserProfile = () => {
   return (
     <>
       <Container>
-        <FontAwesomeIcon icon={faPenToSquare} />
         <div
           className="modal fade"
           id="saveAlertModal"
@@ -242,7 +240,7 @@ const UserProfile = () => {
         <div className="container py-5 h-100">
           <div className="col col-lg-9 col-xl-12">
             <div className="card">
-              <div className="rounded-top text-white justify-content-center d-flex flex-row">
+              <div className=" text-white justify-content-center d-flex flex-row">
                 <div className=" mt-5 d-flex flex-column">
                   <Image
                     src={userAvatar}

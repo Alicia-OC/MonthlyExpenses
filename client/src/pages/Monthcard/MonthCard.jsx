@@ -21,6 +21,7 @@ const MonthCard = () => {
   // Inside your reducer:
 
   const backendLink = import.meta.env.VITE_APP_GETCARD
+
   const cardInScope = async () => {
     try {
       setIsLoading(true);
@@ -31,13 +32,7 @@ const MonthCard = () => {
         }
       );
       setCard(res.data);
-      setCardBlocksContent([
-        res.data.fixedItems,
-        res.data.subscriptionItems,
-        res.data.otherItems,
-        res.data.transportItems,
-        res.data.foodItems,
-      ]);
+      
     } catch (error) {
       console.error('Error fetching card:', error);
     } finally {
@@ -54,18 +49,10 @@ const MonthCard = () => {
   ];
 
   useEffect(() => {
-    console.log(token);
     if (userId && token) {
       cardInScope();
-      console.log('dsad');
     }
   }, [userId, token]);
-
-  const fixedItems = mockCard.fixedItems;
-  const subscriptionItems = mockCard.subscriptionItems;
-  const otherItems = mockCard.otherItems;
-  const transportItems = mockCard.transportItems;
-  const foodItems = mockCard.foodItems;
 
   const months = [
     'January',
@@ -81,7 +68,6 @@ const MonthCard = () => {
     'November',
     'December',
   ];
-
 
   const contentLoaded = () => {
     return (

@@ -173,3 +173,8 @@ input {
 .card-library {
   max-width: 540px;
 }
+
+.error-message{
+  color: red;
+  padding: 5px;
+}
