@@ -4,7 +4,7 @@
   --pink-theme_secondary: #ffe2e2;
   --pink-theme_font: #aaaaaa;
   --pink-theme_h5: #EA86B6;
-  
+
   font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
   line-height: 1.5;
   font-weight: 400;
@@ -108,7 +108,9 @@ span {
 }
 
 .savings-div {
-  margin-top: 1em
+  margin: 1.2em;
+  padding: 15px;
+
 }
 
 .form-grid {
@@ -174,7 +176,20 @@ input {
   max-width: 540px;
 }
 
-.error-message{
+.error-message {
   color: red;
   padding: 5px;
+}
+
+.profile-container {
+  width: 90%;
+}
+
+.month-finances-h {
+  color: var(--pink-theme_h5);
+  margin-bottom: 15px;
+}
+
+.see-all-link {
+  color: var(--pink-theme_h5);
 }

@@ -18,21 +18,17 @@
   filter: drop-shadow(0 0 2em #61dafbaa);
 }
 
-@keyframes logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
-}
-
-@media (prefers-reduced-motion: no-preference) {
-  a:nth-of-type(2) .logo {
-    animation: logo-spin infinite 20s linear;
-  }
-}
 
 .card {
   padding: 2em;
 }
+
+
+
+.card {
+  width: 90%;          /* Default width for small screens */
+  min-width: 700px;    /* Max width on small/medium screens */
+  margin: 0 auto;      /* Center horizontally */
+
+}
+

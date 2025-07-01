@@ -8,11 +8,7 @@ const RecentCardWidget = () => {
     <div>
       <div className="d-flex justify-content-between align-items-center mb-4 text-body">
         <p className="lead fw-normal mb-0">Recent Cards</p>
-        <p className="mb-0">
-          <a className="see-all-link" href={`/${user?.id}/cards`}>
-            See all
-          </a>
-        </p>
+        
       </div>
 
       <div>
@@ -68,7 +64,11 @@ const RecentCardWidget = () => {
             </p>
           </div>
         </div>
-      </div>
+      </div><p className="mb-0">
+          <a className="see-all-link" href={`/${user?.id}/cards`}>
+            See all
+          </a>
+        </p>
     </div>
   );
 };

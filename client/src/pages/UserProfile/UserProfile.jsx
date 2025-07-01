@@ -110,69 +110,60 @@ const UserProfile = () => {
       return (
         <>
           <div className="form-grid">
-            <div className="form-row">
-              <label htmlFor="name" className="font-semibold">
-                Name:
-              </label>
-              <span className="input-wrapper">
-                <input
-                  id="name"
-                  type="text"
-                  onChange={(e) => setNewName(e.target.value)}
-                />
-                <i
-                  className="info-warning"
-                  data-bs-toggle="tooltip"
-                  data-bs-placement="top"
-                  title="your name can only be updated once every 3 months"
-                >
-                  <FontAwesomeIcon icon={faCircleInfo} />
-                </i>
-              </span>
+            <div class="d-flex flex-row align-items-center ">
+              <div class="form-floating flex-fill mb-0">
+                <i class="fas fa-envelope fa-lg me-3 fa-fw"></i>
+                <input onChange={(e) => setNewName(e.target.value)}
+
+                  type="email" id="form-email" class="form-control" />
+                <label class="form-label" for="form-email">Your Name</label>
+              </div><i
+                className="info-warning"
+                data-bs-toggle="tooltip"
+                data-bs-placement="top"
+                title="your name can only be updated once every 3 months"
+              >
+                <FontAwesomeIcon icon={faCircleInfo} />
+              </i>
             </div>
 
-            <div className="form-row">
-              <label htmlFor="mail" className="font-semibold">
-                Mail:
-              </label>
-              <span className="input-wrapper">
-                <input
-                  id="mail"
-                  type="text"
-                  onChange={(e) => setNewMail(e.target.value)}
-                />
-                <i
-                  className="info-warning"
-                  data-bs-toggle="tooltip"
-                  data-bs-placement="top"
-                  title="your mail can only be updated once every 6 months"
-                >
-                  <FontAwesomeIcon icon={faCircleInfo} />
-                </i>
-              </span>
+            <div class="d-flex flex-row align-items-center ">
+              <div class="form-floating flex-fill mb-0">
+                <i class="fas fa-envelope fa-lg me-3 fa-fw"></i>
+                <input onChange={(e) => setNewMail(e.target.value)}
+                  type="email" id="form-email" class="form-control" />
+                <label class="form-label" for="form-email">Your Email</label>
+              </div><i
+                className="info-warning"
+                data-bs-toggle="tooltip"
+                data-bs-placement="top"
+                title="your mail can only be updated once every 6 months"
+              >
+                <FontAwesomeIcon icon={faCircleInfo} />
+              </i>
             </div>
 
-            <div className="form-row">
-              <label htmlFor="password1">New password:</label>
-              <span className="input-wrapper">
-                <input
-                  id="password1"
-                  type="password"
-                  onChange={(e) => setPassword(e.target.value)}
-                />
-              </span>
+
+            <div class="d-flex flex-row align-items-center ">
+              <div class="form-floating flex-fill mb-0">
+                <i class="fas fa-envelope fa-lg me-3 fa-fw"></i>
+                <input onChange={(e) => setPassword(e.target.value)}
+                  type="password" id="password1"
+                  class="form-control" />
+                <label class="form-label" for="password1">New password</label>
+              </div>
             </div>
 
-            <div className="form-row">
-              <label htmlFor="password2">Repeat new password:</label>
-              <span className="input-wrapper">
-                <input
-                  id="password2"
-                  type="password"
-                  onChange={(e) => setPassword2(e.target.value)}
-                />
-              </span>
+            <div class="d-flex flex-row align-items-center mb-4">
+              <div class="form-floating flex-fill mb-0">
+                <i class="fas fa-key fa-lg me-3 fa-fw"></i>
+                <input onChange={(e) => setPassword2(e.target.value)}
+                  type="password" id="form-repeat-pw" class="form-control" />
+                <label class="form-label" for="form-repeat-pw">Repeat your password</label>
+              </div>
             </div>
+
+
             {errMsgPassword}
 
             <button className="btn btn-dark" onClick={handleSave}>
@@ -200,7 +191,7 @@ const UserProfile = () => {
   const currentMonth = new Date().getUTCMonth();
   return (
     <>
-      <Container>
+      <Container className=''>
         <div
           className="modal fade"
           id="saveAlertModal"
@@ -237,45 +228,47 @@ const UserProfile = () => {
           </div>
         </div>
 
-        <div className="container py-5 h-100">
-          <div className="col col-lg-9 col-xl-12">
+        <div className=" h-100">
+          <div class="col-lg-12 col-xl-11">
             <div className="card">
-              <div className=" text-white justify-content-center d-flex flex-row">
-                <div className=" mt-5 d-flex flex-column">
-                  <Image
-                    src={userAvatar}
-                    style={{ width: '400px' }}
-                    className="img-fluid img-thumbnail mt-6 mb-2"
-                    alt="User avatar"
-                  />
-
-                  <button
-                    type="button"
-                    data-mdb-button-init
-                    data-mdb-ripple-init
-                    className="btn btn-outline-dark"
-                    data-mdb-ripple-color="dark"
-                    onClick={handlePasswordChange}
-                  >
-                    {!editMode
-                      ? 'Edit profile or password'
-                      : 'Exit editing mode'}
-                  </button>
+              <div class="card-body ">
+                <div className=" text-white justify-content-center d-flex flex-row">
+                  <div className=" mt-3 d-flex flex-column">
+                    <Image
+                      src={userAvatar}
+                      style={{ width: '400px' }}
+                      className="img-fluid img-thumbnail mt-6 mb-2"
+                      alt="User avatar"
+                    />
+                    <button
+                      type="button"
+                      data-mdb-button-init
+                      data-mdb-ripple-init
+                      className="btn btn-outline-dark"
+                      data-mdb-ripple-color="dark"
+                      onClick={handlePasswordChange}
+                    >
+                      {!editMode
+                        ? 'Edit profile or password'
+                        : 'Exit editing mode'}
+                    </button>
+                  </div>
                 </div>
-              </div>
 
-              <div className="savings-div  p-4 text-black bg-body-tertiary">
-                {' '}
-                <h4>{months[currentMonth]} finances</h4> <ExpensesSummary />
-              </div>
+                <div className=" savings-div  ">
 
-              <div className="card-body p-4 text-black">
-                <div className="text-body">
-                  <div className="p-4 bg-body-tertiary">{ifNotEditMode()}</div>
+                  <h4 className='month-finances-h'>{months[currentMonth]} finances</h4> <ExpensesSummary />
                 </div>
-              </div>
-              <RecentCardWidget />
+
+                <div className="">
+                  <div className="text-body">
+                    <div className="">{ifNotEditMode()}</div>
+                  </div>
+                </div>
+                <RecentCardWidget /></div>
+
             </div>
+
           </div>
         </div>
       </Container>
