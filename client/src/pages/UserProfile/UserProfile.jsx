@@ -117,7 +117,8 @@ const UserProfile = () => {
 
                   type="email" id="form-email" class="form-control" />
                 <label class="form-label" for="form-email">Your Name</label>
-              </div><i
+              </div>
+              <i
                 className="info-warning"
                 data-bs-toggle="tooltip"
                 data-bs-placement="top"
@@ -256,8 +257,8 @@ const UserProfile = () => {
                 </div>
 
                 <div className=" savings-div  ">
-
-                  <h4 className='month-finances-h'>{months[currentMonth]} finances</h4> <ExpensesSummary />
+                  <h4 className='month-finances-h'>{months[currentMonth]} finances</h4>
+                  <ExpensesSummary />
                 </div>
 
                 <div className="">

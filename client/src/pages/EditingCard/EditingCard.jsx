@@ -81,50 +81,50 @@ const EditingCard = () => {
         );
     };
 
-    return <Container><div className="card py-5 h-100">
+    return <Container>
+        <div className="card h-100">
+            <div className="savings-div p-4 text-black bg-body-tertiary">
+                <ExpensesSummary />
+            </div>
+            <div className="month-card-component col-12 col-md-6 col-lg-4">
+                <div className="container "> </div>
+                <div className="p-3 month-card-container">
+                    <div className="multi-column ">
 
-        <div className="savings-div p-4 text-black bg-body-tertiary">
-            <ExpensesSummary />
-        </div>
-        <div className="month-card-component col-12 col-md-6 col-lg-4">
-            <div className="container "> </div>
-            <div className="p-3 month-card-container">
-                <div className="multi-column ">
-
-                    {expenseBlocks.map((group, index) => (
-                        <><div className="group-column" key={`${group.name}-name`}>
-                            <div className="month-card-h5 " >
-                                <h5>{group.name}</h5>
-                            </div>
-                            {group.items.map((element, index) => (
-                                <div
-                                    className="item mb-3 month-card-body multi-column"
-                                    key={element.id}                                >
-                                    <ul className="list-unstyled month-card-item">
-                                        <li className="month-card-item-description">
-                                            {element.description}
-                                        </li>
-                                        <li className="month-card-item-money ">
-                                            {element.price} {currency}
-                                            <button onClick={(e) => handleDeleteItem(e, group.name, index)} className="delete-list-item-btn"><FontAwesomeIcon icon={faMinus} /> </button>
-                                        </li>
-                                    </ul>
-
+                        {expenseBlocks.map((group, index) => (
+                            <><div className="group-column" key={`${group.name}-name`}>
+                                <div className="month-card-h5 " >
+                                    <h5>{group.name}</h5>
                                 </div>
-                            ))}
+                                {group.items.map((element, index) => (
+                                    <div
+                                        className="item mb-3 month-card-body multi-column"
+                                        key={element.id}                                >
+                                        <ul className="list-unstyled month-card-item">
+                                            <li className="month-card-item-description">
+                                                {element.description}
+                                            </li>
+                                            <li className="month-card-item-money ">
+                                                {element.price} {currency}
+                                                <button onClick={(e) => handleDeleteItem(e, group.name, index)} className="delete-list-item-btn"><FontAwesomeIcon icon={faMinus} /> </button>
+                                            </li>
+                                        </ul>
 
-                            <ExpenseInputFields
-                                blockName={group.name}
-                                onAdd={(newItemAdded) => handleAddItem(newItemAdded)}
-                            />
-                        </div>
+                                    </div>
+                                ))}
 
-                        </>
-                    ))}
+                                <ExpenseInputFields
+                                    blockName={group.name}
+                                    onAdd={(newItemAdded) => handleAddItem(newItemAdded)}
+                                />
+                            </div>
+
+                            </>
+                        ))}
+                    </div>
                 </div>
             </div>
         </div>
-    </div>
     </Container>
 }
 

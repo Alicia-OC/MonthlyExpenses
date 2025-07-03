@@ -24,7 +24,7 @@ const ExpenseInputFields = ({ onAdd, blockName }) => {
             id: uuidv4(),
 
         };
-
+        console.log(newObjItem);
         onAdd(newObjItem);
 
         setnewItem('');
@@ -32,30 +32,34 @@ const ExpenseInputFields = ({ onAdd, blockName }) => {
     }
 
     return <div>
-        { }
         <span className="input-wrapper">
-            <div className="two-line-input">
-                <input
-                    type="text"
-                    placeholder={`Add new ${blockName}`}
-                    className="line-input"
-                    value={newItem}
+            <div className="stacked-inputs flex-grow-1" style={{ maxWidth: '400px' }}>
+                <div className="form-floating w-">
+                    <input
+                        onChange={(e) => setnewItem(e.target.value)}
+                        type="email"
+                        id="new-expense-item-input"
+                        className="form-control form-control-lg "
+                    />
+                    <label htmlFor="new-expense-item-input">{blockName}</label>
+                </div>
 
-                    onChange={(e) => setnewItem(e.target.value)}
-                />
-                <input
-                    type="number"
-                    min="0"
-                    placeholder={currency}
-                    className="line-input"
-                    value={newItemPrice}
-                    onChange={(e) => setNewItemPrice(e.target.value)}
-                />
+                <div className="form-floating">
+                    <input
+                        type="number"
+                        min="0"
+                        className="form-control form-control-lg line-input"
+                        id="new-expense-price-input"
+                        onChange={(e) => setNewItemPrice(e.target.value)}
+                    />
+                    <label htmlFor="new-expense-price-input">{currency}</label>
+                </div>
             </div>
             <button onClick={submitReq}>
                 <FontAwesomeIcon icon={faPlus} />
             </button>
         </span>
+
     </div>
 
 

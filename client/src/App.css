@@ -23,12 +23,3 @@
   padding: 2em;
 }
 
-
-
-.card {
-  width: 90%;          /* Default width for small screens */
-  min-width: 700px;    /* Max width on small/medium screens */
-  margin: 0 auto;      /* Center horizontally */
-
-}
-

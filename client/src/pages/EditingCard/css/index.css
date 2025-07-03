@@ -19,73 +19,74 @@
 
 
 .month-card-h5 {
-    color: var(--pink-theme_h5);
-    /** border-bottom: 2px solid var(--pink-theme_h5);**/
-    padding: 5px;
+  color: var(--pink-theme_h5);
+  /** border-bottom: 2px solid var(--pink-theme_h5);**/
+  padding: 5px;
 
 }
 
 .month-card-container li {
-    color: black;
-    font-size: 1em;
-    
+  color: black;
+  font-size: 1em;
+
 }
 
 .month-card-container {
-    padding-top: 1em;
-    
+  padding-top: 1em;
+
 }
 
 .card-category {
-    align-items: left;
+  align-items: left;
 }
 
 .month-card-item-description {
-    text-align: left;
+  text-align: left;
 }
 
 .month-card-item-money {
-    text-align: right;
+  text-align: right;
 }
 
 
 @media (max-width: 768px) {
-    .multi-column {
-        column-count: 1 !important;
-    }
+  .multi-column {
+    column-count: 1 !important;
+  }
 
-    .month-card-h5 {
-        text-align: left;
-    }
+  .month-card-h5 {
+    text-align: left;
+  }
 
-    .month-card-item-money {
-        text-align: left;
-    }
-    .container {
-        max-width: 400;
-    }
+  .month-card-item-money {
+    text-align: left;
+  }
+
+  .container {
+    max-width: 400;
+  }
 }
 
 .multi-column {
-    column-count: 2;
-    column-gap: 2rem;
+  column-count: 2;
+  column-gap: 2rem;
 }
 
 .month-card-body {
-    border-bottom: 1px solid #ccc;
-    padding-top: 0.5rem;
-    margin-top: 0.5rem;
-    padding-bottom: 0;
-    margin-bottom: 0
+  border-bottom: 1px solid #ccc;
+  padding-top: 0.5rem;
+  margin-top: 0.5rem;
+  padding-bottom: 0;
+  margin-bottom: 0
 }
 
 .block {
-    break-inside: avoid;
+  break-inside: avoid;
 }
 
 .list-unstyled.month-card-item {
 
-    margin-bottom: 0;
+  margin-bottom: 0;
 }
 
 .input-wrapper button {
@@ -98,7 +99,8 @@
 }
 
 .input-wrapper button:hover {
-  background: var(--pink-theme_font);  transform: scale(1.1);
+  background: var(--pink-theme_font);
+  transform: scale(1.1);
 
 }
 
@@ -127,18 +129,23 @@
   flex-direction: column;
 }
 
-.line-input {
-  border: 1px solid #ccc;
-  outline: none;
+.stacked-inputs .form-floating {
+  margin-bottom: -1px;
+  /* Merge borders visually */
+  padding: 4 4 6 6;
 }
 
-.line-input:first-child {
-  border-bottom: none;
+.stacked-inputs .form-control {
+  border-radius: 0;
+  /* Remove radius from middle inputs */
+}
+
+.stacked-inputs .form-floating:first-child .form-control {
   border-top-left-radius: 8px;
   border-top-right-radius: 8px;
 }
 
-.line-input:last-child {
+.stacked-inputs .form-floating:last-child .form-control {
   border-bottom-left-radius: 8px;
   border-bottom-right-radius: 8px;
 }
