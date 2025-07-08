@@ -60,10 +60,8 @@ const SignUp = () => {
 
         if (response.status === 201) {
           window.location.replace('/SignUp');
-        } else if (response.status === 400) {
-          setMessage('Missing required fields');
-        } else if (response.status === 409) {
-          setMessage('These email is alreayd in use, please use a different one or reset your password');
+        }  else if (response.status === 409) {
+          setMessage('Email in use, please use a different one or reset your password');
         }
       } catch (error) {
         setMessage('Failed to create account. Please try again.');
