@@ -42,7 +42,7 @@ const SignIn = () => {
         <form onSubmit={handleSubmit}>
           {' '}
           {message && <div>{message}</div>}
-          <label htmlFor="email">E-mail</label>
+          <label htmlFor="email">Your Email</label>
           <input
             type="text"
             id="email"

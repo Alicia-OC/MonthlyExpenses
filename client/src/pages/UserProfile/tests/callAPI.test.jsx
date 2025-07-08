@@ -56,9 +56,10 @@ test('input values reach the backend and update it', async () => {
 
   await user.type(screen.getByLabelText(/name/i), 'Alicia');
   await user.type(screen.getByLabelText(/mail/i), 'mail@mail');
-  const passwordInput = await screen.findByLabelText(/^New password:$/i);
+
+  const passwordInput = await screen.findByLabelText(/^New password$/i);
   const passwordInput2 = await screen.findByLabelText(
-    /^Repeat new password:$/i
+    /^Repeat your new password$/i
   );
 
   await user.type(passwordInput, 'p12345');
@@ -102,9 +103,9 @@ test('input values do not reach the backend', async () => {
   });
   await user.click(updateButton);
 
-  const passwordInput = await screen.findByLabelText(/^New password:$/i);
+  const passwordInput = await screen.findByLabelText(/^New password$/i);
   const passwordInput2 = await screen.findByLabelText(
-    /^Repeat new password:$/i
+    /^Repeat your new password$/i
   );
 
   await user.type(passwordInput, 'p12345');

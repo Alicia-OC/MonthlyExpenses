@@ -20,7 +20,9 @@ const UserProfile = () => {
 
   const userAvatar = user?.avatar;
 
-  const [editMode, setEditMode] = useState(false);
+  const [profileEditMode, setProfileEditMode] = useState(false);
+  const [defaultItemsEditMode, setDefaultItemsEditMode] = useState(false);
+
   const [newName, setNewName] = useState(null);
   const [newMail, setNewMail] = useState(null);
 
@@ -33,6 +35,23 @@ const UserProfile = () => {
   const [userSavings, setUserSavings] = useState('loading');
   const [userIncome, setUserIncome] = useState('loading');
 
+  const months = [
+    'January',
+    'February',
+    'March',
+    'April',
+    'May',
+    'June',
+    'July',
+    'August',
+    'September',
+    'October',
+    'November',
+    'December',
+  ];
+
+  const currentMonth = new Date().getUTCMonth();
+
   useEffect(() => {
     if (user?.dataByYear?.[0]) {
       setUserExpenses(user.dataByYear[0].expenses || 'loading');
@@ -41,10 +60,12 @@ const UserProfile = () => {
     }
   }, [user]);
 
-  const handlePasswordChange = () => {
-    setEditMode(!editMode);
+  const handleProfileEditingMode = () => {
+    setProfileEditMode(!profileEditMode);
   };
-
+  const handleDefaultItemsEditingMode = () => {
+    setDefaultItemsEditMode(!defaultItemsEditMode);
+  };
   const validatePassword = (pw1, pw2) => {
     if (pw1 !== pw2) {
       setErrMsgPassword(
@@ -63,8 +84,8 @@ const UserProfile = () => {
     if (!validatePassword(password, password2)) {
       return;
     }
-
-    setEditMode(false);
+    console.log('name' + newName, 'mail' + newName);
+    setProfileEditMode(false);
 
     const modal = new Modal(document.getElementById('saveAlertModal'));
     modal.show();
@@ -90,8 +111,8 @@ const UserProfile = () => {
     }
   };
 
-  const ifNotEditMode = () => {
-    if (!editMode) {
+  const ifNotprofileEditMode = () => {
+    if (!profileEditMode) {
       return (
         <>
           <div>
@@ -110,13 +131,13 @@ const UserProfile = () => {
       return (
         <>
           <div className="form-grid">
-            <div class="d-flex flex-row align-items-center ">
-              <div class="form-floating flex-fill mb-0">
-                <i class="fas fa-envelope fa-lg me-3 fa-fw"></i>
+            <div className="d-flex flex-row align-items-center ">
+              <div className="form-floating flex-fill mb-0">
+                <i className="fas fa-envelope fa-lg me-3 fa-fw"></i>
                 <input onChange={(e) => setNewName(e.target.value)}
 
-                  type="email" id="form-email" class="form-control" />
-                <label class="form-label" for="form-email">Your Name</label>
+                  type="text" id="form-name" className="form-control" />
+                <label className="form-label" htmlFor="form-name">Your Name</label>
               </div>
               <i
                 className="info-warning"
@@ -128,12 +149,12 @@ const UserProfile = () => {
               </i>
             </div>
 
-            <div class="d-flex flex-row align-items-center ">
-              <div class="form-floating flex-fill mb-0">
-                <i class="fas fa-envelope fa-lg me-3 fa-fw"></i>
+            <div className="d-flex flex-row align-items-center ">
+              <div className="form-floating flex-fill mb-0">
+                <i className="fas fa-envelope fa-lg me-3 fa-fw"></i>
                 <input onChange={(e) => setNewMail(e.target.value)}
-                  type="email" id="form-email" class="form-control" />
-                <label class="form-label" for="form-email">Your Email</label>
+                  type="email" id="form-email" className="form-control" />
+                <label className="form-label" htmlFor="form-email">Your Email</label>
               </div><i
                 className="info-warning"
                 data-bs-toggle="tooltip"
@@ -145,22 +166,22 @@ const UserProfile = () => {
             </div>
 
 
-            <div class="d-flex flex-row align-items-center ">
-              <div class="form-floating flex-fill mb-0">
-                <i class="fas fa-envelope fa-lg me-3 fa-fw"></i>
+            <div className="d-flex flex-row align-items-center ">
+              <div className="form-floating flex-fill mb-0">
+                <i className="fas fa-envelope fa-lg me-3 fa-fw"></i>
                 <input onChange={(e) => setPassword(e.target.value)}
-                  type="password" id="password1"
-                  class="form-control" />
-                <label class="form-label" for="password1">New password</label>
+                  type="password" id="form-password"
+                  className="form-control" />
+                <label className="form-label" htmlFor="form-password">New password</label>
               </div>
             </div>
 
-            <div class="d-flex flex-row align-items-center mb-4">
-              <div class="form-floating flex-fill mb-0">
-                <i class="fas fa-key fa-lg me-3 fa-fw"></i>
+            <div className="d-flex flex-row align-items-center mb-4">
+              <div className="form-floating flex-fill mb-0">
+                <i className="fas fa-key fa-lg me-3 fa-fw"></i>
                 <input onChange={(e) => setPassword2(e.target.value)}
-                  type="password" id="form-repeat-pw" class="form-control" />
-                <label class="form-label" for="form-repeat-pw">Repeat your password</label>
+                  type="password" id="form-repeat-pw" className="form-control" />
+                <label className="form-label" htmlFor="form-repeat-pw">Repeat your new password</label>
               </div>
             </div>
 
@@ -175,21 +196,8 @@ const UserProfile = () => {
       );
     }
   };
-  const months = [
-    'January',
-    'February',
-    'March',
-    'April',
-    'May',
-    'June',
-    'July',
-    'August',
-    'September',
-    'October',
-    'November',
-    'December',
-  ];
-  const currentMonth = new Date().getUTCMonth();
+
+
   return (
     <>
       <Container className=''>
@@ -230,9 +238,9 @@ const UserProfile = () => {
         </div>
 
         <div className=" h-100">
-          <div class="col-lg-12 col-xl-11">
+          <div className="col-lg-12 col-xl-11">
             <div className="card">
-              <div class="card-body ">
+              <div className="card-body ">
                 <div className=" text-white justify-content-center d-flex flex-row">
                   <div className=" mt-3 d-flex flex-column">
                     <Image
@@ -247,11 +255,24 @@ const UserProfile = () => {
                       data-mdb-ripple-init
                       className="btn btn-outline-dark"
                       data-mdb-ripple-color="dark"
-                      onClick={handlePasswordChange}
+                      onClick={handleProfileEditingMode}
                     >
-                      {!editMode
+                      {!profileEditMode
                         ? 'Edit profile or password'
                         : 'Exit editing mode'}
+                    </button>
+
+                    <button
+                      type="button"
+                      data-mdb-button-init
+                      data-mdb-ripple-init
+                      className="btn btn-outline-dark"
+                      data-mdb-ripple-color="dark"
+                      onClick={handleDefaultItemsEditingMode}
+                    >
+                      {!defaultItemsEditMode
+                        ? 'Set your default monthly expenses'
+                        : 'Go back to your Profile'}
                     </button>
                   </div>
                 </div>
@@ -263,7 +284,7 @@ const UserProfile = () => {
 
                 <div className="">
                   <div className="text-body">
-                    <div className="">{ifNotEditMode()}</div>
+                    <div className="">{ifNotprofileEditMode()}</div>
                   </div>
                 </div>
                 <RecentCardWidget /></div>

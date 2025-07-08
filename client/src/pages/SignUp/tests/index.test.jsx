@@ -14,37 +14,37 @@ test('Render', async () => {
   const user = userEvent.setup();
 
   const nameInput = screen.getByLabelText(/name/i);
-  const emailInput = screen.getByLabelText(/e-mail/i);
-  const passwordlInput = screen.getByLabelText(/password/i);
+  const emailInput = screen.getByLabelText(/Your Email/i);
+  const passwordInput = await screen.findByLabelText(/^Password$/i);
 
   expect(nameInput).toBeInTheDocument().toHaveAttribute('type', 'text');
-  expect(emailInput).toBeInTheDocument().toHaveAttribute('type', 'text');
-  expect(passwordlInput)
+  expect(emailInput).toBeInTheDocument().toHaveAttribute('type', 'email');
+  expect(passwordInput)
     .toBeInTheDocument()
     .toHaveAttribute('type', 'password');
 
   //test write content and delete content
   expect(nameInput.value).toBe('');
   expect(emailInput.value).toBe('');
-  expect(passwordlInput.value).toBe('');
+  expect(passwordInput.value).toBe('');
 
   await user.type(nameInput, 'Jane Doe');
   await user.type(emailInput, 'placeholder@gmail.com');
-  await user.type(passwordlInput, '12345');
+  await user.type(passwordInput, '12345');
 
   expect(nameInput.value).toBe('Jane Doe');
   expect(emailInput.value).toBe('placeholder@gmail.com');
-  expect(passwordlInput.value).toBe('12345');
+  expect(passwordInput.value).toBe('12345');
 
   await user.clear(nameInput);
   await user.clear(emailInput);
-  await user.clear(passwordlInput);
+  await user.clear(passwordInput);
 
   expect(nameInput.value).toBe('');
   expect(emailInput.value).toBe('');
-  expect(passwordlInput.value).toBe('');
+  expect(passwordInput.value).toBe('');
 
-  const callAPIbutton = screen.getByRole('button', { name: /Submit/i });
+  const callAPIbutton = screen.getByRole('button', { name: /Register/i });
 
   expect(callAPIbutton).toBeInTheDocument();
 });

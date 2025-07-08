@@ -31,8 +31,8 @@ test('successfull API call', async () => {
 
   const user = userEvent.setup();
 
-  await user.type(screen.getByLabelText(/E-mail/i), 'test@example.com');
-  await user.type(screen.getByLabelText(/Password/i), 'password123');
+  await user.type(screen.getByLabelText(/Your Email/i), 'test@example.com');
+  await user.type(screen.getByLabelText(/^Password$/i), 'password123');
 
   const callAPIbutton = screen.getByRole('button', { name: /Submit/i });
 
@@ -61,8 +61,8 @@ test('failed API call err 400', async () => {
   );
   const user = userEvent.setup();
 
-  await user.type(screen.getByLabelText(/E-mail/i), 'test@example.com');
-  await user.type(screen.getByLabelText(/Password/i), 'password123');
+  await user.type(screen.getByLabelText(/Your Email/i), 'test@example.com');
+  await user.type(screen.getByLabelText(/^Password$/i), 'password123');
 
   const callAPIbutton = screen.getByRole('button', { name: /Submit/i });
 
@@ -89,8 +89,8 @@ test('failed API call err 401', async () => {
   );
   const user = userEvent.setup();
 
-  await user.type(screen.getByLabelText(/E-mail/i), 'test@example.com');
-  await user.type(screen.getByLabelText(/Password/i), 'password123');
+  await user.type(screen.getByLabelText(/Your Email/i), 'test@example.com');
+  await user.type(screen.getByLabelText(/^Password$/i), 'password123');
 
   const callAPIbutton = screen.getByRole('button', { name: /Submit/i });
 

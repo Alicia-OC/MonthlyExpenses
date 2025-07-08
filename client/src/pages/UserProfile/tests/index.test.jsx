@@ -77,12 +77,12 @@ test('inputs store the changes', async () => {
   await user.type(screen.getByLabelText(/mail/i), 'mail@mail');
   expect(screen.getByLabelText(/mail/i)).toHaveValue('mail@mail');
 
-  const passwordInput = await screen.findByLabelText(/^New password:$/i);
+  const passwordInput = await screen.findByLabelText(/^New password$/i);
   await user.type(passwordInput, 'p12345');
   expect(passwordInput).toHaveValue('p12345');
 
   const repeatPasswordInput = await screen.findByLabelText(
-    /^Repeat new password:$/i
+    /^Repeat your new password$/i
   );
   await user.type(repeatPasswordInput, 'p12345');
   expect(repeatPasswordInput).toHaveValue('p12345');
