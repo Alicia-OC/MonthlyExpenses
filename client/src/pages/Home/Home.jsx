@@ -1,7 +1,6 @@
 import { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import EditingCard from '../EditingCard/EditingCard';
-import ExpensesSummary from '../ExpensesSummary/ExpensesSummary';
 
 const Home = () => {
   const [count, setCount] = useState(0);

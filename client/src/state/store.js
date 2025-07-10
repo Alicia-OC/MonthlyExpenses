@@ -16,9 +16,10 @@ import {
 const persistConfig = {
   key: 'auth',
   storage,
-  whitelist: ['token', 'userID'],
+  whitelist: ['token', 'userId', 'user'],
   version: 1,
 };
+
 const persistedReducer = persistReducer(persistConfig, authReducer);
 
 const store = configureStore({
@@ -32,4 +33,5 @@ const store = configureStore({
 });
 
 export const persistor = persistStore(store);
+
 export default store;

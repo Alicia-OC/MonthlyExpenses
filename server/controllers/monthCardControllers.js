@@ -38,7 +38,7 @@ const newCard = asyncHandler(async (req, res) => {
     const calcFixedExpenses = () => {
       let sum = 0;
       for (let index = 0; index < fixedItems.length; index++) {
-        sum += fixedItems[index].amount;
+        sum += fixedItems[index].price;
       }
       return sum;
     };
@@ -46,7 +46,7 @@ const newCard = asyncHandler(async (req, res) => {
     const calcSubscriptionExpenses = () => {
       let sum = 0;
       for (let index = 0; index < subscriptionItems.length; index++) {
-        sum += subscriptionItems[index].amount;
+        sum += subscriptionItems[index].price;
       }
       return sum;
     };
@@ -54,7 +54,7 @@ const newCard = asyncHandler(async (req, res) => {
     const calcOtherExpenses = () => {
       let sum = 0;
       for (let index = 0; index < otherItems.length; index++) {
-        sum += otherItems[index].amount;
+        sum += otherItems[index].price;
       }
       return sum;
     };
@@ -62,7 +62,7 @@ const newCard = asyncHandler(async (req, res) => {
     const calcTransportExpenses = () => {
       let sum = 0;
       for (let index = 0; index < transportItems.length; index++) {
-        sum += transportItems[index].amount;
+        sum += transportItems[index].price;
       }
       return sum;
     };
@@ -70,7 +70,7 @@ const newCard = asyncHandler(async (req, res) => {
     const calcFoodExpenses = () => {
       let sum = 0;
       for (let index = 0; index < transportItems.length; index++) {
-        sum += transportItems[index].amount;
+        sum += transportItems[index].price;
       }
       return sum;
     };
@@ -193,7 +193,7 @@ const updateCard = asyncHandler(async (req, res) => {
       let items = card.fixedItems;
       let sum = 0;
       for (let index = 0; index < items.length; index++) {
-        sum += items[index].amount;
+        sum += items[index].price;
       }
       return sum;
     };
@@ -202,7 +202,7 @@ const updateCard = asyncHandler(async (req, res) => {
       let items = card.subscriptionItems;
       let sum = 0;
       for (let index = 0; index < items.length; index++) {
-        sum += items[index].amount;
+        sum += items[index].price;
       }
       return sum;
     };
@@ -213,7 +213,7 @@ const updateCard = asyncHandler(async (req, res) => {
       let sum = 0;
 
       for (let index = 0; index < items.length; index++) {
-        sum += items[index].amount;
+        sum += items[index].price;
       }
       return sum;
     };
@@ -223,7 +223,7 @@ const updateCard = asyncHandler(async (req, res) => {
 
       let sum = 0;
       for (let index = 0; index < items.length; index++) {
-        sum += items[index].amount;
+        sum += items[index].price;
       }
       return sum;
     };
@@ -234,7 +234,7 @@ const updateCard = asyncHandler(async (req, res) => {
 
       let sum = 0;
       for (let index = 0; index < items.length; index++) {
-        sum += items[index].amount;
+        sum += items[index].price;
       }
       return sum;
     };

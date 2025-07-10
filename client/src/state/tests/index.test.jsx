@@ -46,7 +46,7 @@ test('reset redux state on logout', async () => {
 
   const newState = authReducer(loggedInState, setLogout());
 
-  expect(newState.user).toEqual({ name: '', email: '', templates: [] });
+  expect(newState.user).toEqual({ name: '', email: '', avatar: '', dataByYear: [], cards: [] });
   expect(newState.token).toBeNull();
   expect(newState.userId).toEqual('')
 });

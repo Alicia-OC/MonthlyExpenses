@@ -2,6 +2,7 @@ import { useSelector } from 'react-redux';
 
 const RecentCardWidget = () => {
   const user = useSelector((state) => state.user); //
+  console.log(user);
   const userId = useSelector((state) => state.userId);
 
   return (

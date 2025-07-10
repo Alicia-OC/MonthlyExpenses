@@ -4,10 +4,14 @@ import './Header.css';
 import { Navbar, Nav, NavDropdown, Container } from 'react-bootstrap';
 import Image from 'react-bootstrap/Image';
 import avatar from '../../assets/Anya.png';
+import { setLogout } from '../../state/authSlice';
 
 import { setCurrency } from '../../state/authSlice';
 
 import { useDispatch, useSelector } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
+
+
 
 const Linkedin = import.meta.env.VITE_APP_LINKEDIN;
 
@@ -17,6 +21,16 @@ const NavBar = () => {
   const updateCurrency = async (newCurrency) => {
     dispatch(setCurrency({ currency: newCurrency }));
   };
+
+  const HandleLogout = () => {
+
+    try {
+      dispatch(setLogout());
+      window.location.href = '/signin';
+    } catch (error) {
+      console.log(error);
+    }
+  }
 
   const userId = useSelector((state) => state.userId);
 
@@ -48,8 +62,9 @@ const NavBar = () => {
               <NavDropdown.Item href={`/${userId}/cards`}>Library</NavDropdown.Item>
 
               <NavDropdown.Item href={`/${userId}/settings`}>Settings</NavDropdown.Item>
-              <NavDropdown.Item href="/SignOut">Logout</NavDropdown.Item>
-            </NavDropdown>
+              <NavDropdown.Item onClick={HandleLogout} href="#">
+                Logout
+              </NavDropdown.Item>            </NavDropdown>
 
             <NavDropdown title="Currency">
               <NavDropdown.Item onClick={(e) => updateCurrency('$')}>

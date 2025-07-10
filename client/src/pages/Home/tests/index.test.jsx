@@ -14,10 +14,12 @@ const store = configureStore({
 test('renders Home', async () => {
   const user = userEvent.setup();
 
-  render(<Provider store={store}>
-    <Home />        </Provider>
+  render(
+    <Provider store={store}>
+      <Home />
+    </Provider>
   );
-  const heading = screen.getByText(/monthly expenses/i);
+  const heading = screen.getByText(/July/i);
   expect(heading).toBeInTheDocument();
 
 });

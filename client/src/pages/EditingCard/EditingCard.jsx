@@ -4,6 +4,7 @@ import { useSelector } from 'react-redux';
 import Axios from 'axios';
 import { useParams } from "react-router-dom";
 
+import GetMonth from "../../components/GetMonth/GetMonth";
 import ExpensesSummary from "../ExpensesSummary/ExpensesSummary";
 import mockCard from "./mockCard"
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -84,6 +85,7 @@ const EditingCard = () => {
     return <Container>
         <div className="card h-100">
             <div className="savings-div p-4 text-black bg-body-tertiary">
+                <h2><GetMonth /></h2>
                 <ExpensesSummary />
             </div>
             <div className="month-card-component col-12 col-md-6 col-lg-4">

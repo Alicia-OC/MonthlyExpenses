@@ -11,31 +11,34 @@ const monthCardSchema = new mongoose.Schema(
     month: { type: Number, required: true },
     totalExpenses: { type: Number, required: true, default: 0 },
     totalIncome: { type: Number, required: true, default: 0 },
+
     totalSavings: { type: Number, required: true, default: 0 },
     fixedItems: {
-      name: 'The Non-Negotiable',
+      name: 'The Non-negotiables',
       items: [{
         description: String,
-        amount: Number,
+        price: Number,
         date: Date,
       }]
     },
     fixedExpenses: { type: Number, required: true, default: 0 },
+
     subscriptionItems: {
       name: 'On Repeat',
       items: [{
         description: String,
-        amount: Number,
+        price: Number,
         date: Date,
       }]
     },
     subscriptionExpenses: { type: Number, required: true, default: 0 },
+    
     otherItems: {
       name: 'Little Life Things',
       items: [
         {
           description: String,
-          amount: Number,
+          price: Number,
           category: {
             type: mongoose.Schema.Types.ObjectId,
             ref: "Category", // Reference to the Category model
@@ -52,7 +55,7 @@ const monthCardSchema = new mongoose.Schema(
       items: [
         {
           description: String,
-          amount: Number,
+          price: Number,
           category: {
             type: mongoose.Schema.Types.ObjectId,
             ref: "Category", // Reference to the Category model
@@ -69,7 +72,7 @@ const monthCardSchema = new mongoose.Schema(
       items: [
         {
           description: String,
-          amount: Number,
+          price: Number,
           category: {
             type: mongoose.Schema.Types.ObjectId,
             ref: "Category", // Reference to the Category model
@@ -96,32 +99,32 @@ const mockupMonthCard = new MonthCard({
   fixedItems: [
     {
       description: "rent+bills+food",
-      amount: 605,
+      price: 605,
       date: new Date("2025-02-01"),
     },
   ],
   subscriptionItems: [
     {
       description: "HBO",
-      amount: 4.99,
+      price: 4.99,
       date: new Date("2025-02-01"),
     },
     {
       description: "Amazon no ads",
-      amount: 1.99,
+      price: 1.99,
       date: new Date("2025-02-01"),
     },
   ],
   otherItems: [
     {
       description: "print label + adhesive",
-      amount: 2.56,
+      price: 2.56,
       category: "67a91f012213777227c723ca",
       date: new Date("2025-02-01"),
     },
     {
       description: "Decathlon",
-      amount: 76,
+      price: 76,
       category: "67a91f012213777227c723cb",
       date: new Date("2025-02-01"),
     },
@@ -129,7 +132,7 @@ const mockupMonthCard = new MonthCard({
   transportItems: [
     {
       description: "cabify",
-      amount: 6.98,
+      price: 6.98,
       category: "67a91f012213777227c723cb",
 
       date: new Date("2025-02-01"),
@@ -138,7 +141,7 @@ const mockupMonthCard = new MonthCard({
   foodItems: [
       {
         description: 'cinnamon oreo',
-        amount: 4.99,
+        price: 4.99,
         category: '67a91f012213777227c723cb',
 
         date: new Date(),
