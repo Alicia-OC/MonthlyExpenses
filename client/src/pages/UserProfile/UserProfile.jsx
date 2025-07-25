@@ -63,9 +63,11 @@ const UserProfile = () => {
   const handleProfileEditingMode = () => {
     setProfileEditMode(!profileEditMode);
   };
+
   const handleDefaultItemsEditingMode = () => {
     setDefaultItemsEditMode(!defaultItemsEditMode);
   };
+
   const validatePassword = (pw1, pw2) => {
     if (pw1 !== pw2) {
       setErrMsgPassword(
@@ -111,8 +113,8 @@ const UserProfile = () => {
     }
   };
 
-  const ifNotprofileEditMode = () => {
-    if (!profileEditMode) {
+  const dynamicBlock = () => {
+    if (!profileEditMode && !defaultItemsEditMode) {
       return (
         <>
           <div>
@@ -127,17 +129,22 @@ const UserProfile = () => {
           </div>
         </>
       );
-    } else {
+    } else if (profileEditMode) {
       return (
         <>
           <div className="form-grid">
             <div className="d-flex flex-row align-items-center ">
               <div className="form-floating flex-fill mb-0">
                 <i className="fas fa-envelope fa-lg me-3 fa-fw"></i>
-                <input onChange={(e) => setNewName(e.target.value)}
-
-                  type="text" id="form-name" className="form-control" />
-                <label className="form-label" htmlFor="form-name">Your Name</label>
+                <input
+                  onChange={(e) => setNewName(e.target.value)}
+                  type="text"
+                  id="form-name"
+                  className="form-control"
+                />
+                <label className="form-label" htmlFor="form-name">
+                  Your Name
+                </label>
               </div>
               <i
                 className="info-warning"
@@ -152,10 +159,17 @@ const UserProfile = () => {
             <div className="d-flex flex-row align-items-center ">
               <div className="form-floating flex-fill mb-0">
                 <i className="fas fa-envelope fa-lg me-3 fa-fw"></i>
-                <input onChange={(e) => setNewMail(e.target.value)}
-                  type="email" id="form-email" className="form-control" />
-                <label className="form-label" htmlFor="form-email">Your Email</label>
-              </div><i
+                <input
+                  onChange={(e) => setNewMail(e.target.value)}
+                  type="email"
+                  id="form-email"
+                  className="form-control"
+                />
+                <label className="form-label" htmlFor="form-email">
+                  Your Email
+                </label>
+              </div>
+              <i
                 className="info-warning"
                 data-bs-toggle="tooltip"
                 data-bs-placement="top"
@@ -165,26 +179,35 @@ const UserProfile = () => {
               </i>
             </div>
 
-
             <div className="d-flex flex-row align-items-center ">
               <div className="form-floating flex-fill mb-0">
                 <i className="fas fa-envelope fa-lg me-3 fa-fw"></i>
-                <input onChange={(e) => setPassword(e.target.value)}
-                  type="password" id="form-password"
-                  className="form-control" />
-                <label className="form-label" htmlFor="form-password">New password</label>
+                <input
+                  onChange={(e) => setPassword(e.target.value)}
+                  type="password"
+                  id="form-password"
+                  className="form-control"
+                />
+                <label className="form-label" htmlFor="form-password">
+                  New password
+                </label>
               </div>
             </div>
 
             <div className="d-flex flex-row align-items-center mb-4">
               <div className="form-floating flex-fill mb-0">
                 <i className="fas fa-key fa-lg me-3 fa-fw"></i>
-                <input onChange={(e) => setPassword2(e.target.value)}
-                  type="password" id="form-repeat-pw" className="form-control" />
-                <label className="form-label" htmlFor="form-repeat-pw">Repeat your new password</label>
+                <input
+                  onChange={(e) => setPassword2(e.target.value)}
+                  type="password"
+                  id="form-repeat-pw"
+                  className="form-control"
+                />
+                <label className="form-label" htmlFor="form-repeat-pw">
+                  Repeat your new password
+                </label>
               </div>
             </div>
-
 
             {errMsgPassword}
 
@@ -194,13 +217,14 @@ const UserProfile = () => {
           </div>
         </>
       );
+    } else if (defaultItemsEditMode) {
+      return 'Work in progress...';
     }
   };
 
-
   return (
     <>
-      <Container className=''>
+      <Container className="">
         <div
           className="modal fade"
           id="saveAlertModal"
@@ -278,19 +302,20 @@ const UserProfile = () => {
                 </div>
 
                 <div className=" savings-div  ">
-                  <h4 className='month-finances-h'>{months[currentMonth]} finances</h4>
+                  <h4 className="month-finances-h">
+                    {months[currentMonth]} finances
+                  </h4>
                   <ExpensesSummary />
                 </div>
 
                 <div className="">
                   <div className="text-body">
-                    <div className="">{ifNotprofileEditMode()}</div>
+                    <div className="">{dynamicBlock()}</div>
                   </div>
                 </div>
-                <RecentCardWidget /></div>
-
+                <RecentCardWidget />
+              </div>
             </div>
-
           </div>
         </div>
       </Container>

@@ -38,29 +38,39 @@ const SignIn = () => {
 
   return (
     <>
-      <div>
-        <form onSubmit={handleSubmit}>
-          {' '}
-          {message && <div>{message}</div>}
-          <label htmlFor="email">Your Email</label>
-          <input
-            type="text"
-            id="email"
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
-          />{' '}
-          <label htmlFor="password">Password</label>
-          <input
-            type="password"
-            id="password"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-          />{' '}
-          <div>
-            <button type="submit">Submit</button>
+      <section className="">
+        <div className="row d-flex justify-content-center align-items-center h-100">
+          <div className="col-lg-12 col-xl-11">
+            <div className="card text-black">
+              <div className="card-body ">
+                <form className="mx-1 mx-md-4" onSubmit={handleSubmit}>
+                  {' '}
+                  {message && <div>{message}</div>}
+                  <label htmlFor="email">Your Email</label>
+                  <input
+                    type="text"
+                    id="email"
+                    value={email}
+                    onChange={(e) => setEmail(e.target.value)}
+                  />{' '}
+                  <label htmlFor="password">Password</label>
+                  <input
+                    type="password"
+                    id="password"
+                    value={password}
+                    onChange={(e) => setPassword(e.target.value)}
+                  />{' '}
+                  <div>
+                    <button className="btn btn-dark" type="submit">
+                      Submit
+                    </button>
+                  </div>
+                </form>
+              </div>
+            </div>
           </div>
-        </form>
-      </div>
+        </div>
+      </section>
     </>
   );
 };
