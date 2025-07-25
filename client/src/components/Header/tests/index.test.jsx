@@ -1,4 +1,4 @@
-import {  render, screen, waitFor } from '@testing-library/react';
+import { render, screen, waitFor } from '@testing-library/react';
 import { expect, test, describe } from 'vitest';
 import userEvent from '@testing-library/user-event';
 import NavBar from '../Header';
@@ -39,7 +39,7 @@ const store = configureStore({
 });
 
 describe('Navbar component', async () => {
-  test('renders navbar correctly', async () => {
+  test('renders navbar correctly when logged', async () => {
     render(
       <Provider store={store}>
         <NavBar />
@@ -49,6 +49,11 @@ describe('Navbar component', async () => {
     expect(screen.getByText('Brand')).toBeInTheDocument();
     expect(screen.getByText('About')).toBeInTheDocument();
     expect(screen.getByText('LinkedIn')).toBeInTheDocument();
+    expect(
+      screen.getByRole('button', {
+        name: /Toggle navigation/i,
+      })
+    ).toBeInTheDocument();
   });
 
   test('dropdown menu appears when clicked', async () => {
@@ -93,8 +98,18 @@ describe('Navbar component', async () => {
   });
 });
 
-test('all navbar items are functional', async () => {
-  const user = userEvent.setup();
+test('when user isnt auth, navbar doesnt display user menu nor currency', async () => {
+  const store = configureStore({
+    reducer: authReducer,
+    preloadedState: {
+      token: null,
+    },
+  });
+
+  const dropdownMenu = screen.queryByRole('menu', { hidden: true });
+
+  expect(dropdownMenu).not.toBeInTheDocument();
+
   render(
     <Provider store={store}>
       <NavBar />
