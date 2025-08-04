@@ -30,7 +30,7 @@ const initialState =
         currency: '€',
       }
     : {
-        mode: 'light',
+        mode: 'pink',
         user: {
           name: '',
           email: '',
@@ -39,7 +39,7 @@ const initialState =
           avatar: '',
         },
         userId: '',
-        token: '',
+        token: null,
         currency: '€',
       };
 
@@ -51,9 +51,21 @@ export const authSlice = createSlice({
       state.mode = state.mode === 'light' ? 'dark' : 'light';
     },
     setLogin: (state, action) => {
-      state.user = action.payload.user;
-      state.token = action.payload.token;
-      state.userId = action.payload.id;
+      const { user, token, id } = action.payload || {};
+
+      if (!user || !token || !id) {
+        console.error('Invalid login payload:', action.payload);
+        return; // Don't update state
+      }
+      state.user = {
+        name: user.name || '',
+        email: user.email || '',
+        cards: user.cards || [],
+        dataByYear: user.dataByYear || [],
+        avatar: user.avatar || '',
+      };
+      state.token = token;
+      state.userId = id;
     },
     setLogout: (state) => {
       state.user = {

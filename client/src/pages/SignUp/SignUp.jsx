@@ -1,6 +1,8 @@
 import axios from 'axios';
 import { useState } from 'react';
 import { useDispatch } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
+
 
 /** ICONS */
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -8,6 +10,8 @@ import { faUser, faCircleInfo } from '@fortawesome/free-solid-svg-icons';
 
 const SignUp = () => {
   const dispatch = useDispatch();
+    const navigate = useNavigate();
+
 
   const [message, setMessage] = useState('');
 
@@ -18,16 +22,21 @@ const SignUp = () => {
   const [userObj, setUserObj] = useState({});
 
   const validateData = () => {
-    if (
-      !fullName.length ||
-      !email.length ||
-      !password.length ||
-      !confirmPassword.length
-    ) {
-      setMessage('Missing required fields');
-
+    if (!fullName.trim() || !email.trim() || !password || !confirmPassword) {
+      setMessage('All fields are required');
       return false;
-    } else if (password !== confirmPassword) {
+    }
+
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!emailRegex.test(email)) {
+      setMessage('Please enter a valid email address');
+      return false;
+    }
+    if (password.length < 8) {
+      setMessage('Password must be at least 8 characters long');
+      return false;
+    }
+    if (password !== confirmPassword) {
       setMessage('Passwords must match');
       return false;
     } else {
@@ -45,7 +54,7 @@ const SignUp = () => {
       password: password,
       password2: confirmPassword,
     });
-    console.log(validateData());
+
     if (!validateData()) {
       return;
     } else {
@@ -57,7 +66,7 @@ const SignUp = () => {
         });
 
         if (response.status === 201) {
-          window.location.replace('/signin');
+          navigate('/signin');
         } else if (response.status === 409) {
           setMessage(
             'Email in use, please use a different one or reset your password'

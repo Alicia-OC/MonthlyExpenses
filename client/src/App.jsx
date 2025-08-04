@@ -62,7 +62,7 @@ function App() {
             }
           />
           <Route
-            path="/profile/:userId"
+            path="/profile/:userid"
             element={
               <ProtectedRoute>
                 <UserProfile />
@@ -70,7 +70,7 @@ function App() {
             }
           />
           <Route
-            path="/:userId/:cardId"
+            path="/:userId/:cardid"
             element={
               <ProtectedRoute>
                 <MonthCard />
