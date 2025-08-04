@@ -4,12 +4,16 @@ import { expect, test, describe } from 'vitest';
 import userEvent from '@testing-library/user-event';
 import { Provider } from 'react-redux';
 import store from '../../../state/store';
+import { MemoryRouter} from 'react-router-dom';
 
 test('Render', async () => {
   render(
-    <Provider store={store}>
-      <SignUp />
-    </Provider>
+    <MemoryRouter initialEntries={['/signup']}>
+      {' '}
+      <Provider store={store}>
+        <SignUp />
+      </Provider>
+    </MemoryRouter>
   );
   const user = userEvent.setup();
 
@@ -19,9 +23,7 @@ test('Render', async () => {
 
   expect(nameInput).toBeInTheDocument().toHaveAttribute('type', 'text');
   expect(emailInput).toBeInTheDocument().toHaveAttribute('type', 'email');
-  expect(passwordInput)
-    .toBeInTheDocument()
-    .toHaveAttribute('type', 'password');
+  expect(passwordInput).toBeInTheDocument().toHaveAttribute('type', 'password');
 
   //test write content and delete content
   expect(nameInput.value).toBe('');

@@ -1,6 +1,6 @@
 import axios from 'axios';
 import { useState } from 'react';
-//import { setLogin } from '../../state';
+import { setLogin } from '../../state';
 import { useDispatch } from 'react-redux';
 
 const SignIn = () => {
@@ -15,7 +15,7 @@ const SignIn = () => {
     console.log('dasd');
 
     try {
-      const response = await axios.post(`http://localhost:3030/auth/signin`, {
+      const response = await axios.post(`http://localhost:3000/auth/signin`, {
         email: email,
         password: password,
       });

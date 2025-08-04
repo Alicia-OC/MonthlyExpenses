@@ -14,7 +14,7 @@ const ProtectedRoute = ({ children }) => {
     return null;
   }
 
-  //user logged trying to access signin or signup are riderected to their profiles
+  //user logged trying to access signin or signup are redirected to their profiles
   if (isAuth && visitingAuthPage) {
     return <Navigate to={`/profile/${userId}`} replace />;
   }

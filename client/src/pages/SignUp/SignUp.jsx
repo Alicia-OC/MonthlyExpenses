@@ -1,13 +1,11 @@
 import axios from 'axios';
 import { useState } from 'react';
-import { useDispatch } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
 
-/** ICONS */
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faUser, faCircleInfo } from '@fortawesome/free-solid-svg-icons';
+const VITE_APP_API_URL = import.meta.env.VITE_APP_API_URL;
 
 const SignUp = () => {
-  const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   const [message, setMessage] = useState('');
 
@@ -15,19 +13,24 @@ const SignUp = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
-  const [userObj, setUserObj] = useState({});
+  const [isLoading, setIsLoading] = useState(false);
 
   const validateData = () => {
-    if (
-      !fullName.length ||
-      !email.length ||
-      !password.length ||
-      !confirmPassword.length
-    ) {
-      setMessage('Missing required fields');
-
+    if (!fullName.trim() || !email.trim() || !password || !confirmPassword) {
+      setMessage('All fields are required');
       return false;
-    } else if (password !== confirmPassword) {
+    }
+
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!emailRegex.test(email)) {
+      setMessage('Please enter a valid email address');
+      return false;
+    }
+    if (password.length < 8) {
+      setMessage('Password must be at least 8 characters long');
+      return false;
+    }
+    if (password !== confirmPassword) {
       setMessage('Passwords must match');
       return false;
     } else {
@@ -45,19 +48,20 @@ const SignUp = () => {
       password: password,
       password2: confirmPassword,
     });
-    console.log(validateData());
+
     if (!validateData()) {
       return;
     } else {
+      setIsLoading(true);
       try {
-        const response = await axios.post(`http://localhost:3030/auth/signup`, {
+        const response = await axios.post(`${VITE_APP_API_URL}/auth/signup`, {
           name: fullName,
           email: email,
           password: password,
         });
 
         if (response.status === 201) {
-          window.location.replace('/signin');
+          navigate('/signin');
         } else if (response.status === 409) {
           setMessage(
             'Email in use, please use a different one or reset your password'
@@ -65,6 +69,9 @@ const SignUp = () => {
         }
       } catch (error) {
         setMessage('Failed to create account. Please try again.');
+      } finally {
+        setIsLoading(false); 
+        
       }
     }
   };
@@ -164,8 +171,20 @@ const SignUp = () => {
                         onClick={handleSubmit}
                         className="btn btn-dark"
                         type="submit"
+                        disabled={isLoading}
                       >
-                        Register
+                        {isLoading ? (
+                          <>
+                            <span
+                              className="spinner-border spinner-border-sm me-2"
+                              role="status"
+                              aria-hidden="true"
+                            ></span>
+                            Creating Account...
+                          </>
+                        ) : (
+                          'Register'
+                        )}{' '}
                       </button>
                     </div>
 

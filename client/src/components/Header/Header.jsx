@@ -33,14 +33,22 @@ const NavBar = () => {
   return (
     <Navbar expand="lg" bg="light" fixed="top" className="px-3">
       <Container fluid>
-        <Navbar.Brand href="/">Brand</Navbar.Brand>
+        <Navbar.Brand href="/home">Brand</Navbar.Brand>
         <Navbar.Toggle aria-controls="navbarNav" />
         <Navbar.Collapse id="navbarNav" className="navbar-element">
           <Nav className="ms-auto  align-items-center">
-            <Nav.Link href="/about" className="navbar-element">
+            <Nav.Link href="/about" target="_blank">
               About
             </Nav.Link>
-            <Nav.Link href={Linkedin} className="navbar-element">
+            <Nav.Link href="https://alicia-oc.github.io/aliciaoc-portfolio/" target="_blank">
+              Portfolio
+            </Nav.Link>
+            <Nav.Link
+              href={Linkedin}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="navbar-element"
+            >
               LinkedIn
             </Nav.Link>
 
