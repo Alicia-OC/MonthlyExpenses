@@ -2,34 +2,7 @@ import { createSlice } from '@reduxjs/toolkit';
 import avatar from '../assets/Anya.png';
 
 const initialState =
-  import.meta.env.MODE === 'development'
-    ? {
-        mode: 'pink',
-        user: {
-          name: 'Alicia (DEV)',
-          email: 'placeholder@dev.local',
-          cards: [
-            { id: 'dev1', month: 'June' },
-            { id: 'dev2', month: 'May' },
-            { id: 'dev3', month: 'April' },
-            { id: 'dev4', month: 'March' },
-          ],
-          dataByYear: [
-            {
-              year: '2025',
-              month: 'July',
-              savings: '1000',
-              expenses: '500',
-              income: '2000',
-            },
-          ],
-          avatar: avatar,
-        },
-        userId: 'dev-76das78f87asdv87h7gf9',
-        token: 'mocked-dev-token',
-        currency: '€',
-      }
-    : {
+  {
         mode: 'pink',
         user: {
           name: '',

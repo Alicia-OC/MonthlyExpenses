@@ -6,8 +6,8 @@ let User = UserSchema.User;
 
 const signUp = asyncHandler(async (req, res) => {
   try {
-    const { name, email, password, avatar } = req.body;
-
+    const { name, email, password } = req.body;
+    console.log(name, email, password);
     const hashedPwd = await bcrypt.hash(password, 10); //10 salt rounds
     const duplicatedMail = await User.findOne({ email }).lean().exec();
 
@@ -22,13 +22,12 @@ const signUp = asyncHandler(async (req, res) => {
       name: name,
       email: email,
       password: hashedPwd,
-      avatar: avatar,
     };
 
     const newUser = await User.create(userObj);
 
     if (newUser) {
-      res.status(200).json({ message: "User created succesfully" });
+      res.status(201).json({ message: "User created succesfully" });
     } else {
       console.log("There has been an error, please try again");
     }
@@ -59,7 +58,7 @@ const signIn = asyncHandler(async (req, res) => {
       algorithm: "HS256",
       expiresIn: "10h",
     });
-
+console.log(token)
     delete user.password; // make sure the frontend doesn't receive the pw back
     res.status(200).json({ user, token, authorities: user.role || [] });
   } catch (error) {

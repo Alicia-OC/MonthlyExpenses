@@ -71,6 +71,7 @@ const SignUp = () => {
         setMessage('Failed to create account. Please try again.');
       } finally {
         setIsLoading(false); 
+        
       }
     }
   };

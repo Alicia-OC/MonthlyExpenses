@@ -4,7 +4,7 @@ const app = express();
 const bodyParser = require("body-parser");
 const mongoose = require("mongoose");
 const path = require("path");
-const PORT = process.env.PORT || 3500
+const PORT = process.env.PORT || 3000
 const cors = require("cors");
 const connectDB = require("./config/mongodbConnection");
 const { log } = require("console");
@@ -39,4 +39,4 @@ mongoose.connection.on("error", (err) => {
   log(err);
 });
 
-app.listen(PORT, () => log("Server started on port 3500"));
+app.listen(PORT, () => log("Server started on port 3000"));
