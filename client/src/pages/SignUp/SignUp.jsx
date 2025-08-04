@@ -1,17 +1,11 @@
 import axios from 'axios';
 import { useState } from 'react';
-import { useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 
-
-/** ICONS */
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faUser, faCircleInfo } from '@fortawesome/free-solid-svg-icons';
+const VITE_APP_API_URL = import.meta.env.VITE_APP_API_URL;
 
 const SignUp = () => {
-  const dispatch = useDispatch();
-    const navigate = useNavigate();
-
+  const navigate = useNavigate();
 
   const [message, setMessage] = useState('');
 
@@ -19,7 +13,7 @@ const SignUp = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
-  const [userObj, setUserObj] = useState({});
+  const [isLoading, setIsLoading] = useState(false);
 
   const validateData = () => {
     if (!fullName.trim() || !email.trim() || !password || !confirmPassword) {
@@ -58,8 +52,9 @@ const SignUp = () => {
     if (!validateData()) {
       return;
     } else {
+      setIsLoading(true);
       try {
-        const response = await axios.post(`http://localhost:3030/auth/signup`, {
+        const response = await axios.post(`${VITE_APP_API_URL}/auth/signup`, {
           name: fullName,
           email: email,
           password: password,
@@ -74,6 +69,8 @@ const SignUp = () => {
         }
       } catch (error) {
         setMessage('Failed to create account. Please try again.');
+      } finally {
+        setIsLoading(false); 
       }
     }
   };
@@ -173,8 +170,20 @@ const SignUp = () => {
                         onClick={handleSubmit}
                         className="btn btn-dark"
                         type="submit"
+                        disabled={isLoading}
                       >
-                        Register
+                        {isLoading ? (
+                          <>
+                            <span
+                              className="spinner-border spinner-border-sm me-2"
+                              role="status"
+                              aria-hidden="true"
+                            ></span>
+                            Creating Account...
+                          </>
+                        ) : (
+                          'Register'
+                        )}{' '}
                       </button>
                     </div>
 

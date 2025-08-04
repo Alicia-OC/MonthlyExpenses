@@ -27,11 +27,11 @@ const CardsLibrary = () => {
   };
 
   const testCardsUI = currentCards.map((item) => (
-    <div class="col">
-      <div class="card">
-        <div class="card-body" key={item.id} data-testid={item.id}>
-          <h5 class="card-title">item</h5>
-          <p class="card-text">
+    <div className="col">
+      <div className="card">
+        <div className="card-body" key={item.id} data-testid={item.id}>
+          <h5 className="card-title">item</h5>
+          <p className="card-text">
             You have spent X {currency} in groceries, X {currency} in
             subscriptions, X {currency} in transport, X {currency} in misc.
           </p>
@@ -42,16 +42,16 @@ const CardsLibrary = () => {
 
   return (
     <>
-      <div class="col row-cols-1 g-4 justify-content-around align-items-center">
-        <div class="card ">
-          <div class="card-body">
-            <p class="card-text">Navigation per year/month coming soon...</p>
+      <div className="col row-cols-1 g-4 justify-content-around align-items-center">
+        <div className="card ">
+          <div className="card-body">
+            <p className="card-text">Navigation per year/month coming soon...</p>
           </div>
         </div>
       </div>
       <div
         style={{ marginTop: '0.05rem' }}
-        class="row row-cols-1 row-cols-md-2 g-4 justify-content-around align-items-center"
+        className="row row-cols-1 row-cols-md-2 g-4 justify-content-around align-items-center"
       >
         {testCardsUI}{' '}
       </div>

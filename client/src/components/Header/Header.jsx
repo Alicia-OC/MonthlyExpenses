@@ -40,6 +40,9 @@ const NavBar = () => {
             <Nav.Link href="/about" target="_blank">
               About
             </Nav.Link>
+            <Nav.Link href="https://alicia-oc.github.io/aliciaoc-portfolio/" target="_blank">
+              Portfolio
+            </Nav.Link>
             <Nav.Link
               href={Linkedin}
               target="_blank"
