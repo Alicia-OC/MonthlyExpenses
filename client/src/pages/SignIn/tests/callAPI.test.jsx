@@ -38,7 +38,7 @@ test('successfull API call', async () => {
 
   await user.click(callAPIbutton);
 
-  expect(axios.post).toHaveBeenCalledWith('http://localhost:3030/auth/signin', {
+  expect(axios.post).toHaveBeenCalledWith('http://localhost:3000/auth/signin', {
     email: 'test@example.com',
     password: 'password123',
   });
@@ -68,7 +68,7 @@ test('failed API call err 400', async () => {
 
   await user.click(callAPIbutton);
 
-  expect(axios.post).toHaveBeenCalledWith('http://localhost:3030/auth/signin', {
+  expect(axios.post).toHaveBeenCalledWith('http://localhost:3000/auth/signin', {
     email: 'test@example.com',
     password: 'password123',
   });
@@ -96,7 +96,7 @@ test('failed API call err 401', async () => {
 
   await user.click(callAPIbutton);
 
-  expect(axios.post).toHaveBeenCalledWith('http://localhost:3030/auth/signin', {
+  expect(axios.post).toHaveBeenCalledWith('http://localhost:3000/auth/signin', {
     email: 'test@example.com',
     password: 'password123',
   });

@@ -18,9 +18,9 @@ test('update redux state on login', async () => {
   const newState = authReducer(
     initialState,
     setLogin({
-      user: { name: 'Alicia', email: 'alicia@example.com' },
+      user: { name: 'Alicia', email: 'alicia@example.com', _id: '123' },
       token: 'mock-token',
-      id: '123',
+      userId: user._id,
     })
   );
 

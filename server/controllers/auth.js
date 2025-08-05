@@ -58,9 +58,13 @@ const signIn = asyncHandler(async (req, res) => {
       algorithm: "HS256",
       expiresIn: "10h",
     });
-console.log(token)
+    console.log(token);
     delete user.password; // make sure the frontend doesn't receive the pw back
-    res.status(200).json({ user, token, authorities: user.role || [] });
+
+    const userWithoutPassword = user.toJSON();
+    delete userWithoutPassword.password;
+    res.status(200).json({ user: userWithoutPassword, token });
+    
   } catch (error) {
     res.status(500).json({ error: error.message });
   }

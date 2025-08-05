@@ -33,7 +33,7 @@ test('successfull API call', async () => {
 
   await user.click(callAPIbutton);
 
-  expect(axios.post).toHaveBeenCalledWith('http://localhost:3030/auth/signup', {
+  expect(axios.post).toHaveBeenCalledWith('http://localhost:3000/auth/signup', {
     name: 'Test User',
     email: 'test@example.com',
     password: 'password123',
@@ -136,7 +136,7 @@ test('failed API call err 409', async () => {
 
   await user.click(callAPIbutton);
 
-  expect(axios.post).toHaveBeenCalledWith('http://localhost:3030/auth/signup', {
+  expect(axios.post).toHaveBeenCalledWith('http://localhost:3000/auth/signup', {
     name: 'Test User',
     email: 'test@example.com',
     password: 'password123',

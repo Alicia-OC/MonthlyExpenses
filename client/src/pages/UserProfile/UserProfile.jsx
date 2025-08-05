@@ -94,7 +94,7 @@ const UserProfile = () => {
 
     try {
       const response = await axios.patch(
-        `http://localhost:3030/users/${id}/update`,
+        `http://localhost:3000/users/${id}/update`,
         {
           token: token,
           userId: id,
