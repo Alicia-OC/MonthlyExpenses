@@ -9,6 +9,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faPenToSquare, faCircleInfo } from '@fortawesome/free-solid-svg-icons';
 import { Container, Image } from 'react-bootstrap';
 
+import avatar from '../../assets/Anya.png';
 import RecentCardWidget from '../../components/cardWidget/RecentCardWidget';
 import ExpensesSummary from '../ExpensesSummary/ExpensesSummary';
 
@@ -18,7 +19,7 @@ const UserProfile = () => {
   const id = useSelector((state) => state.userId);
   const currency = useSelector((state) => state.currency);
 
-  const userAvatar = user?.avatar;
+  const userAvatar = avatar || user?.avatar;
 
   const [profileEditMode, setProfileEditMode] = useState(false);
   const [defaultItemsEditMode, setDefaultItemsEditMode] = useState(false);
