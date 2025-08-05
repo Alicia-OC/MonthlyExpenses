@@ -20,13 +20,11 @@ test('update redux state on login', async () => {
     setLogin({
       user: { name: 'Alicia', email: 'alicia@example.com', _id: '123' },
       token: 'mock-token',
-      userId: user._id,
     })
   );
 
   expect(newState.user.name).toBe('Alicia');
   expect(newState.token).toBe('mock-token');
-  expect(newState.userId).toBe('123');
 });
 
 

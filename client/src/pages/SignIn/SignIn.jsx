@@ -22,7 +22,7 @@ const SignIn = () => {
       });
 
       if (response.status === 200) {
-        const { token, user, id, avatar } = response.data;
+        const { token, user } = response.data;
         dispatch(setLogin({ token, user, id, avatar }));
         console.log(token, user, id, avatar);
         //window.location.replace('/');

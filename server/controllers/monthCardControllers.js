@@ -19,7 +19,7 @@ const newCard = asyncHandler(async (req, res) => {
       subscriptionItems,
       otherItems,
       transportItems,
-      foodItems
+      foodItems,
     } = req.body;
 
     const user = await User.findById(userId);
@@ -80,7 +80,8 @@ const newCard = asyncHandler(async (req, res) => {
         calcFixedExpenses() +
         calcSubscriptionExpenses() +
         calcOtherExpenses() +
-        calcTransportExpenses() + calcFoodExpenses();
+        calcTransportExpenses() +
+        calcFoodExpenses();
       return result;
     };
 
@@ -106,7 +107,7 @@ const newCard = asyncHandler(async (req, res) => {
       subscriptionExpenses: calcSubscriptionExpenses(),
       otherExpenses: calcOtherExpenses(),
       transportExpenses: calcTransportExpenses(),
-      foodExpenses: calcFoodExpenses()
+      foodExpenses: calcFoodExpenses(),
     };
 
     const newCard = await MonthCard.create(cardObject);
@@ -115,7 +116,9 @@ const newCard = asyncHandler(async (req, res) => {
       user.cards.push(newCard._id);
       await user.save();
 
-      res.status(200).json({ message: "Month card created succesfully with id " + newCard._id });
+      res.status(200).json({
+        message: "Month card created succesfully with id " + newCard._id,
+      });
     } else {
       console.log("There has been an error, please try again");
     }
@@ -147,6 +150,36 @@ const getCard = asyncHandler(async (req, res) => {
   }
 });
 
+const getLastFourCards = asyncHandler(async (req, res) => {
+  try {
+    const userId = req.user.id; // From JWT token
+
+    const user = await User.findById(userId).populate({
+      path: "cards",
+      select:
+        "month  foodExpenses subscriptionExpenses transportExpenses otherExpenses",
+      options: { sort: { createdAt: -1 }, limit: 4 },
+    });
+
+    if (!user) {
+      return res.status(404).json({ error: "User not found" });
+    }
+
+    const result = user.cards.map((card) => ({
+      id: card._id,
+      month: card.month,
+      foodExpenses: card.foodExpenses,
+      subscriptionExpenses: card.subscriptionExpenses,
+      transportItems: card.transportExpenses,
+      otherExpenses: card.otherExpenses,
+    }));
+
+    res.status(200).json(result);
+  } catch (error) {
+    console.error("Error getting the last 4 cards:", error);
+    res.status(500).json({ error: "Internal server error" });
+  }
+});
 //add, delete or update items
 const updateCard = asyncHandler(async (req, res) => {
   try {
@@ -168,7 +201,7 @@ const updateCard = asyncHandler(async (req, res) => {
       subscriptionExpenses,
       otherExpenses,
       transportExpenses,
-      foodExpenses
+      foodExpenses,
     } = req.body;
 
     if (!userId || !cardId) {
@@ -228,7 +261,6 @@ const updateCard = asyncHandler(async (req, res) => {
       return sum;
     };
 
-
     const calcFoodExpenses = () => {
       let items = card.foodItems;
 
@@ -260,7 +292,7 @@ const updateCard = asyncHandler(async (req, res) => {
       card.transportItems = transportItems;
       card.transportExpenses = calcTransportExpenses();
     }
-  if (foodItems) {
+    if (foodItems) {
       card.foodItems = foodItems;
       card.foodExpenses = calcFoodExpenses();
     }
@@ -270,7 +302,8 @@ const updateCard = asyncHandler(async (req, res) => {
         calcFixedExpenses() +
         calcSubscriptionExpenses() +
         calcOtherExpenses() +
-        calcTransportExpenses() + calcFoodExpenses();
+        calcTransportExpenses() +
+        calcFoodExpenses();
       return result;
     };
 
@@ -294,6 +327,6 @@ const updateCard = asyncHandler(async (req, res) => {
 });
 
 //return the default items stored by the user
-const setUpInitialCard = asyncHandler(async (req, res) => { });
+const setUpInitialCard = asyncHandler(async (req, res) => {});
 
-module.exports = { newCard, updateCard, getCard };
+module.exports = { newCard, updateCard, getCard, getLastFourCards };

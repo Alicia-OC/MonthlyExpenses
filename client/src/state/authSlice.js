@@ -13,6 +13,7 @@ const initialState = {
   userId: '',
   token: null,
   currency: '€',
+  lastFourCards: [],
 };
 
 export const authSlice = createSlice({
@@ -29,11 +30,11 @@ export const authSlice = createSlice({
         console.error('Invalid login payload:', action.payload);
         return; // Don't update state
       }
-      state.user = user
+      state.user = user;
       state.token = token;
       state.userId = user._id;
 
-      console.log(user)
+      console.log(user);
     },
     setLogout: (state) => {
       state.user = {
@@ -46,10 +47,8 @@ export const authSlice = createSlice({
       state.token = null;
       state.userId = '';
     },
-    setCards: (state, action) => {
-      if (state.user) {
-        state.user.cards = action.payload.cards;
-      } else console.log("You haven't created any card yet");
+    setLastFourCards: (state, action) => {
+      state.lastFourCards = action.payload;
     },
     setCurrency: (state, action) => {
       state.currency = action.payload.currency;
@@ -57,7 +56,7 @@ export const authSlice = createSlice({
   },
 });
 
-export const { setMode, setLogin, setLogout, setCards, setCurrency } =
+export const { setMode, setLogin, setLogout, setCards, setCurrency, setLastFourCards } =
   authSlice.actions;
 
 export default authSlice.reducer;

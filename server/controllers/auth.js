@@ -22,6 +22,7 @@ const signUp = asyncHandler(async (req, res) => {
       name: name,
       email: email,
       password: hashedPwd,
+      cards: ["67b379cc31d54e6b6a38479d"],
     };
 
     const newUser = await User.create(userObj);
@@ -64,7 +65,6 @@ const signIn = asyncHandler(async (req, res) => {
     const userWithoutPassword = user.toJSON();
     delete userWithoutPassword.password;
     res.status(200).json({ user: userWithoutPassword, token });
-    
   } catch (error) {
     res.status(500).json({ error: error.message });
   }
