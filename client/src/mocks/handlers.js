@@ -1,7 +1,7 @@
 import { http, HttpResponse, delay } from 'msw';
 
 export const handlers = [
-  http.get('http://localhost:3030/categories', async (req) => {
+  http.get('http://localhost:3000/categories', async (req) => {
     const { userId, token } = req.body;
 
     if (!userId || !token || !params.cardId) {
@@ -29,7 +29,7 @@ export const handlers = [
     ]);
   }),
 
-  http.post('http://localhost:3030/auth/signup', async (req) => {
+  http.post('http://localhost:3000/auth/signup', async (req) => {
     await delay(400);
 
     const { name, email, password } = req.body;
@@ -54,7 +54,7 @@ export const handlers = [
     );
   }),
 
-  http.post('http://localhost:3030/auth/signin', async (req) => {
+  http.post('http://localhost:3000/auth/signin', async (req) => {
     await delay(400);
 
     const { email, password } = req.body;
@@ -83,7 +83,7 @@ export const handlers = [
     }
   }),
 
-  http.post('http://localhost:3030/auth/logout', async (req) => {
+  http.post('http://localhost:3000/auth/logout', async (req) => {
     await delay(400);
 
     const { userid, token } = req.body;
@@ -112,7 +112,7 @@ export const handlers = [
     }
   }),
 
-  http.post('http://localhost:3030/:userId/:cardId', async (req) => {
+  http.post('http://localhost:3000/:userId/:cardId', async (req) => {
     await delay(400);
 
     const { userId, token } = req.body;

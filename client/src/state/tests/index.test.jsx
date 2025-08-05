@@ -18,15 +18,13 @@ test('update redux state on login', async () => {
   const newState = authReducer(
     initialState,
     setLogin({
-      user: { name: 'Alicia', email: 'alicia@example.com' },
+      user: { name: 'Alicia', email: 'alicia@example.com', _id: '123' },
       token: 'mock-token',
-      id: '123',
     })
   );
 
   expect(newState.user.name).toBe('Alicia');
   expect(newState.token).toBe('mock-token');
-  expect(newState.userId).toBe('123');
 });
 
 

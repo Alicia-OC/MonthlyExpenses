@@ -69,7 +69,7 @@ test('input values reach the backend and update it', async () => {
   await user.click(saveButton);
 
   expect(axios.patch).toHaveBeenCalledWith(
-    `http://localhost:3030/users/${mockUserId}/update`,
+    `http://localhost:3000/users/${mockUserId}/update`,
     {
       userId: mockUserId,
       token: mockToken,

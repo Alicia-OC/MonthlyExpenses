@@ -17,36 +17,24 @@ const userSchema = new mongoose.Schema(
     password: {
       type: String,
       required: true,
-      minlength: 6,
+      minlength: 8,
     },
     avatar: { type: String, default: "../public/images/default-avatar.jpg" },
-    cards: [
-      {
-        type: mongoose.Schema.Types.ObjectId,
-        ref: "MonthCard",
-        default: new mongoose.Types.ObjectId("67b379cc31d54e6b6a38479d"),
-      },
-    ],
+    cards: {
+      type: [
+        {
+          type: mongoose.Schema.Types.ObjectId,
+          ref: "MonthCard",
+        },
+      ],
+    },
     dataByYear: [
       {
-        type: [
-          {
-            year: Number,
-            month: String,
-            savings: Number,
-            expenses: Number,
-            income: Number,
-          },
-        ],
-        default: () => [
-          {
-            year: 2025,
-            month: "April",
-            savings: 100,
-            expenses: 1000,
-            income: 1100,
-          },
-        ],
+        year: { type: Number, required: true },
+        month: { type: String, required: true },
+        savings: { type: Number, default: 0 },
+        expenses: { type: Number, default: 0 },
+        income: { type: Number, default: 0 },
       },
     ],
   },

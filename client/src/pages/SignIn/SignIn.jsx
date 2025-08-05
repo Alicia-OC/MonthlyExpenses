@@ -1,7 +1,8 @@
 import axios from 'axios';
 import { useState } from 'react';
-import { setLogin } from '../../state';
 import { useDispatch } from 'react-redux';
+
+import { setLogin } from '../../state/authSlice';
 
 const SignIn = () => {
   const dispatch = useDispatch();
@@ -21,10 +22,10 @@ const SignIn = () => {
       });
 
       if (response.status === 200) {
-        const { token, user, id, avatar } = response.data;
-        dispatch(setLogin({ token, user, id, avatar }));
-
-        window.location.replace('/');
+        const { token, user } = response.data;
+        dispatch(setLogin({ token, user }));
+        console.log(token, user);
+        //window.location.replace('/');
       } else if (response.status === 400) {
         setMessage('Missing required fields');
       } else if (response.status === 401) {

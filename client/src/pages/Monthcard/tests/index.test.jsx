@@ -105,7 +105,7 @@ test('get data', async () => {
 
   await waitFor(() => {
     expect(axios.get).toHaveBeenCalledWith(
-      `http://localhost:3030/monthcards/${mockUserId}/${mockCardId}`,
+      `http://localhost:3000/monthcards/${mockUserId}/${mockCardId}`,
       { headers: { Authorization: `Bearer ${mockToken}` } }
     );
   });
