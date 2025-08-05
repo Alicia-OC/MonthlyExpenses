@@ -1,14 +1,19 @@
-import { useState } from 'react';
-import { useSelector } from 'react-redux';
+import { useState, useEffect } from 'react';
+import { useSelector, useDispatch } from 'react-redux';
+import { setLastFourCards } from '../../state/authSlice';
+import axios from 'axios';
+
 import './css/index.css';
 
 const CardsLibrary = () => {
-  const user = useSelector((state) => state.user); //
-  const token = useSelector((state) => state.token);
-  const id = useSelector((state) => state.userId);
-  const currency = useSelector((state) => state.currency);
-  const cards = user?.cards;
+  const dispatch = useDispatch();
 
+  const token = useSelector((state) => state.token);
+  const currency = useSelector((state) => state.currency);
+  const cards = useSelector((state) => state.lastFourCards);
+  const backendLink = import.meta.env.VITE_APP_GETCARD;
+
+  const [isLoading, setIsLoading] = useState(true);
   const [currentPage, setCurrentPage] = useState(1);
   const cardsPerPage = 4;
 
@@ -26,26 +31,53 @@ const CardsLibrary = () => {
     if (currentPage > 1) setCurrentPage(currentPage - 1);
   };
 
-  const testCardsUI = currentCards.map((item) => (
+  console.log(cards, token);
+
+  const testCardsUI = cards.map((item) => (
     <div className="col">
       <div className="card">
         <div className="card-body" key={item.id} data-testid={item.id}>
           <h5 className="card-title">item</h5>
           <p className="card-text">
-            You have spent X {currency} in groceries, X {currency} in
-            subscriptions, X {currency} in transport, X {currency} in misc.
+            You have spent {item.foodExpenses} {currency} in groceries,{' '}
+            {item.subscriptionExpenses} {currency} in subscriptions,{' '}
+            {item.transportExpenses} {currency} in transport,{' '}
+            {item.otherExpenses} {currency} and in misc!
           </p>
         </div>
       </div>
     </div>
   ));
 
+  useEffect(() => {
+    setIsLoading(true);
+    const fetchData = async () => {
+      try {
+        const response = await axios.get(`${backendLink}/cards/recent`, {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        });
+
+        dispatch(setLastFourCards(response.data));
+      } catch (error) {
+        console.log(error.message);
+      } finally {
+        setIsLoading(false);
+      }
+    };
+
+    fetchData();
+  }, []);
+
   return (
     <>
       <div className="col row-cols-1 g-4 justify-content-around align-items-center">
         <div className="card ">
           <div className="card-body">
-            <p className="card-text">Navigation per year/month coming soon...</p>
+            <p className="card-text">
+              Navigation per year/month coming soon...
+            </p>
           </div>
         </div>
       </div>
@@ -53,7 +85,8 @@ const CardsLibrary = () => {
         style={{ marginTop: '0.05rem' }}
         className="row row-cols-1 row-cols-md-2 g-4 justify-content-around align-items-center"
       >
-        {testCardsUI}{' '}
+        {isLoading && <div>Loading...</div>}
+        {!isLoading && cards && testCardsUI}
       </div>
       <div style={{ marginTop: '1rem' }}>
         <button onClick={prevPage} disabled={currentPage === 1}>

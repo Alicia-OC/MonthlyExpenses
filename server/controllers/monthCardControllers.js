@@ -170,7 +170,7 @@ const getLastFourCards = asyncHandler(async (req, res) => {
       month: card.month,
       foodExpenses: card.foodExpenses,
       subscriptionExpenses: card.subscriptionExpenses,
-      transportItems: card.transportExpenses,
+      transportExpenses: card.transportExpenses,
       otherExpenses: card.otherExpenses,
     }));
 

@@ -51,7 +51,7 @@ const RecentCardWidget = () => {
     fetchData();
 
   }, []);
-    console.log(cards)
+
 
   return (
     <>
@@ -93,7 +93,7 @@ const RecentCardWidget = () => {
             </div>
 
             <p className="mb-0">
-              <a className="see-all-link" href={`/${user?.id}/cards`}>
+              <a className="see-all-link" href={`/${userId}/cards`}>
                 See all
               </a>
             </p>

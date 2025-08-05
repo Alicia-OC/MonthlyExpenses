@@ -23,8 +23,8 @@ const SignIn = () => {
 
       if (response.status === 200) {
         const { token, user } = response.data;
-        dispatch(setLogin({ token, user, id, avatar }));
-        console.log(token, user, id, avatar);
+        dispatch(setLogin({ token, user }));
+        console.log(token, user);
         //window.location.replace('/');
       } else if (response.status === 400) {
         setMessage('Missing required fields');
