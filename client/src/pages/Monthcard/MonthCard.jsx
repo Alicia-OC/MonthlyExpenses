@@ -17,13 +17,26 @@ const MonthCard = () => {
   const token = useSelector((state) => state.token);
   const userId = useSelector((state) => state.userId);
   const currency = useSelector((state) => state.currency);
+  const backendLink = import.meta.env.VITE_APP_API_URL;
+  const { cardId } = useParams();
 
   const [isLoading, setIsLoading] = useState(false);
   const [card, setCard] = useState();
-  const [cardBlocksContent, setCardBlocksContent] = useState([]);
+  const months = [
+    'January',
+    'February',
+    'March',
+    'April',
+    'May',
+    'June',
+    'July',
+    'August',
+    'September',
+    'October',
+    'November',
+    'December',
+  ];
 
-  const { cardId } = useParams();
-  const backendLink = import.meta.env.VITE_APP_API_URL;
 
   const cardInScope = async () => {
     setIsLoading(true);
@@ -44,62 +57,12 @@ const MonthCard = () => {
     }
   };
 
-  const mockCardBlocks = [
-    { name: mockCard.fixedItems.name, items: mockCard.fixedItems.items },
-    {
-      name: mockCard.subscriptionItems.name,
-      items: mockCard.subscriptionItems.items,
-    },
-    { name: mockCard.otherItems.name, items: mockCard.otherItems.items },
-    {
-      name: mockCard.transportItems.name,
-      items: mockCard.transportItems.items,
-    },
-    { name: mockCard.foodItems.name, items: mockCard.foodItems.items },
-  ];
-
   useEffect(() => {
     if (userId && token) {
       cardInScope();
     }
   }, [userId, token]);
 
-  const months = [
-    'January',
-    'February',
-    'March',
-    'April',
-    'May',
-    'June',
-    'July',
-    'August',
-    'September',
-    'October',
-    'November',
-    'December',
-  ];
-
-  const mockCardBlocks2 = [
-    { name: mockCard.fixedItems.name, items: mockCard.fixedItems.items },
-    {
-      name: mockCard.subscriptionItems.name,
-      items: mockCard.subscriptionItems.items,
-    },
-    { name: mockCard.otherItems.name, items: mockCard.otherItems.items },
-    {
-      name: mockCard.transportItems.name,
-      items: mockCard.transportItems.items,
-    },
-    { name: mockCard.foodItems.name, items: mockCard.foodItems.items },
-  ];
-
-  const categories = [
-    card?.fixedItems,
-    card?.subscriptionItems,
-    card?.otherItems,
-    card?.transportItems,
-    card?.foodItems,
-  ].filter(Boolean);
 
   if (isLoading) {
     return (
@@ -126,7 +89,7 @@ const MonthCard = () => {
             {card && !isLoading && (
               <>
                 {' '}
-                <h2>{card && months[card.month]}</h2>
+                <h2>{card && months[card.month - 1]}</h2>
                 <div className="savings-div p-4 text-black bg-body-tertiary">
                   <ExpensesSummary />
                 </div>{' '}
