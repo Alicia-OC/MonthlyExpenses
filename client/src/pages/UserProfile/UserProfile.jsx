@@ -32,9 +32,6 @@ const UserProfile = () => {
 
   const [errMsgPassword, setErrMsgPassword] = useState(null);
 
-  const [userExpenses, setUserExpenses] = useState('loading');
-  const [userSavings, setUserSavings] = useState('loading');
-  const [userIncome, setUserIncome] = useState('loading');
 
   const months = [
     'January',

@@ -12,9 +12,7 @@ const newCard = asyncHandler(async (req, res) => {
       userId,
       year,
       month,
-      totalExpenses,
       totalIncome,
-      totalSavings,
       fixedItems,
       subscriptionItems,
       otherItems,
@@ -129,19 +127,20 @@ const newCard = asyncHandler(async (req, res) => {
 
 const getCard = asyncHandler(async (req, res) => {
   try {
-    const { userId, cardId } = req.body;
+    const { userid, cardid } = req.params;
+    console.log("userid:", userid, "cardid:", cardid);
 
-    if (!userId || !cardId) {
-      return res.status(404).json({ error: "userId and cardId are required" });
+    if (!userid || !cardid) {
+      return res.status(404).json({ error: "userId and cardid are required" });
     }
 
-    const card = await MonthCard.findById(cardId);
-
-    if (card.user.toString() === userId) {
-      res.status(200).json(card);
-    } else {
-      res.status(400).json({ error: "access denied" });
+    const card = await MonthCard.findById(cardid);
+    if (!card) {
+      return res.status(404).json({ error: "Card not found" });
     }
+    console.log("Found card:", card);
+
+    return res.status(200).json(card);
   } catch (error) {
     console.error("Error in getCard:", error);
     return res
@@ -185,7 +184,7 @@ const updateCard = asyncHandler(async (req, res) => {
   try {
     const {
       userId,
-      cardId,
+      cardid,
       year,
       month,
       totalExpenses,
@@ -204,17 +203,17 @@ const updateCard = asyncHandler(async (req, res) => {
       foodExpenses,
     } = req.body;
 
-    if (!userId || !cardId) {
-      return res.status(404).json({ error: "userId and cardId are required" });
+    if (!userId || !cardid) {
+      return res.status(404).json({ error: "userId and cardid are required" });
     }
 
     const user = await User.findById(userId);
-    const card = await MonthCard.findById(cardId);
+    const card = await MonthCard.findById(cardid);
 
     if (
       !user ||
       !card ||
-      //!user.cards.includes(cardId) ||
+      //!user.cards.includes(cardid) ||
       card.user.toString() !== userId
     ) {
       return res.status(400).json({ message: "User or card not found" });
