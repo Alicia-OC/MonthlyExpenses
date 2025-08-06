@@ -37,7 +37,6 @@ const MonthCard = () => {
     'December',
   ];
 
-
   const cardInScope = async () => {
     setIsLoading(true);
 
@@ -63,7 +62,6 @@ const MonthCard = () => {
     }
   }, [userId, token]);
 
-
   if (isLoading) {
     return (
       <Card className="month-card-component col-12 col-md-6 col-lg-4">
@@ -82,16 +80,17 @@ const MonthCard = () => {
 
   return (
     <>
-      <div className="d-flex justify-content-between align-items-center mb-4 text-body"></div>
       <Container>
         <div className="container py-5 h-100">
           <Card className="month-card-component col-12 col-md-6 col-lg-4">
-            {card && !isLoading && (
               <>
-                {' '}
                 <h2>{card && months[card.month - 1]}</h2>
                 <div className="savings-div p-4 text-black bg-body-tertiary">
-                  <ExpensesSummary />
+                  <ExpensesSummary 
+                  totalExpenses={card.totalExpenses}
+                  totalIncome={card.totalIncome}
+                  totalSavings={card.totalSavings}
+                  />
                 </div>{' '}
                 <div className="p-3 month-card-container">
                   <div className="multi-column">
@@ -211,7 +210,6 @@ const MonthCard = () => {
                   </div>
                 </div>
               </>
-            )}
           </Card>
         </div>
       </Container>

@@ -33,45 +33,20 @@ const newCard = asyncHandler(async (req, res) => {
         .json({ message: "You already have a card for this month" });
     }
 
-    const calcFixedExpenses = () => {
-      let sum = 0;
-      for (let index = 0; index < fixedItems.length; index++) {
-        sum += fixedItems[index].price;
-      }
-      return sum;
-    };
+    const calcFixedExpenses = () =>
+      fixedItems.items.reduce((sum, item) => sum + item.price, 0);
 
-    const calcSubscriptionExpenses = () => {
-      let sum = 0;
-      for (let index = 0; index < subscriptionItems.length; index++) {
-        sum += subscriptionItems[index].price;
-      }
-      return sum;
-    };
+    const calcSubscriptionExpenses = () =>
+      subscriptionItems.items.reduce((sum, item) => sum + item.price, 0);
 
-    const calcOtherExpenses = () => {
-      let sum = 0;
-      for (let index = 0; index < otherItems.length; index++) {
-        sum += otherItems[index].price;
-      }
-      return sum;
-    };
+    const calcOtherExpenses = () =>
+      otherItems.items.reduce((sum, item) => sum + item.price, 0);
 
-    const calcTransportExpenses = () => {
-      let sum = 0;
-      for (let index = 0; index < transportItems.length; index++) {
-        sum += transportItems[index].price;
-      }
-      return sum;
-    };
+    const calcTransportExpenses = () =>
+      transportItems.items.reduce((sum, item) => sum + item.price, 0);
 
-    const calcFoodExpenses = () => {
-      let sum = 0;
-      for (let index = 0; index < transportItems.length; index++) {
-        sum += transportItems[index].price;
-      }
-      return sum;
-    };
+    const calcFoodExpenses = () =>
+      foodItems.items.reduce((sum, item) => sum + item.price, 0);
 
     const calcTotalExpenses = () => {
       const result =
@@ -84,7 +59,8 @@ const newCard = asyncHandler(async (req, res) => {
     };
 
     const calcTotalSavings = () => {
-      return totalIncome - calcTotalExpenses();
+      const total = totalIncome - calcTotalExpenses();
+      return Number(total.toFixed(2));
     };
 
     const cardObject = {
