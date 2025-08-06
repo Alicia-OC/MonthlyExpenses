@@ -104,6 +104,7 @@ const newCard = asyncHandler(async (req, res) => {
 const getCard = asyncHandler(async (req, res) => {
   try {
     const { userid, cardid } = req.params;
+
     console.log("userid:", userid, "cardid:", cardid);
 
     if (!userid || !cardid) {
@@ -119,6 +120,30 @@ const getCard = asyncHandler(async (req, res) => {
     return res.status(200).json(card);
   } catch (error) {
     console.error("Error in getCard:", error);
+    return res
+      .status(500)
+      .json({ error: "Internal server error", details: error.message });
+  }
+});
+
+const getLastCard = asyncHandler(async (req, res) => {
+  try {
+    const { userid } = req.params;
+
+    const user = await User.findById(userid).populate("cards");
+
+    if (!userid || !user) {
+      return res.status(404).json({ error: "access denied" });
+    }
+
+    if (user.cards.length === 0) {
+      console.log("No cards found for this user.");
+    } else {
+      const latestCard = user.cards[user.cards.length - 1];
+      return res.status(200).json(latestCard);
+    }
+  } catch (error) {
+    console.error("Error:", error);
     return res
       .status(500)
       .json({ error: "Internal server error", details: error.message });
@@ -301,7 +326,10 @@ const updateCard = asyncHandler(async (req, res) => {
   }
 });
 
-//return the default items stored by the user
-const setUpInitialCard = asyncHandler(async (req, res) => {});
-
-module.exports = { newCard, updateCard, getCard, getLastFourCards };
+module.exports = {
+  newCard,
+  updateCard,
+  getCard,
+  getLastCard,
+  getLastFourCards,
+};
