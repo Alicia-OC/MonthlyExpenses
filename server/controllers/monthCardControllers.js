@@ -12,9 +12,7 @@ const newCard = asyncHandler(async (req, res) => {
       userId,
       year,
       month,
-      totalExpenses,
       totalIncome,
-      totalSavings,
       fixedItems,
       subscriptionItems,
       otherItems,
@@ -35,45 +33,20 @@ const newCard = asyncHandler(async (req, res) => {
         .json({ message: "You already have a card for this month" });
     }
 
-    const calcFixedExpenses = () => {
-      let sum = 0;
-      for (let index = 0; index < fixedItems.length; index++) {
-        sum += fixedItems[index].price;
-      }
-      return sum;
-    };
+    const calcFixedExpenses = () =>
+      fixedItems.items.reduce((sum, item) => sum + item.price, 0);
 
-    const calcSubscriptionExpenses = () => {
-      let sum = 0;
-      for (let index = 0; index < subscriptionItems.length; index++) {
-        sum += subscriptionItems[index].price;
-      }
-      return sum;
-    };
+    const calcSubscriptionExpenses = () =>
+      subscriptionItems.items.reduce((sum, item) => sum + item.price, 0);
 
-    const calcOtherExpenses = () => {
-      let sum = 0;
-      for (let index = 0; index < otherItems.length; index++) {
-        sum += otherItems[index].price;
-      }
-      return sum;
-    };
+    const calcOtherExpenses = () =>
+      otherItems.items.reduce((sum, item) => sum + item.price, 0);
 
-    const calcTransportExpenses = () => {
-      let sum = 0;
-      for (let index = 0; index < transportItems.length; index++) {
-        sum += transportItems[index].price;
-      }
-      return sum;
-    };
+    const calcTransportExpenses = () =>
+      transportItems.items.reduce((sum, item) => sum + item.price, 0);
 
-    const calcFoodExpenses = () => {
-      let sum = 0;
-      for (let index = 0; index < transportItems.length; index++) {
-        sum += transportItems[index].price;
-      }
-      return sum;
-    };
+    const calcFoodExpenses = () =>
+      foodItems.items.reduce((sum, item) => sum + item.price, 0);
 
     const calcTotalExpenses = () => {
       const result =
@@ -86,7 +59,8 @@ const newCard = asyncHandler(async (req, res) => {
     };
 
     const calcTotalSavings = () => {
-      return totalIncome - calcTotalExpenses();
+      const total = totalIncome - calcTotalExpenses();
+      return Number(total.toFixed(2));
     };
 
     const cardObject = {
@@ -129,21 +103,47 @@ const newCard = asyncHandler(async (req, res) => {
 
 const getCard = asyncHandler(async (req, res) => {
   try {
-    const { userId, cardId } = req.body;
+    const { userid, cardid } = req.params;
 
-    if (!userId || !cardId) {
-      return res.status(404).json({ error: "userId and cardId are required" });
+    console.log("userid:", userid, "cardid:", cardid);
+
+    if (!userid || !cardid) {
+      return res.status(404).json({ error: "userId and cardid are required" });
     }
 
-    const card = await MonthCard.findById(cardId);
-
-    if (card.user.toString() === userId) {
-      res.status(200).json(card);
-    } else {
-      res.status(400).json({ error: "access denied" });
+    const card = await MonthCard.findById(cardid);
+    if (!card) {
+      return res.status(404).json({ error: "Card not found" });
     }
+    console.log("Found card:", card);
+
+    return res.status(200).json(card);
   } catch (error) {
     console.error("Error in getCard:", error);
+    return res
+      .status(500)
+      .json({ error: "Internal server error", details: error.message });
+  }
+});
+
+const getLastCard = asyncHandler(async (req, res) => {
+  try {
+    const { userid } = req.params;
+
+    const user = await User.findById(userid).populate("cards");
+
+    if (!userid || !user) {
+      return res.status(404).json({ error: "access denied" });
+    }
+
+    if (user.cards.length === 0) {
+      console.log("No cards found for this user.");
+    } else {
+      const latestCard = user.cards[user.cards.length - 1];
+      return res.status(200).json(latestCard);
+    }
+  } catch (error) {
+    console.error("Error:", error);
     return res
       .status(500)
       .json({ error: "Internal server error", details: error.message });
@@ -185,7 +185,7 @@ const updateCard = asyncHandler(async (req, res) => {
   try {
     const {
       userId,
-      cardId,
+      cardid,
       year,
       month,
       totalExpenses,
@@ -204,17 +204,17 @@ const updateCard = asyncHandler(async (req, res) => {
       foodExpenses,
     } = req.body;
 
-    if (!userId || !cardId) {
-      return res.status(404).json({ error: "userId and cardId are required" });
+    if (!userId || !cardid) {
+      return res.status(404).json({ error: "userId and cardid are required" });
     }
 
     const user = await User.findById(userId);
-    const card = await MonthCard.findById(cardId);
+    const card = await MonthCard.findById(cardid);
 
     if (
       !user ||
       !card ||
-      //!user.cards.includes(cardId) ||
+      //!user.cards.includes(cardid) ||
       card.user.toString() !== userId
     ) {
       return res.status(400).json({ message: "User or card not found" });
@@ -326,7 +326,10 @@ const updateCard = asyncHandler(async (req, res) => {
   }
 });
 
-//return the default items stored by the user
-const setUpInitialCard = asyncHandler(async (req, res) => {});
-
-module.exports = { newCard, updateCard, getCard, getLastFourCards };
+module.exports = {
+  newCard,
+  updateCard,
+  getCard,
+  getLastCard,
+  getLastFourCards,
+};

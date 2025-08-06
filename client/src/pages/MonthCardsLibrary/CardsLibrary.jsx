@@ -31,23 +31,6 @@ const CardsLibrary = () => {
     if (currentPage > 1) setCurrentPage(currentPage - 1);
   };
 
-  console.log(cards, token);
-
-  const testCardsUI = cards.map((item) => (
-    <div className="col">
-      <div className="card">
-        <div className="card-body" key={item.id} data-testid={item.id}>
-          <h5 className="card-title">item</h5>
-          <p className="card-text">
-            You have spent {item.foodExpenses} {currency} in groceries,{' '}
-            {item.subscriptionExpenses} {currency} in subscriptions,{' '}
-            {item.transportExpenses} {currency} in transport,{' '}
-            {item.otherExpenses} {currency} and in misc!
-          </p>
-        </div>
-      </div>
-    </div>
-  ));
 
   useEffect(() => {
     setIsLoading(true);
@@ -86,7 +69,23 @@ const CardsLibrary = () => {
         className="row row-cols-1 row-cols-md-2 g-4 justify-content-around align-items-center"
       >
         {isLoading && <div>Loading...</div>}
-        {!isLoading && cards && testCardsUI}
+        {!isLoading &&
+          cards &&
+          cards.map((item) => (
+            <div className="col" key={item.id}>
+              <div className="card">
+                <div className="card-body" data-testid={item.id}>
+                  <h5 className="card-title">item</h5>
+                  <p className="card-text">
+                    You have spent {item.foodExpenses} {currency} in groceries,{' '}
+                    {item.subscriptionExpenses} {currency} in subscriptions,{' '}
+                    {item.transportExpenses} {currency} in transport,{' '}
+                    {item.otherExpenses} {currency} and in misc!
+                  </p>
+                </div>
+              </div>
+            </div>
+          ))}
       </div>
       <div style={{ marginTop: '1rem' }}>
         <button onClick={prevPage} disabled={currentPage === 1}>
