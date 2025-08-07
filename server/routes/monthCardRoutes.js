@@ -8,7 +8,7 @@ router.route("/cards/recent").get(authJwt.verifyToken, monthCardControllers.getL
 router.route("/:userid/cards/last-card").get(authJwt.verifyToken, monthCardControllers.getLastCard);
 router.route("/:userid/:cardid").get(authJwt.verifyToken, monthCardControllers.getCard);
 
-router.route("/update/:cardId").patch(authJwt.verifyToken, monthCardControllers.updateCard);
+router.route("/update/:userid/:cardid").patch(authJwt.verifyToken, monthCardControllers.updateCard);
 
 
 module.exports = router;

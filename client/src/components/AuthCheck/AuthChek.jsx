@@ -8,16 +8,18 @@ const AuthCheck = ({ children }) => {
 
   useEffect(() => {
     if (!token) {
-      console.log('🔑 AuthCheck: no token in Redux');
+      console.log('AuthCheck: no token in Redux');
 
       if (import.meta.env.MODE === 'development') {
-        console.log('🧪 Dev mode: Setting mocked token');
-        dispatch(setLogin({
-          token: 'mocked-jwt-token',
-          user: { name: 'Alicia Dev', email: 'dev@example.com' },
-          id: 'dev-user-id',
-          avatar: '/assets/Anya.png',
-        }));
+        console.log(' Dev mode: Setting mocked token');
+        dispatch(
+          setLogin({
+            token: 'mocked-jwt-token',
+            user: { name: 'Alicia Dev', email: 'dev@example.com' },
+            id: 'dev-user-id',
+            avatar: '/assets/Anya.png',
+          })
+        );
       }
     }
   }, [token, dispatch]);

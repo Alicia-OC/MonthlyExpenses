@@ -57,11 +57,9 @@ const signIn = asyncHandler(async (req, res) => {
 
     const token = jwt.sign({ id: user._id }, process.env.JWT_SECRET, {
       algorithm: "HS256",
-      expiresIn: "10h",
+      expiresIn: "24h",
     });
     console.log(token);
-    delete user.password; // make sure the frontend doesn't receive the pw back
-
     const userWithoutPassword = user.toJSON();
     delete userWithoutPassword.password;
     res.status(200).json({ user: userWithoutPassword, token });
