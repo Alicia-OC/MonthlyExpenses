@@ -1,7 +1,7 @@
 import { Outlet } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
-import { useState, useEffect } from 'react';
+import { useEffect } from 'react';
 import isTokenExpired from '../../utils/auth';
 import { setLogout } from '../../state/authSlice';
 

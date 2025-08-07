@@ -11,7 +11,6 @@ const monthCardSchema = new mongoose.Schema(
     month: { type: Number, required: true },
     totalExpenses: { type: Number, required: true, default: 0 },
     totalIncome: { type: Number, required: true, default: 0 },
-
     totalSavings: { type: Number, required: true, default: 0 },
     fixedItems: {
       name: {
@@ -52,11 +51,7 @@ const monthCardSchema = new mongoose.Schema(
         {
           description: { type: String, required: true },
           price: { type: Number, required: true },
-          category: {
-            type: mongoose.Schema.Types.ObjectId,
-            ref: "Category", //reference to the Category model
-            required: true,
-          },
+
           date: { type: Date, default: Date.now },
         },
       ],
@@ -73,11 +68,7 @@ const monthCardSchema = new mongoose.Schema(
         {
           description: { type: String, required: true },
           price: { type: Number, required: true },
-          category: {
-            type: mongoose.Schema.Types.ObjectId,
-            ref: "Category",
-            required: true,
-          },
+
           date: { type: Date, default: Date.now },
         },
       ],
@@ -94,11 +85,7 @@ const monthCardSchema = new mongoose.Schema(
         {
           description: { type: String, required: true },
           price: { type: Number, required: true },
-          category: {
-            type: mongoose.Schema.Types.ObjectId,
-            ref: "Category",
-            required: true,
-          },
+
           date: { type: Date, default: Date.now },
         },
       ],

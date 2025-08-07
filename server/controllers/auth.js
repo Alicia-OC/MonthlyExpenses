@@ -59,7 +59,7 @@ const signIn = asyncHandler(async (req, res) => {
       algorithm: "HS256",
       expiresIn: "24h",
     });
-  console.log(token)
+    console.log(token);
     const userWithoutPassword = user.toJSON();
     delete userWithoutPassword.password;
     res.status(200).json({ user: userWithoutPassword, token });

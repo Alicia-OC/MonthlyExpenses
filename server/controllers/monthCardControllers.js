@@ -184,91 +184,66 @@ const getLastFourCards = asyncHandler(async (req, res) => {
 const updateCard = asyncHandler(async (req, res) => {
   try {
     const {
-      userId,
-      cardid,
       year,
       month,
-      totalExpenses,
-      totalIncome,
-      totalSavings,
       fixedItems,
       subscriptionItems,
       otherItems,
       transportItems,
       foodItems,
-
-      fixedExpenses,
-      subscriptionExpenses,
-      otherExpenses,
-      transportExpenses,
-      foodExpenses,
     } = req.body;
 
-    if (!userId || !cardid) {
+    const { userid, cardid } = req.params;
+
+    if (!cardid) {
+      console.log({ error: "userId and cardid are required" });
       return res.status(404).json({ error: "userId and cardid are required" });
     }
-
-    const user = await User.findById(userId);
+    const user = await User.findById(userid);
     const card = await MonthCard.findById(cardid);
 
-    if (
-      !user ||
-      !card ||
-      //!user.cards.includes(cardid) ||
-      card.user.toString() !== userId
-    ) {
+    if (!user || !card || card.user.toString() !== userid) {
       return res.status(400).json({ message: "User or card not found" });
     }
 
     //calculations
 
     const calcFixedExpenses = () => {
-      let items = card.fixedItems;
-      let sum = 0;
-      for (let index = 0; index < items.length; index++) {
-        sum += items[index].price;
+      if (!fixedItems || !Array.isArray(fixedItems)) {
+        return 0;
       }
-      return sum;
+      return fixedItems.reduce((sum, item) => sum + (item.price || 0), 0);
     };
 
     const calcSubscriptionExpenses = () => {
-      let items = card.subscriptionItems;
-      let sum = 0;
-      for (let index = 0; index < items.length; index++) {
-        sum += items[index].price;
+      if (!subscriptionItems || !Array.isArray(subscriptionItems)) {
+        return 0;
       }
-      return sum;
+      return subscriptionItems.reduce(
+        (sum, item) => sum + (item.price || 0),
+        0
+      );
     };
 
     const calcOtherExpenses = () => {
-      let items = card.otherItems;
-
-      let sum = 0;
-
-      for (let index = 0; index < items.length; index++) {
-        sum += items[index].price;
+      if (!otherItems || !Array.isArray(otherItems)) {
+        return 0;
       }
-      return sum;
+      return otherItems.reduce((sum, item) => sum + (item.price || 0), 0);
     };
 
     const calcTransportExpenses = () => {
-      let items = card.transportItems;
-
-      let sum = 0;
-      for (let index = 0; index < items.length; index++) {
-        sum += items[index].price;
+      if (!transportItems || !Array.isArray(transportItems)) {
+        return 0;
       }
-      return sum;
+      return transportItems.reduce((sum, item) => sum + (item.price || 0), 0);
     };
 
     const calcFoodExpenses = () => {
-      let items = card.foodItems;
-
-      let sum = 0;
-      for (let index = 0; index < items.length; index++) {
-        sum += items[index].price;
+      if (!foodItems || !Array.isArray(foodItems)) {
+        return 0;
       }
-      return sum;
+      return foodItems.reduce((sum, item) => sum + (item.price || 0), 0);
     };
 
     // Update the fields
@@ -276,24 +251,26 @@ const updateCard = asyncHandler(async (req, res) => {
     if (month) card.month = month;
 
     // Replace arrays if new data is provided & recalculate expenses
+
     if (fixedItems) {
-      card.fixedItems = fixedItems;
+      card.fixedItems.items = fixedItems;
       card.fixedExpenses = calcFixedExpenses();
     }
+
     if (subscriptionItems) {
-      card.subscriptionItems = subscriptionItems;
+      card.subscriptionItems.items = subscriptionItems;
       card.subscriptionExpenses = calcSubscriptionExpenses();
     }
     if (otherItems) {
-      card.otherItems = otherItems;
+      card.otherItems.items = otherItems;
       card.otherExpenses = calcOtherExpenses();
     }
     if (transportItems) {
-      card.transportItems = transportItems;
+      card.transportItems.items = transportItems;
       card.transportExpenses = calcTransportExpenses();
     }
     if (foodItems) {
-      card.foodItems = foodItems;
+      card.foodItems.items = foodItems;
       card.foodExpenses = calcFoodExpenses();
     }
 
@@ -310,13 +287,16 @@ const updateCard = asyncHandler(async (req, res) => {
     card.totalExpenses = calcTotalExpenses();
 
     const calcTotalSavings = () => {
-      return card.totalIncome - calcTotalExpenses();
+      const total = card.totalIncome - calcTotalExpenses();
+      return Number(total.toFixed(2));
     };
 
     card.totalSavings = calcTotalSavings();
-
     const updatedCard = await card.save();
+
+
     return res.status(200).json(updatedCard);
+
   } catch (error) {
     console.error("Error in updateCard:", error);
     return res.status(500).json({
