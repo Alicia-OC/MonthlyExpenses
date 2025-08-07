@@ -56,6 +56,8 @@ const UserProfile = () => {
       setUserSavings(user.dataByYear[0].savings || 'loading');
       setUserIncome(user.dataByYear[0].income || 'loading');
     }
+
+    
   }, [user]);
 
   const handleProfileEditingMode = () => {
@@ -223,6 +225,7 @@ const UserProfile = () => {
   return (
     <>
       <Container className="">
+        {/**modal div */}
         <div
           className="modal fade"
           id="saveAlertModal"

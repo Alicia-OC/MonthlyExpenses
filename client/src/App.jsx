@@ -1,5 +1,4 @@
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
-import { useState } from 'react';
 import { useSelector } from 'react-redux';
 
 import './App.css';
@@ -19,6 +18,7 @@ import CardsLibrary from './pages/MonthCardsLibrary/CardsLibrary';
 import About from './pages/About/About';
 
 function App() {
+
   const isAuth = Boolean(useSelector((state) => state.token));
 
   return (
