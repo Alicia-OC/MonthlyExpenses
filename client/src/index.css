@@ -1,9 +1,17 @@
+@import url('https://fonts.googleapis.com/css2?family=Kalam:wght@300;400;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Kalam:wght@300;400;700&family=Poiret+One&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Kalam:wght@300;400;700&family=Nunito:ital,wght@0,200..1000;1,200..1000&family=Poiret+One&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Kalam:wght@300;400;700&family=Nunito:ital,wght@0,200..1000;1,200..1000&family=Poiret+One&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+
+
+
 :root {
   --pink-theme_white: #f6f6f6;
   --pink-theme_main: #ffc7c7;
   --pink-theme_secondary: #ffe2e2;
   --pink-theme_font: #aaaaaa;
   --pink-theme_h5: #EA86B6;
+  --pink-theme_blue: #A7D3F2;
 
   font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
   line-height: 1.5;
@@ -17,6 +25,10 @@
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+
+  --font-clean: "Poiret One", sans-serif;
+  --font-handwritten: 'Kalam', cursive;
+  --font-numbers: "Poppins", sans-serif;
 }
 
 a {
@@ -39,6 +51,14 @@ body {
 h1 {
   font-size: 3.2em;
   line-height: 1.1;
+  font-family: var(--font-clean);
+  padding: 1rem;
+}
+
+.title-div {
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 button {
@@ -50,14 +70,23 @@ button {
   font-family: inherit;
   background-color: #1a1a1a;
   cursor: pointer;
-  transition: border-color 0.25s;
+  transition: transform 0.3s ease-in-out;
+
 }
 
 
-button:focus,
-button:focus-visible {
-  outline: 4px auto -webkit-focus-ring-color;
+.add-new-card-btn {
+  background-color: #1a1a1a;
+ size: auto;
+
 }
+
+.add-new-card-btn:hover {
+  background-color: var(--pink-theme_h5);
+  transform: scale(1.05);
+  transition: transform 0.3s ease-in-out;
+}
+
 
 input {
   color-scheme: light;
@@ -142,20 +171,23 @@ input {
   color: red;
 }
 
-.widget-card-link {
+.card-go-to-title {
   color: black;
   background-color: transparent;
   font-size: 1.8em;
   cursor: pointer;
   transition: color 0.3s ease, font-size 0.3s ease;
   text-decoration: none;
+  transform: scale(1.05);
 
 }
 
-.widget-card-link:hover {
+.card-go-to-title:hover {
   color: var(--pink-theme_main);
   font-size: 2em;
   text-decoration: none;
+
+
 }
 
 .see-all-link {
@@ -192,4 +224,9 @@ input {
 
 .see-all-link {
   color: var(--pink-theme_h5);
+}
+
+.card-go-to-title {
+  text-decoration: none;
+  color: black;
 }

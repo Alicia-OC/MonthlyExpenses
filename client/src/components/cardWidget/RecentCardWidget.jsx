@@ -68,10 +68,10 @@ const RecentCardWidget = () => {
                 <div key={card.id} className="col mb-2">
                   <p id={card.id}>
                     <a
-                      className="widget-card-link"
+                      className="card-go-to-title"
                       href={`/${userId}/${card.id}`}
                     >
-                      {months[card.month] || `Card ${index + 1}`}
+                      {months[card.month - 1] || `Card ${index + 1}`}
                     </a>
                   </p>
                 </div>
@@ -82,7 +82,7 @@ const RecentCardWidget = () => {
                 <div key={card.id} className="col mb-2">
                   <p id={card.id}>
                     <a
-                      className="widget-card-link"
+                      className="card-go-to-title"
                       href={`/${userId}/${card.id}`}
                     >
                       {months[card.month] || `Card ${index + 1}`}

@@ -1,6 +1,21 @@
-const GetMonth = () => {
-    const month = new Date().toLocaleString('en-US', { month: 'long' });
-    const monthEdited = month.charAt(0).toUpperCase() + month.slice(1);
-    return <span>{monthEdited}</span>;
-}
-export default GetMonth
+const GetMonth = (props) => {
+  const cardMonth = props.cardMonth;
+
+  const months = [
+    'January',
+    'February',
+    'March',
+    'April',
+    'May',
+    'June',
+    'July',
+    'August',
+    'September',
+    'October',
+    'November',
+    'December',
+  ];
+
+  return <span>{months[cardMonth - 1]}</span>;
+};
+export default GetMonth;

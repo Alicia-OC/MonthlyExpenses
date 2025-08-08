@@ -34,7 +34,7 @@ const ExpenseInputFields = ({ onAdd, blockName }) => {
 
   return (
     <div>
-      <span className="input-wrapper">
+      <span className="input-wrapper new-item">
         <div
           className="stacked-inputs flex-grow-1"
           style={{ maxWidth: '400px' }}
