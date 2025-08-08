@@ -89,18 +89,19 @@
   margin-bottom: 0;
 }
 
-.input-wrapper button {
+.input-wrapper.new-item button {
   background: var(--pink-theme_h5);
   color: white;
   border: none;
-  padding: 0 0.75rem;
   border-radius: 4px;
   cursor: pointer;
+  font-size: 9px;
 }
 
-.input-wrapper button:hover {
-  background: var(--pink-theme_font);
-  transform: scale(1.1);
+.input-wrapper.new-item button:hover {
+  background: var(--pink-theme_blue);
+  transform: scale(1.05);
+  transition: transform 0.3s ease-in-out;
 
 }
 
@@ -109,16 +110,16 @@
   border: none;
   border-radius: 4px;
   cursor: pointer;
-  font-size: 11px;
+  font-size: 9px;
   transition: all 0.2s ease;
 
 }
 
 .delete-list-item-btn:hover {
   background-color: var(--pink-theme_h5);
-  transform: scale(1.1);
   color: white;
-
+  transform: scale(1.05);
+  transition: transform 0.3s ease-in-out;
 }
 
 .delete-list-item-btn:active {

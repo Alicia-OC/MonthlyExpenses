@@ -19,8 +19,14 @@ const Home = () => {
   if (logged) {
     return (
       <>
-        <h1>Your monthly expenses at glance!</h1>{' '}
-        <button onClick={(e) =>addNew()}>Add new</button>
+        <div className='title-div'>
+          {' '}
+          <h1>Quick Peek, Smart Spend! </h1>{' '}
+          <button className="add-new-card-btn" onClick={(e) => addNew()}>
+            Add new
+          </button>
+        </div>
+
         <EditingCard />
       </>
     );

@@ -20,7 +20,6 @@ const EditingCard = () => {
   const [expenseBlocks, setExpenseBlocks] = useState([]);
   const [card, setCard] = useState();
   const [isLoading, setIsLoading] = useState(false);
-  const [savings, setSavings] = useState();
 
   const getCard = async () => {
     setIsLoading(true);
@@ -56,7 +55,6 @@ const EditingCard = () => {
         },
         { name: card.foodItems.name, items: card.foodItems.items },
       ]);
-      setSavings(card.totalSavings);
     }
   }, [card]);
 
@@ -70,7 +68,6 @@ const EditingCard = () => {
 
     try {
       const updateData = {};
-
       updatedBlocks.forEach((block, index) => {
         switch (block.name) {
           case 'The Non-negotiables':
@@ -175,7 +172,7 @@ const EditingCard = () => {
       <div className="card h-100">
         <div className="savings-div p-4 text-black bg-body-tertiary">
           <h2>
-            <GetMonth />
+            <GetMonth cardMonth={card.month} />
           </h2>
           <ExpensesSummary
             totalExpenses={card.totalExpenses}

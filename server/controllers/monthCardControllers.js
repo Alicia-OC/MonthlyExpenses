@@ -180,6 +180,37 @@ const getLastFourCards = asyncHandler(async (req, res) => {
     res.status(500).json({ error: "Internal server error" });
   }
 });
+
+const getAllCards = asyncHandler(async (req, res) => {
+  try {
+    const { userid } = req.params;
+
+    const user = await User.findById(userid).populate({
+      path: "cards",
+      select:
+        "id month foodExpenses subscriptionExpenses transportExpenses otherExpenses",
+    });
+
+    if (!user) {
+      return res.status(404).json({ error: "User not found" });
+    }
+
+    const result = user.cards.map((card) => ({
+      id: card._id,
+      month: card.month,
+      foodExpenses: card.foodExpenses,
+      subscriptionExpenses: card.subscriptionExpenses,
+      transportExpenses: card.transportExpenses,
+      otherExpenses: card.otherExpenses,
+    }));
+
+    res.status(200).json(result);
+  } catch (error) {
+    console.error("Error getting the cards:", error);
+    res.status(500).json({ error: "Internal server error" });
+  }
+});
+
 //add, delete or update items
 const updateCard = asyncHandler(async (req, res) => {
   try {
@@ -294,9 +325,7 @@ const updateCard = asyncHandler(async (req, res) => {
     card.totalSavings = calcTotalSavings();
     const updatedCard = await card.save();
 
-
     return res.status(200).json(updatedCard);
-
   } catch (error) {
     console.error("Error in updateCard:", error);
     return res.status(500).json({
@@ -311,5 +340,6 @@ module.exports = {
   updateCard,
   getCard,
   getLastCard,
+  getAllCards,
   getLastFourCards,
 };

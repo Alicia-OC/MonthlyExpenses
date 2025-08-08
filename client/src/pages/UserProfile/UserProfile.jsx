@@ -32,7 +32,6 @@ const UserProfile = () => {
 
   const [errMsgPassword, setErrMsgPassword] = useState(null);
 
-
   const months = [
     'January',
     'February',
@@ -49,16 +48,6 @@ const UserProfile = () => {
   ];
 
   const currentMonth = new Date().getUTCMonth();
-
-  useEffect(() => {
-    if (user?.dataByYear?.[0]) {
-      setUserExpenses(user.dataByYear[0].expenses || 'loading');
-      setUserSavings(user.dataByYear[0].savings || 'loading');
-      setUserIncome(user.dataByYear[0].income || 'loading');
-    }
-
-    
-  }, [user]);
 
   const handleProfileEditingMode = () => {
     setProfileEditMode(!profileEditMode);
