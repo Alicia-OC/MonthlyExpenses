@@ -38,98 +38,66 @@ const userSchema = new mongoose.Schema(
       },
     ],
     defaultItems: {
-      type: [
-        {
-          fixedItems: {
-            items: [
-              {
-                description: { type: String, required: true },
-                price: { type: Number, required: true },
-                date: { type: Date, default: Date.now },
-              },
-            ],
+      fixedItems: {
+        type: [
+          {
+            description: { type: String, required: true },
+            price: { type: Number, required: true },
+            date: { type: Date, default: Date.now },
           },
-        },
-        {
-          subscriptionItems: {
-            items: [
-              {
-                description: { type: String, required: true },
-                price: { type: Number, required: true },
-                date: { type: Date, default: Date.now },
-              },
-            ],
+        ],
+        default: [
+          { description: "Rent + bills", price: 660 },
+          { description: "Phone", price: 15 },
+        ],
+      },
+      subscriptionItems: {
+        type: [
+          {
+            description: { type: String, required: true },
+            price: { type: Number, required: true },
+            date: { type: Date, default: Date.now },
           },
-        },
-        {
-          otherItems: {
-            items: [
-              {
-                description: { type: String, required: true },
-                price: { type: Number, required: true },
-                date: { type: Date, default: Date.now },
-              },
-            ],
+        ],
+        default: [
+          { description: "HBO", price: 4.99 },
+          { description: "Amazon", price: 1.99 },
+        ],
+      },
+      otherItems: {
+        type: [
+          {
+            description: { type: String, required: true },
+            price: { type: Number, required: true },
+            date: { type: Date, default: Date.now },
           },
-        },
-        {
-          transportItems: {
-            items: [
-              {
-                description: { type: String, required: true },
-                price: { type: Number, required: true },
-                date: { type: Date, default: Date.now },
-              },
-            ],
+        ],
+        default: [{ description: "Entertainment", price: 100 }],
+      },
+      transportItems: {
+        type: [
+          {
+            description: { type: String, required: true },
+            price: { type: Number, required: true },
+            date: { type: Date, default: Date.now },
           },
-        },
-        {
-          foodItems: {
-            items: [
-              {
-                description: { type: String, required: true }, // Changed from false to true
-                price: { type: Number, required: true }, // Changed from false to true
-                date: { type: Date, default: Date.now },
-              },
-            ],
+        ],
+        default: [{ description: "Cabify", price: 10 }],
+      },
+      foodItems: {
+        type: [
+          {
+            description: { type: String, required: true },
+            price: { type: Number, required: true },
+            date: { type: Date, default: Date.now },
           },
-        },
-        { totalIncome: { type: Number, required: true } },
-      ],
-      default: [
-        {
-          fixedItems: {
-            items: [
-              { description: "Rent + bills", price: 660 },
-              { description: "Phone", price: 15 },
-            ],
-          },
-        },
-        {
-          subscriptionItems: {
-            items: [
-              { description: "HBO", price: 4.99 },
-              { description: "Amazon", price: 1.99 },
-            ],
-          },
-        },
-        {
-          otherItems: {
-            items: [{ description: "Entertainment", price: 100 }],
-          },
-        },
-        {
-          transportItems: {
-            items: [{ description: "Cabify", price: 10 }],
-          },
-        },
-        {
-          foodItems: {
-            items: [{ description: "Groceries", price: 300 }],
-          },
-        },
-        { totalIncome: 1600 },
-      ],
+        ],
+        default: [{ description: "Groceries", price: 300 }],
+      },
+      totalIncome: {
+        type: Number,
+        default: 1600,
+      },
     },
   },
   { timestamps: true }
