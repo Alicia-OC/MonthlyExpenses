@@ -5,6 +5,9 @@ const authJwt = require("../middlewares/authJwt");
 
 router.route("/new").post(authJwt.verifyToken, monthCardControllers.newCard);
 
+router.route("/new/:userid").post(authJwt.verifyToken, monthCardControllers.newAutomaticCard);
+
+
 router.route("/cards/recent").get(authJwt.verifyToken, monthCardControllers.getLastFourCards);
 
 router.route("/:userid/cards").get(authJwt.verifyToken, monthCardControllers.getAllCards);

@@ -101,6 +101,117 @@ const newCard = asyncHandler(async (req, res) => {
   }
 });
 
+const newAutomaticCard = asyncHandler(async (req, res) => {
+  try {
+    const { year, month } = req.body;
+    const { userid } = req.params;
+    console.log("newautocard", userid);
+
+    const user = await User.findById(userid);
+
+    if (!user) {
+      return res.status(404).json({ message: "User not found" });
+    }
+
+    const existingCard = await MonthCard.findOne({ user: userid, year, month });
+
+    if (existingCard) {
+      return res
+        .status(404)
+        .json({ message: "You already have a card for this month" });
+    }
+
+    const hasDefaultItems = user.defaultItems && user.defaultItems.length > 0;
+
+    const fixedItems = user.defaultItems?.[0]?.fixedItems?.items || [];
+    const subscriptionItems =
+      user.defaultItems?.[1]?.subscriptionItems?.items || [];
+    const otherItems = user.defaultItems?.[2]?.otherItems?.items || [];
+    const transportItems = user.defaultItems?.[3]?.transportItems?.items || [];
+    const foodItems = user.defaultItems?.[4]?.foodItems?.items || [];
+    const totalIncome = user.defaultItems?.[5]?.totalIncome || 0;
+
+    //CALCULATIONS//
+    const calcFixedExpenses = () =>
+      fixedItems.reduce((sum, item) => sum + (item.price || 0), 0);
+
+    const calcSubscriptionExpenses = () =>
+      subscriptionItems.reduce((sum, item) => sum + (item.price || 0), 0);
+
+    const calcOtherExpenses = () =>
+      otherItems.reduce((sum, item) => sum + (item.price || 0), 0);
+
+    const calcTransportExpenses = () =>
+      transportItems.reduce((sum, item) => sum + (item.price || 0), 0);
+
+    const calcFoodExpenses = () =>
+      foodItems.reduce((sum, item) => sum + (item.price || 0), 0);
+
+    const calcTotalExpenses = () => {
+      const result =
+        calcFixedExpenses() +
+        calcSubscriptionExpenses() +
+        calcOtherExpenses() +
+        calcTransportExpenses() +
+        calcFoodExpenses();
+      return result;
+    };
+
+    const calcTotalSavings = () => {
+      const total = totalIncome - calcTotalExpenses();
+      return Number(total.toFixed(2));
+    };
+
+    // Debug logs
+    console.log("=== DEBUGGING CALCULATIONS ===");
+    console.log("Fixed expenses:", calcFixedExpenses());
+    console.log("Subscription expenses:", calcSubscriptionExpenses());
+    console.log("Other expenses:", calcOtherExpenses());
+    console.log("Transport expenses:", calcTransportExpenses());
+    console.log("Food expenses:", calcFoodExpenses());
+    console.log("Total expenses:", calcTotalExpenses());
+    console.log("Total income:", totalIncome);
+    console.log("Calculated savings:", calcTotalSavings());
+
+    const cardObject = {
+      user: userid,
+      year: year,
+      month: month,
+      totalExpenses: calcTotalExpenses(),
+      totalIncome: totalIncome,
+      totalSavings: calcTotalSavings(),
+
+      fixedItems: fixedItems,
+      subscriptionItems: subscriptionItems,
+      otherItems: otherItems,
+      transportItems: transportItems,
+      foodItems: foodItems,
+
+      fixedExpenses: calcFixedExpenses(),
+      subscriptionExpenses: calcSubscriptionExpenses(),
+      otherExpenses: calcOtherExpenses(),
+      transportExpenses: calcTransportExpenses(),
+      foodExpenses: calcFoodExpenses(),
+    };
+
+    const newCard = await MonthCard.create(cardObject);
+
+    if (newCard) {
+      user.cards.push(newCard._id);
+      await user.save();
+
+      res.status(200).json({
+        message: "Month card created succesfully with id " + newCard._id,
+      });
+    } else {
+      console.log("There has been an error, please try again");
+    }
+  } catch (error) {
+    console.error("Error in newAutomaticCard:", error);
+    res.status(500).json({ error: error.message });
+  }
+});
+
 const getCard = asyncHandler(async (req, res) => {
   try {
     const { userid, cardid } = req.params;
@@ -342,4 +453,5 @@ module.exports = {
   getLastCard,
   getAllCards,
   getLastFourCards,
+  newAutomaticCard,
 };
