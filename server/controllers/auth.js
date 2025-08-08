@@ -26,7 +26,7 @@ const signUp = asyncHandler(async (req, res) => {
     };
 
     const newUser = await User.create(userObj);
-
+    console.log(newUser);
     if (newUser) {
       res.status(201).json({ message: "User created succesfully" });
     } else {
