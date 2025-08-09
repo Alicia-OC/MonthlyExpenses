@@ -26,6 +26,7 @@ function App() {
         {/* Landing/Home Route */}
 
         <Route index element={<Landing />} />
+        <Route path="/landing" element={<Landing />} />
 
         {/* Public Routes - No authentication required */}
         <Route path="/" element={<DashLayout auth={isAuth} />}>

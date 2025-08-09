@@ -43,7 +43,14 @@ const Home = () => {
         window.location.reload();
       }
     } catch (error) {
-      console.error('Error fetching card:', error);
+      if (res.status === 400) {
+        Swal.fire({
+          title: 'Sorry, only one card per month is allowed!',
+          width: 600,
+          padding: '3em',
+          color: '#F78FB3',
+        });
+      }
     } finally {
       setIsLoading(false);
     }
