@@ -123,14 +123,13 @@ const newAutomaticCard = asyncHandler(async (req, res) => {
 
     const hasDefaultItems = user.defaultItems && user.defaultItems.length > 0;
 
-    const fixedItems = user.defaultItems?.[0]?.fixedItems?.items || [];
-    const subscriptionItems =
-      user.defaultItems?.[1]?.subscriptionItems?.items || [];
-    const otherItems = user.defaultItems?.[2]?.otherItems?.items || [];
-    const transportItems = user.defaultItems?.[3]?.transportItems?.items || [];
-    const foodItems = user.defaultItems?.[4]?.foodItems?.items || [];
-    const totalIncome = user.defaultItems?.[5]?.totalIncome || 0;
-
+    const fixedItems = user.defaultItems?.fixedItems || [];
+    const subscriptionItems = user.defaultItems?.subscriptionItems || [];
+    const otherItems = user.defaultItems?.otherItems || [];
+    const transportItems = user.defaultItems?.transportItems || [];
+    const foodItems = user.defaultItems?.foodItems || [];
+    const totalIncome = user.defaultItems?.totalIncome || 0;
+    console.log(user.defaultItems);
     //CALCULATIONS//
     const calcFixedExpenses = () =>
       fixedItems.reduce((sum, item) => sum + (item.price || 0), 0);
@@ -181,11 +180,11 @@ const newAutomaticCard = asyncHandler(async (req, res) => {
       totalIncome: totalIncome,
       totalSavings: calcTotalSavings(),
 
-      fixedItems: fixedItems,
-      subscriptionItems: subscriptionItems,
-      otherItems: otherItems,
-      transportItems: transportItems,
-      foodItems: foodItems,
+      fixedItems: { items: fixedItems },
+      subscriptionItems: { items: subscriptionItems },
+      otherItems: { items: otherItems },
+      transportItems: { items: transportItems },
+      foodItems: { items: foodItems },
 
       fixedExpenses: calcFixedExpenses(),
       subscriptionExpenses: calcSubscriptionExpenses(),
@@ -195,6 +194,7 @@ const newAutomaticCard = asyncHandler(async (req, res) => {
     };
 
     const newCard = await MonthCard.create(cardObject);
+    console.log(cardObject);
 
     if (newCard) {
       user.cards.push(newCard._id);
