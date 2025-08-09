@@ -18,16 +18,20 @@ import CardsLibrary from './pages/MonthCardsLibrary/CardsLibrary';
 import About from './pages/About/About';
 
 function App() {
-
   const isAuth = Boolean(useSelector((state) => state.token));
 
   return (
     <Router>
       <Routes>
+        {/* Landing/Home Route */}
+
         <Route index element={<Landing />} />
+
+        {/* Public Routes - No authentication required */}
         <Route path="/" element={<DashLayout auth={isAuth} />}>
-          <Route path="*" element={<NoMatch />} />
           <Route path="/about" element={<About />} />
+          <Route path="/privacy" element={<NoMatch />} />
+
           {/**PROTECTED ROUTES */}
           <Route
             path="/signup"
@@ -93,14 +97,9 @@ function App() {
               </ProtectedRoute>
             }
           />
-          <Route
-            path="/privacy"
-            element={
-              <ProtectedRoute>
-                <NoMatch />
-              </ProtectedRoute>
-            }
-          />
+
+          {/* Catch all unmatched routes */}
+          <Route path="*" element={<NoMatch />} />
         </Route>
       </Routes>
     </Router>
