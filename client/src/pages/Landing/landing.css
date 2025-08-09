@@ -1,0 +1,11 @@
+* {
+    padding: 0;
+}
+
+.landig-container {
+
+    background-color: var(--pink-theme_main);
+    min-height: 90vh;
+    padding: 0;
+
+}

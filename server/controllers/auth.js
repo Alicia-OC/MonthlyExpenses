@@ -22,7 +22,7 @@ const signUp = asyncHandler(async (req, res) => {
       name: name,
       email: email,
       password: hashedPwd,
-      cards: ["67b379cc31d54e6b6a38479d"],
+      cards: ["6893b3e92355a32a9159a9a4"],
     };
 
     const newUser = await User.create(userObj);

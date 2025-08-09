@@ -21,7 +21,7 @@ const ProtectedRoute = ({ children }) => {
 
   //user not logged are redirected to /landing
   if (!isAuth && !visitingAuthPage) {
-    return <Navigate to="/landing" replace />;
+    return <Navigate to="/" replace />;
   }
 
   return children;
