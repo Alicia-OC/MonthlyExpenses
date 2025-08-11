@@ -275,10 +275,7 @@ const getLastFourCards = asyncHandler(async (req, res) => {
     const result = user.cards.map((card) => ({
       id: card._id,
       month: card.month,
-      foodExpenses: card.foodExpenses,
-      subscriptionExpenses: card.subscriptionExpenses,
-      transportExpenses: card.transportExpenses,
-      otherExpenses: card.otherExpenses,
+
     }));
 
     res.status(200).json(result);

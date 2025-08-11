@@ -1,15 +1,12 @@
 import { useState, useEffect } from 'react';
 import { useSelector } from 'react-redux';
-import { useNavigate } from 'react-router-dom';
 
 import Axios from 'axios';
 import EditingCard from '../EditingCard/EditingCard';
 import Swal from 'sweetalert2';
 
 const Home = () => {
-  const navigate = useNavigate();
 
-  const [count, setCount] = useState(0);
   const [isLoading, setIsLoading] = useState(false);
   const userid = useSelector((state) => state.userId);
   const token = useSelector((state) => state.token);
