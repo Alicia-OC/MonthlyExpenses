@@ -97,29 +97,34 @@ const MonthCard = () => {
                         card.otherItems,
                         card.transportItems,
                         card.foodItems,
-                      ].map((category) => (
-                        <div
-                          className="month-card-h5"
-                          key={`${category.name}-title`}
-                        >
-                          <h5>{category.name}</h5>
-                          {category.items.map((item, index) => (
-                            <div
-                              className="item mb-3 month-card-body multi-column"
-                              key={`${category.name}-${index}`}
-                            >
-                              <ul className="list-unstyled month-card-item">
-                                <li className="month-card-item-description">
-                                  {item.description}
-                                </li>
-                                <li className="month-card-item-money">
-                                  {item.price} {currency}
-                                </li>
-                              </ul>
-                            </div>
-                          ))}
-                        </div>
-                      ))}
+                      ]
+                        .filter(
+                          (category) =>
+                            category && Array.isArray(category.items)
+                        )
+                        .map((category) => (
+                          <div
+                            className="month-card-h5"
+                            key={`${category.name}-title`}
+                          >
+                            <h5>{category.name}</h5>
+                            {category.items?.map((item, index) => (
+                              <div
+                                className="item mb-3 month-card-body multi-column"
+                                key={`${category.name}-${index}`}
+                              >
+                                <ul className="list-unstyled month-card-item">
+                                  <li className="month-card-item-description">
+                                    {item.description}
+                                  </li>
+                                  <li className="month-card-item-money">
+                                    {item.price} {currency}
+                                  </li>
+                                </ul>
+                              </div>
+                            ))}
+                          </div>
+                        ))}
                     </>
                   )}
                 </div>

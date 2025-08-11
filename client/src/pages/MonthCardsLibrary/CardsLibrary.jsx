@@ -10,7 +10,7 @@ const CardsLibrary = () => {
   const backendLink = import.meta.env.VITE_APP_GETCARD;
   const user = useSelector((state) => state.user);
 
-  const userid = user._id;
+  const userid = user?._id;
   const token = useSelector((state) => state.token);
   const currency = useSelector((state) => state.currency);
 
@@ -94,7 +94,7 @@ const CardsLibrary = () => {
           currentCards.map((item) => (
             <div className="col" key={item.id}>
               <div className="card">
-                <div className="card-body" data-testid={item.id}>
+                <div className="card-body" data-testid={item.month}>
                   <a
                     className="card-go-to-title"
                     href={`/${userid}/${item.id}`}
