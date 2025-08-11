@@ -34,36 +34,41 @@ const ExpenseInputFields = ({ onAdd, blockName }) => {
 
   return (
     <div>
-      <span className="input-wrapper new-item">
-        <div
-          className="stacked-inputs flex-grow-1"
-          style={{ maxWidth: '400px' }}
-        >
-          <div className="form-floating w-">
-            <input
-              onChange={(e) => setnewItem(e.target.value)}
-              type="email"
-              id="new-expense-item-input"
-              className="form-control form-control-lg "
-            />
-            <label htmlFor="new-expense-item-input">{blockName}</label>
-          </div>
+      <form onSubmit={submitReq}>
+        {' '}
+        <span className="input-wrapper new-item">
+          <div
+            className="stacked-inputs flex-grow-1"
+            style={{ maxWidth: '400px' }}
+          >
+            <div className="form-floating w-">
+              <input
+                value={newItem}
+                onChange={(e) => setnewItem(e.target.value)}
+                type="text"
+                id="new-expense-item-input"
+                className="form-control form-control-lg "
+              />
+              <label htmlFor="new-expense-item-input">{blockName}</label>
+            </div>
 
-          <div className="form-floating">
-            <input
-              type="number"
-              min="0"
-              className="form-control form-control-lg line-input"
-              id="new-expense-price-input"
-              onChange={(e) => setNewItemPrice(e.target.value)}
-            />
-            <label htmlFor="new-expense-price-input">{currency}</label>
+            <div className="form-floating">
+              <input
+                value={newItemPrice}
+                type="number"
+                min="0"
+                className="form-control form-control-lg line-input"
+                id="new-expense-price-input"
+                onChange={(e) => setNewItemPrice(e.target.value)}
+              />
+              <label htmlFor="new-expense-price-input">{currency}</label>
+            </div>
           </div>
-        </div>
-        <button onClick={submitReq}>
-          <FontAwesomeIcon icon={faPlus} />
-        </button>
-      </span>
+          <button type="submit">
+            <FontAwesomeIcon icon={faPlus} />
+          </button>
+        </span>
+      </form>
     </div>
   );
 };

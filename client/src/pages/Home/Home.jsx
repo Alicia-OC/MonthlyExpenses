@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import { useSelector } from 'react-redux';
 
 import Axios from 'axios';
@@ -6,7 +6,6 @@ import EditingCard from '../EditingCard/EditingCard';
 import Swal from 'sweetalert2';
 
 const Home = () => {
-
   const [isLoading, setIsLoading] = useState(false);
   const userid = useSelector((state) => state.userId);
   const token = useSelector((state) => state.token);
@@ -15,10 +14,10 @@ const Home = () => {
   const currentYear = now.getFullYear();
   const currentMonth = now.getMonth() + 1;
 
-  //const dispatch = useDispatch();
   const backendLink = import.meta.env.VITE_APP_GETCARD;
 
   const logged = true;
+
   const addNew = async () => {
     setIsLoading(true);
 
@@ -40,7 +39,7 @@ const Home = () => {
         window.location.reload();
       }
     } catch (error) {
-      if (res.status === 400) {
+      if (error.response?.status === 404) {
         Swal.fire({
           title: 'Sorry, only one card per month is allowed!',
           width: 600,

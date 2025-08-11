@@ -6,7 +6,6 @@ import store from '../../../state/store';
 
 import RecentCardWidget from '../RecentCardWidget';
 
-import authReducer from '../../../state/authSlice';
 
 vi.mock('axios');
 
