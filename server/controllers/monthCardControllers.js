@@ -104,7 +104,6 @@ const newAutomaticCard = asyncHandler(async (req, res) => {
   try {
     const { year, month } = req.body;
     const { userid } = req.params;
-    console.log("newautocard", userid);
 
     const user = await User.findById(userid);
 
@@ -120,11 +119,11 @@ const newAutomaticCard = asyncHandler(async (req, res) => {
         .json({ message: "You already have a card for this month" });
     }
 
-    const fixedItems = user.defaultItems?.fixedItems || [];
-    const subscriptionItems = user.defaultItems?.subscriptionItems || [];
-    const otherItems = user.defaultItems?.otherItems || [];
-    const transportItems = user.defaultItems?.transportItems || [];
-    const foodItems = user.defaultItems?.foodItems || [];
+    const fixedItems = user.defaultItems?.fixedItems.items || [];
+    const subscriptionItems = user.defaultItems?.subscriptionItems.items || [];
+    const otherItems = user.defaultItems?.otherItems.items || [];
+    const transportItems = user.defaultItems?.transportItems.items || [];
+    const foodItems = user.defaultItems?.foodItems.items || [];
     const totalIncome = user.defaultItems?.totalIncome || 0;
 
     //CALCULATIONS//
@@ -219,6 +218,7 @@ const getCard = asyncHandler(async (req, res) => {
     }
 
     const card = await MonthCard.findById(cardid);
+
     if (!card) {
       return res.status(404).json({ error: "Card not found" });
     }
@@ -237,6 +237,7 @@ const getLastCard = asyncHandler(async (req, res) => {
   try {
     const { userid } = req.params;
 
+    //replace the cards field with the full card documents from that referenced collection.
     const user = await User.findById(userid).populate("cards");
 
     if (!userid || !user) {
