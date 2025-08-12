@@ -26,7 +26,8 @@ const userSchema = new mongoose.Schema(
           type: mongoose.Schema.Types.ObjectId,
           ref: "MonthCard",
         },
-      ]    },
+      ],
+    },
     dataByYear: [
       {
         year: { type: Number, required: true },
@@ -37,61 +38,92 @@ const userSchema = new mongoose.Schema(
       },
     ],
     defaultItems: {
+      
       fixedItems: {
-        type: [
-          {
-            description: { type: String, required: true },
-            price: { type: Number, required: true },
-            date: { type: Date, default: Date.now },
-          },
-        ],
-        default: [
-          { description: "Rent + bills", price: 660 },
-          { description: "Phone", price: 15 },
-        ],
+        name: {
+          type: String,
+          default: "Fixed Expenses",
+        },
+        items: {
+          type: [
+            {
+              description: { type: String, required: true },
+              price: { type: Number, required: true },
+              date: { type: Date, default: Date.now },
+            },
+          ],
+          default: [
+            { description: "Rent + bills", price: 660 },
+            { description: "Phone", price: 15 },
+          ],
+        },
       },
       subscriptionItems: {
-        type: [
-          {
-            description: { type: String, required: true },
-            price: { type: Number, required: true },
-            date: { type: Date, default: Date.now },
-          },
-        ],
-        default: [
-          { description: "HBO", price: 4.99 },
-          { description: "Amazon", price: 1.99 },
-        ],
+        name: {
+          type: String,
+          default: "Subscriptions",
+        },
+        items: {
+          type: [
+            {
+              description: { type: String, required: true },
+              price: { type: Number, required: true },
+              date: { type: Date, default: Date.now },
+            },
+          ],
+          default: [
+            { description: "HBO", price: 4.99 },
+            { description: "Amazon", price: 1.99 },
+          ],
+        },
       },
       otherItems: {
-        type: [
-          {
-            description: { type: String, required: true },
-            price: { type: Number, required: true },
-            date: { type: Date, default: Date.now },
-          },
-        ],
-        default: [{ description: "Entertainment", price: 100 }],
+        name: {
+          type: String,
+          default: "Other Expenses",
+        },
+        items: {
+          type: [
+            {
+              description: { type: String, required: true },
+              price: { type: Number, required: true },
+              date: { type: Date, default: Date.now },
+            },
+          ],
+          default: [{ description: "Entertainment", price: 100 }],
+        },
       },
       transportItems: {
-        type: [
-          {
-            description: { type: String, required: true },
-            price: { type: Number, required: true },
-            date: { type: Date, default: Date.now },
-          },
-        ],
-        default: [{ description: "Cabify", price: 10 }],
+        name: {
+          type: String,
+          default: "Out & About",
+        },
+        items: {
+          type: [
+            {
+              description: { type: String, required: true },
+              price: { type: Number, required: true },
+              date: { type: Date, default: Date.now },
+            },
+          ],
+          default: [{ description: "Cabify", price: 10 }],
+        },
       },
       foodItems: {
-        type: [
-          {
-            description: { type: String, required: true },
-            price: { type: Number, required: true },
-            date: { type: Date, default: Date.now },
-          },
-        ],
-        default: [{ description: "Groceries", price: 300 }],
+        name: {
+          type: String,
+          default: "Food & Dining",
+        },
+        items: {
+          type: [
+            {
+              description: { type: String, required: true },
+              price: { type: Number, required: true },
+              date: { type: Date, default: Date.now },
+            },
+          ],
+          default: [{ description: "Groceries", price: 300 }],
+        },
       },
       totalIncome: {
         type: Number,

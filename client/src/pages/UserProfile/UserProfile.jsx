@@ -1,4 +1,4 @@
-import axios from 'axios';
+import Axios from 'axios';
 import { useState } from 'react';
 import { useSelector } from 'react-redux';
 import { Modal } from 'bootstrap';
@@ -6,17 +6,22 @@ import { useEffect } from 'react';
 
 /** ICONS */
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faPenToSquare, faCircleInfo } from '@fortawesome/free-solid-svg-icons';
+import {
+  faPenToSquare,
+  faCircleInfo,
+  faMinus,
+} from '@fortawesome/free-solid-svg-icons';
 import { Container, Image } from 'react-bootstrap';
 
 import avatar from '../../assets/Anya.png';
 import RecentCardWidget from '../../components/cardWidget/RecentCardWidget';
 import ExpensesSummary from '../ExpensesSummary/ExpensesSummary';
+import ExpenseInputFields from '../../components/addExpenseInline/ExpenseInputFields';
 
 const UserProfile = () => {
   const user = useSelector((state) => state.user); //
   const token = useSelector((state) => state.token);
-  const id = useSelector((state) => state.userId);
+  const userid = useSelector((state) => state.userId);
   const currency = useSelector((state) => state.currency);
 
   const userAvatar = avatar || user?.avatar;
@@ -31,6 +36,10 @@ const UserProfile = () => {
   const [password2, setPassword2] = useState(null);
 
   const [errMsgPassword, setErrMsgPassword] = useState(null);
+  const [isLoading, setIsLoading] = useState(false);
+  const [defaultItems, setDefaultItems] = useState([]);
+  const [income, setIncome] = useState();
+  const backendLink = import.meta.env.VITE_APP_API_URL;
 
   const months = [
     'January',
@@ -47,14 +56,54 @@ const UserProfile = () => {
     'December',
   ];
 
+  const blocks = [
+    'The Non-negotiables',
+    'On Repeat',
+    'Little Life Things',
+    'Out & About',
+    'Bits & Bites',
+  ];
+
   const currentMonth = new Date().getUTCMonth();
 
   const handleProfileEditingMode = () => {
     setProfileEditMode(!profileEditMode);
   };
 
-  const handleDefaultItemsEditingMode = () => {
+  const handleDefaultItemsEditingMode = async () => {
     setDefaultItemsEditMode(!defaultItemsEditMode);
+
+    setIsLoading(true);
+    try {
+      const res = await Axios.get(
+        `${backendLink}/users/${userid}/defaultitems`,
+        {
+          headers: { Authorization: `Bearer ${token}` },
+        }
+      );
+      let itemsData = res.data;
+
+      setIncome(itemsData.totalIncome);
+      setDefaultItems([
+        { name: itemsData.fixedItems.name, items: itemsData.fixedItems.items },
+        {
+          name: itemsData.subscriptionItems.name,
+          items: itemsData.subscriptionItems.items,
+        },
+        { name: itemsData.otherItems.name, items: itemsData.otherItems.items },
+        {
+          name: itemsData.transportItems.name,
+          items: itemsData.transportItems.items,
+        },
+        { name: itemsData.foodItems.name, items: itemsData.foodItems.items },
+      ]);
+
+      console.log(res.data);
+    } catch (error) {
+      console.log(error);
+    } finally {
+      setIsLoading(false);
+    }
   };
 
   const validatePassword = (pw1, pw2) => {
@@ -71,6 +120,77 @@ const UserProfile = () => {
     return true;
   };
 
+  const handleAddItem = async (newItemAdded) => {
+    const updatedBlocks = defaultItems.map((block) =>
+      block.name === newItemAdded.category
+        ? { ...block, items: [...block.items, newItemAdded] }
+        : block
+    );
+    setDefaultItems(updatedBlocks);
+
+    try {
+      const updateData = {};
+      updatedBlocks.forEach((block, index) => {
+        switch (block.name) {
+          case 'The Non-negotiables':
+            updateData.fixedItems = block.items;
+            break;
+          case 'On Repeat':
+            updateData.subscriptionItems = block.items;
+            break;
+          case 'Little Life Things':
+            updateData.otherItems = block.items;
+            break;
+          case 'Out & About':
+            updateData.transportItems = block.items;
+            break;
+          case 'Bits & Bites':
+            updateData.foodItems = block.items;
+            break;
+        }
+      });
+    } catch (error) {
+      console.error('Error fetching default items:', error);
+    }
+  };
+  const handleDeleteItem = async (e, blockName, indexToDelete) => {
+    const updatedBlocks = defaultItems.map((block) =>
+      block.name === blockName
+        ? {
+            ...block,
+            items: block.items.filter((_, index) => index !== indexToDelete),
+          }
+        : block
+    );
+
+    setDefaultItems(updatedBlocks);
+
+    try {
+      const updateData = {};
+
+      updatedBlocks.forEach((block, index) => {
+        switch (block.name) {
+          case 'The Non-negotiables':
+            updateData.fixedItems = block.items;
+            break;
+          case 'On Repeat':
+            updateData.subscriptionItems = block.items;
+            break;
+          case 'Little Life Things':
+            updateData.otherItems = block.items;
+            break;
+          case 'Out & About':
+            updateData.transportItems = block.items;
+            break;
+          case 'Bits & Bites':
+            updateData.foodItems = block.items;
+            break;
+        }
+      });
+    } catch (error) {
+      console.error('Error fetching card:', error);
+    }
+  };
   const handleSave = async () => {
     if (!validatePassword(password, password2)) {
       return;
@@ -82,8 +202,8 @@ const UserProfile = () => {
     modal.show();
 
     try {
-      const response = await axios.patch(
-        `http://localhost:3000/users/${id}/update`,
+      const response = await Axios.patch(
+        `http://localhost:3000/users/${userid}/update`,
         {
           token: token,
           userId: id,
@@ -206,8 +326,51 @@ const UserProfile = () => {
           </div>
         </>
       );
-    } else if (defaultItemsEditMode) {
-      return 'Work in progress...';
+    } else if (defaultItemsEditMode && defaultItems) {
+      return (
+        <>
+          <div className="group-column">
+            <div className="month-card-item">
+              <p>Total Income</p>
+              <input onClick={(e)=> setIncome(e.value)} value={income} type="number"></input>
+            </div>
+            {defaultItems.map((group, index) => (
+              <>
+                <div>
+                  <p>{group.name}</p>
+                  {group.items.map((element, index) => (
+                    <div
+                      className="item mb-3 month-card-body multi-column"
+                      key={element.id}
+                    >
+                      <ul className="list-unstyled month-card-item">
+                        <li className="month-card-item-description">
+                          {element.description}
+                        </li>
+                        <li className="month-card-item-money ">
+                          {element.price} {currency}
+                          <button
+                            onClick={(e) =>
+                              handleDeleteItem(e, group.name, index)
+                            }
+                            className="delete-list-item-btn"
+                          >
+                            <FontAwesomeIcon icon={faMinus} />{' '}
+                          </button>
+                        </li>
+                      </ul>
+                    </div>
+                  ))}
+                  <ExpenseInputFields
+                    blockName={group.name}
+                    onAdd={(newItemAdded) => handleAddItem(newItemAdded)}
+                  />
+                </div>
+              </>
+            ))}
+          </div>
+        </>
+      );
     }
   };
 

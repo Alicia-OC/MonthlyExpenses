@@ -142,4 +142,29 @@ const getAllCardsByUser = asyncHandler(async (req, res) => {
   }
 });
 
-module.exports = { updateDetails, updateCards, getAllCardsByUser };
+const getUserDefaultItems = asyncHandler(async (req, res) => {
+  try {
+    const { userid } = req.params;
+    const user = await User.findById(userid);
+    console.log(user);
+    if (!userid || !user) {
+      return res.status(404).json({ error: "access denied" });
+    }
+
+    const defaultItems = user.defaultItems
+
+    res.status(200).json(defaultItems);
+  } catch (error) {
+    console.error("Error in the user's default items:", error);
+    return res
+      .status(500)
+      .json({ error: "Internal server error", details: error.message });
+  }
+});
+
+module.exports = {
+  updateDetails,
+  updateCards,
+  getAllCardsByUser,
+  getUserDefaultItems,
+};
