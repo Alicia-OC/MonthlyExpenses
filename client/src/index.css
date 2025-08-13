@@ -79,7 +79,7 @@ button {
 
 .add-new-card-btn {
   background-color: #1a1a1a;
- size: auto;
+  size: auto;
 
 }
 
@@ -139,8 +139,9 @@ span {
 }
 
 .savings-div {
-  margin: 1.2em;
-  padding: 15px;
+  background: #f8f9fa;
+  padding: 1.5rem;
+  border-radius: 0.5rem;
 
 }
 
@@ -224,6 +225,7 @@ input {
   margin-bottom: 15px;
 }
 
+
 .see-all-link {
   color: var(--pink-theme_h5);
 }
@@ -231,4 +233,51 @@ input {
 .card-go-to-title {
   text-decoration: none;
   color: black;
+}
+
+.default-items-div {
+
+  margin-top: 2rem;
+}
+
+.save-default-item {
+
+  margin: 1rem;
+
+}
+
+
+.default-items-group {
+  margin-top: 1.5rem;
+}
+
+.default-items-group h5 {
+  border-bottom: 2px solid var(--pink-theme_h5);
+  padding-bottom: 0.5rem;
+  margin-bottom: 1rem;
+}
+
+.delete-list-item-btn {
+  padding: 0.25rem 0.5rem;
+  border-radius: 0.25rem;
+  font-size: 0.875rem;
+}
+
+
+@media (max-width: 768px) {
+  .card-body {
+    padding: 1.5rem !important;
+  }
+
+  .default-items-group {
+    padding: 1rem;
+  }
+
+  .savings-div {
+    padding: 1rem;
+  }
+}
+
+.profile-info-div {
+  padding: 2rem 0 2rem 0;
 }
