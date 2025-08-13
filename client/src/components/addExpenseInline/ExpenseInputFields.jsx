@@ -5,10 +5,12 @@ import { useSelector } from 'react-redux';
 
 import { v4 as uuidv4 } from 'uuid';
 
-const ExpenseInputFields = ({ onAdd, blockName }) => {
+const ExpenseInputFields = ({ onAdd, blockName, ...props }) => {
   const [newItem, setnewItem] = useState('');
   const [newItemPrice, setNewItemPrice] = useState('');
   const currency = useSelector((state) => state.currency);
+
+  const isSmall = props.isSmall;
 
   //generate random UUID
   let myuuid = uuidv4();
@@ -32,32 +34,42 @@ const ExpenseInputFields = ({ onAdd, blockName }) => {
     setNewItemPrice('');
   }
 
+  if (isSmall) {
+  }
   return (
     <div>
       <form onSubmit={submitReq}>
-        {' '}
-        <span className="input-wrapper new-item">
+        <div className="input-wrapper new-item">
           <div
-            className="stacked-inputs flex-grow-1"
-            style={{ maxWidth: '400px' }}
+            className={
+              isSmall
+                ? 'd-flex align-items-end gap-2'
+                : 'stacked-inputs flex-grow-1'
+            }
           >
-            <div className="form-floating w-">
+            <div
+              className="form-floating"
+              style={isSmall ? { flex: '3' } : undefined}
+            >
               <input
                 value={newItem}
                 onChange={(e) => setnewItem(e.target.value)}
                 type="text"
                 id="new-expense-item-input"
-                className="form-control form-control-lg "
+                className="form-control"
               />
               <label htmlFor="new-expense-item-input">{blockName}</label>
             </div>
 
-            <div className="form-floating">
+            <div
+              className="form-floating"
+              style={isSmall ? { flex: '1' } : undefined}
+            >
               <input
                 value={newItemPrice}
                 type="number"
                 min="0"
-                className="form-control form-control-lg line-input"
+                className="form-control line-input"
                 id="new-expense-price-input"
                 onChange={(e) => setNewItemPrice(e.target.value)}
               />
@@ -67,7 +79,7 @@ const ExpenseInputFields = ({ onAdd, blockName }) => {
           <button type="submit">
             <FontAwesomeIcon icon={faPlus} />
           </button>
-        </span>
+        </div>
       </form>
     </div>
   );

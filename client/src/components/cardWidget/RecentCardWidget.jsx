@@ -49,16 +49,14 @@ const RecentCardWidget = () => {
     };
 
     fetchData();
-
   }, []);
-
 
   return (
     <>
       {' '}
       <div>
-        <div className="d-flex justify-content-between align-items-center mb-4 text-body">
-          <p className="lead fw-normal mb-0">Recent Cards</p>
+        <div className="justify-content-between align-items-center  text-body">
+          <h4>Recent Cards</h4>
         </div>
         {isLoading && <div>Loading...</div>}
         {!isLoading && cards && (
