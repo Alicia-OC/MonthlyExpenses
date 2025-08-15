@@ -14,6 +14,8 @@ const Home = () => {
   const currentYear = now.getFullYear();
   const currentMonth = now.getMonth() + 1;
 
+  console.log(currentYear)
+
   const backendLink = import.meta.env.VITE_APP_GETCARD;
 
   const logged = true;
