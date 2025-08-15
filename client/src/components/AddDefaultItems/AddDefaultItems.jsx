@@ -19,6 +19,7 @@ const AddDefaultItems = () => {
   const [isLoading, setIsLoading] = useState(false);
   const [defaultItems, setDefaultItems] = useState([]);
   const [income, setIncome] = useState();
+  const [hasUnsavedChanges, setHasUnsavedChanges] = useState(false);
 
   const fetchData = async () => {
     try {
@@ -53,7 +54,7 @@ const AddDefaultItems = () => {
     }
   };
 
-  useEffect( () => {
+  useEffect(() => {
     fetchData();
   }, []);
 
@@ -64,6 +65,7 @@ const AddDefaultItems = () => {
         : block
     );
     setDefaultItems(updatedBlocks);
+    setHasUnsavedChanges(true);
 
     try {
       const updateData = {};
@@ -102,6 +104,7 @@ const AddDefaultItems = () => {
     );
 
     setDefaultItems(updatedBlocks);
+    setHasUnsavedChanges(true);
 
     try {
       const updateData = {};
@@ -128,73 +131,45 @@ const AddDefaultItems = () => {
     } catch (error) {
       console.error('Error fetching card:', error);
     }
+
+    console.log(updatedBlocks);
   };
 
   const handleSave = async () => {
-    if (!validatePassword(password, password2)) {
-      return;
-    }
-    setProfileEditMode(false);
-
     const modal = new Modal(document.getElementById('saveAlertModal'));
-    modal.show();
-
     try {
-      if (profileEditMode) {
-        const response = await Axios.patch(
-          `${backendLink}/users/${userid}/update`,
-          {
-            name: formData.newName || undefined,
-            email: formData.newMail || undefined,
-            password: formData.password || undefined,
-          },
-          { headers: { Authorization: `Bearer ${token}` } }
-        );
+      const updateData = { totalIncome: income };
 
-        if (response.status === 200) {
-          const { name, email } = response.data;
-          dispatch(setLogin({ name, email }));
-          setProfileEditMode(false);
-          setFormData({
-            newName: '',
-            newMail: '',
-            password: '',
-            password2: '',
-          });
-
-          modal.show();
+      defaultItems.forEach((block) => {
+        switch (block.name) {
+          case 'The Non-negotiables':
+            updateData.fixedItems = block.items;
+            break;
+          case 'On Repeat':
+            updateData.subscriptionItems = block.items;
+            break;
+          case 'Little Life Things':
+            updateData.otherItems = block.items;
+            break;
+          case 'Out & About':
+            updateData.transportItems = block.items;
+            break;
+          case 'Bits & Bites':
+            updateData.foodItems = block.items;
+            break;
         }
-      }
+      });
 
-      if (defaultItemsEditMode) {
-        const updateData = { totalIncome: income };
+      // DEBUG LOGGING
+      const url = `${backendLink}/users/update/${userid}`;
 
-        defaultItems.forEach((block) => {
-          switch (block.name) {
-            case 'The Non-negotiables':
-              updateData.fixedItems = block.items;
-              break;
-            case 'On Repeat':
-              updateData.subscriptionItems = block.items;
-              break;
-            case 'Little Life Things':
-              updateData.otherItems = block.items;
-              break;
-            case 'Out & About':
-              updateData.transportItems = block.items;
-              break;
-            case 'Bits & Bites':
-              updateData.foodItems = block.items;
-              break;
-          }
-        });
-        console.log(defaultItems);
+      const res = await Axios.patch(url, updateData, {
+        headers: { Authorization: `Bearer ${token}` },
+      });
 
-        await Axios.patch(
-          `${backendLink}/users/${userid}/defaultitems`,
-          updateData,
-          { headers: { Authorization: `Bearer ${token}` } }
-        );
+      if (res.status === 200) {
+        modal.show();
+        setHasUnsavedChanges(false);
       }
     } catch (error) {
       console.log(error);
@@ -246,12 +221,25 @@ const AddDefaultItems = () => {
           </div>
         </>
       ))}
-      <button
-        className="save-default-item btn btn-dark w-100"
-        onClick={handleSave}
-      >
-        Save
-      </button>
+
+      {hasUnsavedChanges && (
+        <div className="floating-save-btn">
+          <button
+            className={` btn btn-lg shadow-lg `}
+            onClick={handleSave}
+            disabled={isLoading}
+          >
+            {isLoading ? (
+              <div
+                className="spinner-border spinner-border-sm text-light"
+                role="status"
+              ></div>
+            ) : (
+              '💾'
+            )}
+          </button>
+        </div>
+      )}
     </div>
   );
 };

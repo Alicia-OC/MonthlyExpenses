@@ -2,40 +2,58 @@ const UserSchema = require("../models/Users");
 const MonthCardSchema = require("../models/MonthCard");
 const asyncHandler = require("express-async-handler");
 const bcrypt = require("bcrypt");
-const jwt = require("jsonwebtoken");
 let User = UserSchema.User;
 let MonthCard = MonthCardSchema.MonthCard;
 
 const updateDetails = asyncHandler(async (req, res) => {
   try {
-    const { userId, name, email, password, avatar } = req.body;
-    const user = await User.findById(userId);
+    const { 
+      name, 
+      email, 
+      password, 
+      avatar, 
+      totalIncome,
+      fixedItems,
+      subscriptionItems,
+      otherItems,
+      transportItems,
+      foodItems
+    } = req.body;
+
+    const { userid } = req.params;
+
+    const user = await User.findById(userid);
+
     if (!user) {
       return res.status(404).json({ message: "User not found" });
     }
 
-    if (name) {
-      user.name = name;
-    }
-
-    if (email) {
-      user.email = email;
-    }
-
-    if (avatar) {
-      user.avatar = avatar;
-    }
-
+    // Update user profile fields
+    if (name) user.name = name;
+    if (email) user.email = email;
+    if (avatar) user.avatar = avatar;
     if (password) {
       user.password = await bcrypt.hash(password, 10);
     }
-    await user.save();
 
-    res
-      .status(200)
-      .json({ message: "User details updated successfully", user });
+    // Update default items fields
+    if (totalIncome !== undefined) user.defaultItems.totalIncome = totalIncome;
+    if (fixedItems) user.defaultItems.fixedItems.items = fixedItems;
+    if (subscriptionItems) user.defaultItems.subscriptionItems.items = subscriptionItems;
+    if (otherItems) user.defaultItems.otherItems.items = otherItems;
+    if (transportItems) user.defaultItems.transportItems.items = transportItems;
+    if (foodItems) user.defaultItems.foodItems.items = foodItems;
+
+    await user.save();
+    console.log(user.defaultItems)
+
+    res.status(200).json({ 
+      message: "User details updated successfully", 
+      user 
+    });
+
   } catch (error) {
-    console.error(error);
+    console.error("Update error:", error);
     res.status(500).json({ message: "Server error" });
   }
 });
@@ -93,14 +111,14 @@ const getAllCardItemsByUser = asyncHandler(async (req, res) => {
 
 const getAllCardsByUser = asyncHandler(async (req, res) => {
   try {
-    const { userId } = req.body;
+    const { userid } = req.body;
 
-    if (!userId) {
+    if (!userid) {
       return res.status(404).json({ error: "userId is required" });
     }
 
     //find user
-    const user = await User.findById(userId);
+    const user = await User.findById(userid);
     if (!user) {
       return res.status(404).json({ error: "User not found" });
     } else {
@@ -146,12 +164,11 @@ const getUserDefaultItems = asyncHandler(async (req, res) => {
   try {
     const { userid } = req.params;
     const user = await User.findById(userid);
-    console.log(user);
     if (!userid || !user) {
       return res.status(404).json({ error: "access denied" });
     }
 
-    const defaultItems = user.defaultItems
+    const defaultItems = user.defaultItems;
 
     res.status(200).json(defaultItems);
   } catch (error) {

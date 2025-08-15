@@ -69,6 +69,7 @@ const ExpenseInputFields = ({ onAdd, blockName, ...props }) => {
                 value={newItemPrice}
                 type="number"
                 min="0"
+                step=".01"
                 className="form-control line-input"
                 id="new-expense-price-input"
                 onChange={(e) => setNewItemPrice(e.target.value)}

@@ -323,7 +323,7 @@ const UserProfile = () => {
           <div className="modal-content">
             <div className="modal-header">
               <h5 className="modal-title" id="saveAlertLabel">
-                Success
+                Yay!
               </h5>
               <button
                 type="button"
@@ -333,12 +333,12 @@ const UserProfile = () => {
               ></button>
             </div>
             <div className="modal-body">
-              Changes have been saved successfully!
+              Changes have been saved successfully 🌸
             </div>
             <div className="modal-footer">
               <button
                 type="button"
-                className="btn btn-primary"
+                className="btn btn-primary-pink"
                 data-bs-dismiss="modal"
               >
                 OK

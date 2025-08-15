@@ -63,6 +63,15 @@ h1 {
   justify-content: center;
 }
 
+.btn-primary-pink {
+  background-color: var(--pink-theme_main) !important;
+}
+
+.btn-primary-pink:hover {
+  background-color: var(--pink-theme_h5) !important;
+  
+}
+
 button {
   border-radius: 8px;
   border: 1px solid transparent;
@@ -263,6 +272,36 @@ input {
   font-size: 0.875rem;
 }
 
+.floating-save-btn button {
+  background-color: var(--pink-theme_h5);
+  border: none;
+  border-radius: 50px;
+  width: 60px;
+  height: 60px;
+  z-index: 1000;
+  position: fixed;
+  top: 50%;
+  left: 10%;
+  transform: translateY(-50%);
+  animation: pulse 1.2s infinite;
+
+  transition:
+    top 0.4s ease,
+    left 0.4s ease,
+    background-color 0.3s ease,
+    transform 0.25s ease;
+}
+
+
+@media (min-width: 1200px) {}
+
+/* Standard desktops/laptops (min-width: 992px) */
+@media (min-width: 992px) and (max-width: 1199px) {
+  .floating-save-btn button {
+    top: 50%;
+    left: 10%;
+  }
+}
 
 @media (max-width: 768px) {
   .card-body {
@@ -276,8 +315,48 @@ input {
   .savings-div {
     padding: 1rem;
   }
+
+  .floating-save-btn button {
+    left: 5%;
+  }
+
 }
+
+/* Mobile phones (max-width: 576px) */
+@media (max-width: 576px) {
+
+  .floating-save-btn button {
+
+    top: 50%;
+    left: 5%;
+
+
+  }
+
+}
+
+@keyframes pulse {
+  0% {
+    transform: scale(1);
+  }
+
+  50% {
+    transform: scale(1.05);
+  }
+
+  100% {
+    transform: scale(1);
+  }
+}
+
 
 .profile-info-div {
   padding: 2rem 0 2rem 0;
+}
+
+.floating-save-btn button:hover {
+  background-color: var(--pink-theme_blue);
+  transform: translateY(-50%) scale(1.05);
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+
 }
