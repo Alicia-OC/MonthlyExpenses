@@ -54,9 +54,9 @@ const RecentCardWidget = () => {
   return (
     <>
       {' '}
-      <div>
+      <div className='recent-cards-div'>
         <div className="justify-content-between align-items-center  text-body">
-          <h4>Recent Cards</h4>
+          <h1>Your Latest 4 Cards</h1>
         </div>
         {isLoading && <div>Loading...</div>}
         {!isLoading && cards && (
