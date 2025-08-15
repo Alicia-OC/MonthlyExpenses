@@ -5,6 +5,7 @@ const asyncHandler = require("express-async-handler");
 let User = UserSchema.User;
 let MonthCard = MonthCardSchema.MonthCard;
 
+/**DEV card creation */
 const newCard = asyncHandler(async (req, res) => {
   try {
     const {
@@ -292,21 +293,51 @@ const getAllCards = asyncHandler(async (req, res) => {
     const user = await User.findById(userid).populate({
       path: "cards",
       select:
-        "id month foodExpenses subscriptionExpenses transportExpenses otherExpenses",
+        "id month year foodExpenses subscriptionExpenses transportExpenses otherExpenses",
     });
 
     if (!user) {
       return res.status(404).json({ error: "User not found" });
     }
-
     const result = user.cards.map((card) => ({
       id: card._id,
       month: card.month,
+      year: card.year,
       foodExpenses: card.foodExpenses,
       subscriptionExpenses: card.subscriptionExpenses,
       transportExpenses: card.transportExpenses,
       otherExpenses: card.otherExpenses,
     }));
+
+    const groupByYear = () => {
+      let newObj = {};
+
+      const promise1 = new Promise((resolve, reject) => {
+        for (let i = 0; i < result.length; i++) {
+          let n = result[i];
+          const key = n.year;
+
+          if (!newObj[key]) {
+            newObj[key] = [];
+          }
+          newObj[key].push(n);
+        }
+        resolve(newObj);
+      });
+
+      const promise2 = promise1.then((obj) => {
+        Object.keys(obj).forEach((year) => {
+          obj[year].sort((a, b) => a.month - b.month);
+        });
+        return obj;
+      });
+
+      return promise2.then((sortedObj) => {
+        console.log(sortedObj);
+        return sortedObj;
+      });
+    };
+    groupByYear();
 
     res.status(200).json(result);
   } catch (error) {

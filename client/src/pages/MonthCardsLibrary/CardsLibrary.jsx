@@ -54,7 +54,7 @@ const CardsLibrary = () => {
     if (currentPage > 1) setCurrentPage(currentPage - 1);
   };
 
-  const getCardsData = async () => {
+  const fetchData = async () => {
     setIsLoading(true);
     try {
       const res = await Axios.get(`${backendLink}/${userid}/cards`, {
@@ -70,12 +70,12 @@ const CardsLibrary = () => {
   };
 
   useEffect(() => {
-    getCardsData();
+    fetchData();
   }, []);
 
   return (
     <>
-      <div className="col row-cols-1 g-4 justify-content-around align-items-center">
+      <div className="filtering-cards-div col row-cols-1 g-4 justify-content-around align-items-center">
         <div className="card ">
           <div className="card-body">
             <p className="card-text">
@@ -107,10 +107,13 @@ const CardsLibrary = () => {
                   </a>
 
                   <p className="card-text">
-                    You have spent {item.foodExpenses} {currency} in groceries,{' '}
-                    {item.subscriptionExpenses} {currency} in subscriptions,{' '}
-                    {item.transportExpenses} {currency} in transport,{' '}
-                    {item.otherExpenses} {currency} and in misc!
+                    You have spent{' '}
+                    <boldd>
+                      {item.foodExpenses} {currency}{' '}
+                    </boldd>
+                    in groceries, {item.subscriptionExpenses} {currency} in
+                    subscriptions, {item.transportExpenses} {currency} in
+                    transport, {item.otherExpenses} {currency} and in misc!
                   </p>
                 </div>
               </div>
