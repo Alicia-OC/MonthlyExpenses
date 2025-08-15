@@ -4,10 +4,17 @@ const usersController = require("../controllers/usersControllers");
 const authJwt = require("../middlewares/authJwt");
 
 
-router.patch("/update", authJwt.verifyToken, usersController.updateDetails);
+//router.patch("/update", authJwt.verifyToken, usersController.updateDetails);
 router.patch("/addCard", authJwt.verifyToken, usersController.updateCards);
-router.get("/:userId/cards", authJwt.verifyToken, usersController.getAllCardsByUser);
+router.patch("/update/:userid", authJwt.verifyToken, usersController.updateDetails);
+
+router.get("/:userid/cards", authJwt.verifyToken, usersController.getAllCardsByUser);
 router.get("/:userid/defaultitems", authJwt.verifyToken, usersController.getUserDefaultItems);
+
+router.patch("/update/:userid", authJwt.verifyToken, usersController.updateDetails);
+
+
+
 
 
 module.exports = router;

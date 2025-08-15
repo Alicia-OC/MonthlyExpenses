@@ -221,7 +221,7 @@ const EditingCard = () => {
                         <ExpenseInputFields
                           blockName={group.name}
                           onAdd={(newItemAdded) => handleAddItem(newItemAdded)}
-                          isSmall={false}
+                          isSmall={true}
                         />
                       </div>
                     </>

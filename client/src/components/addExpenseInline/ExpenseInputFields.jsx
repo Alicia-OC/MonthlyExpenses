@@ -34,8 +34,6 @@ const ExpenseInputFields = ({ onAdd, blockName, ...props }) => {
     setNewItemPrice('');
   }
 
-  if (isSmall) {
-  }
   return (
     <div>
       <form onSubmit={submitReq}>
@@ -43,7 +41,7 @@ const ExpenseInputFields = ({ onAdd, blockName, ...props }) => {
           <div
             className={
               isSmall
-                ? 'd-flex align-items-end gap-2'
+                ? 'd-flex align-items-end gap-1'
                 : 'stacked-inputs flex-grow-1'
             }
           >
@@ -69,6 +67,7 @@ const ExpenseInputFields = ({ onAdd, blockName, ...props }) => {
                 value={newItemPrice}
                 type="number"
                 min="0"
+                step=".01"
                 className="form-control line-input"
                 id="new-expense-price-input"
                 onChange={(e) => setNewItemPrice(e.target.value)}

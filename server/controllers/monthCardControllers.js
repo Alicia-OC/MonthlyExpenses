@@ -416,7 +416,7 @@ const updateCard = asyncHandler(async (req, res) => {
         calcOtherExpenses() +
         calcTransportExpenses() +
         calcFoodExpenses();
-      return result;
+      return Number(result.toFixed(2));
     };
 
     card.totalExpenses = calcTotalExpenses();
