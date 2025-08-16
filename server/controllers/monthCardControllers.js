@@ -1,5 +1,6 @@
 const MonthCardSchema = require("../models/MonthCard");
 const UserSchema = require("../models/Users");
+const { cardCalculations } = require("../utils/cardCalculations");
 
 const asyncHandler = require("express-async-handler");
 let User = UserSchema.User;
@@ -127,6 +128,15 @@ const newAutomaticCard = asyncHandler(async (req, res) => {
     const foodItems = user.defaultItems?.foodItems.items || [];
     const totalIncome = user.defaultItems?.totalIncome || 0;
 
+    const objecttest = {
+      fixedItems: user.defaultItems?.fixedItems.items || [],
+      subscriptionItems: user.defaultItems?.subscriptionItems.items || [],
+      otherItems: user.defaultItems?.otherItems.items || [],
+      transportItems: user.defaultItems?.transportItems.items || [],
+      foodItems: user.defaultItems?.foodItems.items || [],
+      totalIncome: user.defaultItems?.totalIncome || 0,
+    };
+
     //CALCULATIONS//
     const calcFixedExpenses = () =>
       fixedItems.reduce((sum, item) => sum + (item.price || 0), 0);
@@ -158,24 +168,17 @@ const newAutomaticCard = asyncHandler(async (req, res) => {
       return Number(total.toFixed(2));
     };
 
-    // Debug logs
-    console.log("=== DEBUGGING CALCULATIONS ===");
-    console.log("Fixed expenses:", calcFixedExpenses());
-    console.log("Subscription expenses:", calcSubscriptionExpenses());
-    console.log("Other expenses:", calcOtherExpenses());
-    console.log("Transport expenses:", calcTransportExpenses());
-    console.log("Food expenses:", calcFoodExpenses());
-    console.log("Total expenses:", calcTotalExpenses());
-    console.log("Total income:", totalIncome);
-    console.log("Calculated savings:", calcTotalSavings());
+
+    const defaultuserIt = await cardCalculations(objecttest);
+    console.log(cardCalculations(objecttest));
 
     const cardObject = {
       user: userid,
       year: year,
       month: month,
-      totalExpenses: calcTotalExpenses(),
+      totalExpenses: defaultuserIt.totalExpenses,
       totalIncome: totalIncome,
-      totalSavings: calcTotalSavings(),
+      totalSavings: defaultuserIt.totalSavings,
 
       fixedItems: { items: fixedItems },
       subscriptionItems: { items: subscriptionItems },
@@ -183,11 +186,10 @@ const newAutomaticCard = asyncHandler(async (req, res) => {
       transportItems: { items: transportItems },
       foodItems: { items: foodItems },
 
-      fixedExpenses: calcFixedExpenses(),
-      subscriptionExpenses: calcSubscriptionExpenses(),
-      otherExpenses: calcOtherExpenses(),
-      transportExpenses: calcTransportExpenses(),
-      foodExpenses: calcFoodExpenses(),
+      fixedExpenses: defaultuserIt.fixedExpenses,
+      subscriptionExpenses: defaultuserIt.subscriptionExpenses,
+      otherExpenses: defaultuserIt.otherExpenses,
+      transportExpenses: defaultuserIt.transportExpenses,
     };
 
     const newCard = await MonthCard.create(cardObject);
@@ -266,7 +268,7 @@ const getLastFourCards = asyncHandler(async (req, res) => {
     const user = await User.findById(userId).populate({
       path: "cards",
       select:
-        "month  foodExpenses subscriptionExpenses transportExpenses otherExpenses",
+        "month foodExpenses subscriptionExpenses transportExpenses otherExpenses",
       options: { sort: { createdAt: -1 }, limit: 4 },
     });
 

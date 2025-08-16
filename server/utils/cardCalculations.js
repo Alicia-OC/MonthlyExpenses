@@ -1,0 +1,58 @@
+const cardCalculations = async (objectData) => {
+  const calcFixedExpenses = () =>
+    objectData.fixedItems.reduce((sum, item) => sum + (item.price || 0), 0);
+
+  const calcSubscriptionExpenses = () =>
+    objectData.subscriptionItems.reduce((sum, item) => sum + (item.price || 0), 0);
+
+  const calcOtherExpenses = () =>
+   objectData.otherItems.reduce((sum, item) => sum + (item.price || 0), 0);
+
+  const calcTransportExpenses = () =>
+    objectData.transportItems.reduce((sum, item) => sum + (item.price || 0), 0);
+
+  const calcFoodExpenses = () =>
+    objectData.foodItems.reduce((sum, item) => sum + (item.price || 0), 0);
+
+  const calcTotalExpenses = () => {
+    const result =
+      calcFixedExpenses() +
+      calcSubscriptionExpenses() +
+      calcOtherExpenses() +
+      calcTransportExpenses() +
+      calcFoodExpenses();
+    return result;
+  };
+
+  const calcTotalSavings = () => {
+    const total = objectData.totalIncome - calcTotalExpenses();
+    return Number(total.toFixed(2));
+  };
+
+    // Debug logs
+    console.log("=== DEBUGGING CALCULATIONS ===");
+    console.log("Fixed expenses:", calcFixedExpenses());
+    console.log("Subscription expenses:", calcSubscriptionExpenses());
+    console.log("Other expenses:", calcOtherExpenses());
+    console.log("Transport expenses:", calcTransportExpenses());
+    console.log("Food expenses:", calcFoodExpenses());
+    console.log("Total expenses:", calcTotalExpenses());
+    console.log("Total income:", objectData.totalIncome);
+    console.log("Calculated savings:", calcTotalSavings());
+
+  const data = {
+    totalExpenses: calcTotalExpenses(),
+    totalSavings: calcTotalSavings(),
+    fixedExpenses: calcFixedExpenses(),
+    subscriptionExpenses: calcSubscriptionExpenses(),
+    otherExpenses: calcOtherExpenses(),
+    transportExpenses: calcTransportExpenses(),
+    foodExpenses: calcFoodExpenses(),
+  };
+
+  return data;
+};
+
+const createMonthCard = async (userid, year, month, defaultItems) => {};
+
+module.exports = { cardCalculations, createMonthCard };

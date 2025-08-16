@@ -59,7 +59,44 @@ const signIn = asyncHandler(async (req, res) => {
       algorithm: "HS256",
       expiresIn: "24h",
     });
+
     console.log(token);
+
+    try {
+      const currentYear = new Date().getFullYear();
+      const currentmonth = new Date().getMonth();
+
+      const lastLoginYear = user.lastLogin.getFullYear();
+      const lastLoginMonth = user.lastLogin.getMonth();
+
+      if (currentYear === lastLoginYear && currentmonth === lastLoginMonth) {
+        const card = await User.findById(user.id).populate({
+          path: "cards",
+          select: "month year userid ",
+          match: { month: currentmonth, year: currentYear, userid: user.id },
+        });
+
+        if (card) {
+          console.log(card);
+        }
+        console.log(lastLoginYear);
+      }
+    } catch (error) {
+    } finally {
+      user.lastLogin = new Date();
+    }
+
+    const verifyLastLogin = () => {
+      const currentYear = new Date().getFullYear();
+      const currentmonth = new Date().getMonth();
+
+      const lastLoginYear = user.lastLogin.getFullYear();
+      const lastLoginMonth = user.lastLogin.getMonth();
+
+      if (currentYear === lastLoginYear && currentmonth === lastLoginMonth)
+        console.log(lastLoginYear);
+    };
+
     const userWithoutPassword = user.toJSON();
     delete userWithoutPassword.password;
     res.status(200).json({ user: userWithoutPassword, token });

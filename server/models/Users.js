@@ -2,6 +2,10 @@ const mongoose = require("mongoose");
 
 const userSchema = new mongoose.Schema(
   {
+    lastLogin: {
+      type: Date,
+      default: Date.now, // This will trim the whitespace around the name
+    },
     name: {
       type: String,
       required: true,
@@ -38,7 +42,6 @@ const userSchema = new mongoose.Schema(
       },
     ],
     defaultItems: {
-      
       fixedItems: {
         name: {
           type: String,
