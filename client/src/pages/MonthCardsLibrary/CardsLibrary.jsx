@@ -104,7 +104,7 @@ const CardsLibrary = () => {
       });
     });
 
-    return <div className="summary-flex">{result}</div>;
+    return <div className="summary-responsive ">{result}</div>;
   };
 
   return (
