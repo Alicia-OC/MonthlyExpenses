@@ -183,15 +183,101 @@ input {
   transition: color 0.3s ease, font-size 0.3s ease;
   text-decoration: none;
   transform: scale(1.05);
-
 }
 
 .card-go-to-title:hover {
-  color: var(--pink-theme_main);
+  color: var(--pink-theme_h5);
   font-size: 2em;
   text-decoration: none;
+}
+
+.card-go-to-title.small {
+  font-size: 1em;
+  color: black;
+}
+
+.card-go-to-title.small:hover {
+  font-size: 1.1em;
+  color: var(--pink-theme_blue);
+
+}
+
+.filtering-cards-div {
+  padding: 1rem;
+}
 
 
+/* display summary grid in columns*/
+
+.summary-responsive {
+  display: grid;
+  gap: 10px;
+  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+  max-height: 40px;
+  /* Adjust this - roughly 40px per row × 3 rows */
+  gap: 0;
+  color: #EA86B6;
+}
+
+.year-item {
+  font-weight: bold;
+  grid-column: 1 / -1;
+}
+
+.card-item {
+  padding-left: 10px;
+}
+
+.summary-columns {
+  display: flex;
+  gap: 20px;
+  align-items: flex-start;
+  flex-wrap: wrap;
+}
+
+@media (max-width: 768px) {
+  .summary-responsive {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (min-width: 769px) and (max-width: 1200px) {
+  .summary-responsive {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+
+}
+
+@media (min-width: 1201px) {
+  .summary-responsive {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+/**/
+
+.left-aligned-content {
+  text-align: left !important;
+  list-style: none;
+  padding: 1.5rem !important;
+  ;
+}
+
+.left-aligned-content ul {
+  padding-left: 0;
+}
+
+.left-aligned-content li {
+  text-decoration: none;
+  list-style: none;
+}
+
+.left-aligned-content p {
+  text-align: left;
+  margin-bottom: 0;
+  font-weight: bolder;
+  color: var(--pink-theme_blue);
 }
 
 .see-all-link {
@@ -231,10 +317,6 @@ input {
   color: var(--pink-theme_h5);
 }
 
-.card-go-to-title {
-  text-decoration: none;
-  color: black;
-}
 
 .default-items-div {
 
@@ -312,19 +394,20 @@ input {
     left: 5%;
   }
 
+  .left-aligned-content {
+    padding-bottom: 3.5rem !important;
+
+  }
+
 }
 
 /* Mobile phones (max-width: 576px) */
 @media (max-width: 576px) {
 
   .floating-save-btn button {
-
     top: 50%;
     left: 5%;
-
-
   }
-
 }
 
 @keyframes pulse {

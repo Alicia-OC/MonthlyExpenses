@@ -309,37 +309,29 @@ const getAllCards = asyncHandler(async (req, res) => {
       otherExpenses: card.otherExpenses,
     }));
 
-    const groupByYear = () => {
-      let newObj = {};
+    const groupCards = (cards) => {
+      const grouped = {};
 
-      const promise1 = new Promise((resolve, reject) => {
-        for (let i = 0; i < result.length; i++) {
-          let n = result[i];
-          const key = n.year;
-
-          if (!newObj[key]) {
-            newObj[key] = [];
-          }
-          newObj[key].push(n);
+      cards.forEach((card) => {
+        const year = card.year;
+        if (!grouped[year]) {
+          grouped[year] = [];
         }
-        resolve(newObj);
+        grouped[year].push(card);
       });
 
-      const promise2 = promise1.then((obj) => {
-        Object.keys(obj).forEach((year) => {
-          obj[year].sort((a, b) => a.month - b.month);
-        });
-        return obj;
+      Object.keys(grouped).forEach((year) => {
+        grouped[year].sort((a, b) => a.month - b.month);
       });
 
-      return promise2.then((sortedObj) => {
-        console.log(sortedObj);
-        return sortedObj;
-      });
+      return grouped;
     };
-    groupByYear();
+    const groupedData = groupCards(result);
 
-    res.status(200).json(result);
+    res.status(200).json({
+      cards: result, // Original flat array
+      groupCards: groupedData, // Grouped by year
+    });
   } catch (error) {
     console.error("Error getting the cards:", error);
     res.status(500).json({ error: "Internal server error" });
