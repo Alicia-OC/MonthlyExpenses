@@ -121,75 +121,26 @@ const newAutomaticCard = asyncHandler(async (req, res) => {
         .json({ message: "You already have a card for this month" });
     }
 
-    const fixedItems = user.defaultItems?.fixedItems.items || [];
-    const subscriptionItems = user.defaultItems?.subscriptionItems.items || [];
-    const otherItems = user.defaultItems?.otherItems.items || [];
-    const transportItems = user.defaultItems?.transportItems.items || [];
-    const foodItems = user.defaultItems?.foodItems.items || [];
-    const totalIncome = user.defaultItems?.totalIncome || 0;
-
-    const objecttest = {
-      fixedItems: user.defaultItems?.fixedItems.items || [],
-      subscriptionItems: user.defaultItems?.subscriptionItems.items || [],
-      otherItems: user.defaultItems?.otherItems.items || [],
-      transportItems: user.defaultItems?.transportItems.items || [],
-      foodItems: user.defaultItems?.foodItems.items || [],
-      totalIncome: user.defaultItems?.totalIncome || 0,
-    };
-
-    //CALCULATIONS//
-    const calcFixedExpenses = () =>
-      fixedItems.reduce((sum, item) => sum + (item.price || 0), 0);
-
-    const calcSubscriptionExpenses = () =>
-      subscriptionItems.reduce((sum, item) => sum + (item.price || 0), 0);
-
-    const calcOtherExpenses = () =>
-      otherItems.reduce((sum, item) => sum + (item.price || 0), 0);
-
-    const calcTransportExpenses = () =>
-      transportItems.reduce((sum, item) => sum + (item.price || 0), 0);
-
-    const calcFoodExpenses = () =>
-      foodItems.reduce((sum, item) => sum + (item.price || 0), 0);
-
-    const calcTotalExpenses = () => {
-      const result =
-        calcFixedExpenses() +
-        calcSubscriptionExpenses() +
-        calcOtherExpenses() +
-        calcTransportExpenses() +
-        calcFoodExpenses();
-      return result;
-    };
-
-    const calcTotalSavings = () => {
-      const total = totalIncome - calcTotalExpenses();
-      return Number(total.toFixed(2));
-    };
-
-
-    const defaultuserIt = await cardCalculations(objecttest);
-    console.log(cardCalculations(objecttest));
+    const defaultUserItems = await cardCalculations(user);
 
     const cardObject = {
       user: userid,
       year: year,
       month: month,
-      totalExpenses: defaultuserIt.totalExpenses,
-      totalIncome: totalIncome,
-      totalSavings: defaultuserIt.totalSavings,
+      totalExpenses: defaultUserItems.totalExpenses,
+      totalIncome: defaultUserItems.totalIncome,
+      totalSavings: defaultUserItems.totalSavings,
 
-      fixedItems: { items: fixedItems },
-      subscriptionItems: { items: subscriptionItems },
-      otherItems: { items: otherItems },
-      transportItems: { items: transportItems },
-      foodItems: { items: foodItems },
+      fixedItems: defaultUserItems.fixedItems,
+      subscriptionItems: defaultUserItems.subscriptionItems,
+      otherItems: defaultUserItems.otherItems,
+      transportItems: defaultUserItems.transportItems,
+      foodItems: defaultUserItems.foodItems,
 
-      fixedExpenses: defaultuserIt.fixedExpenses,
-      subscriptionExpenses: defaultuserIt.subscriptionExpenses,
-      otherExpenses: defaultuserIt.otherExpenses,
-      transportExpenses: defaultuserIt.transportExpenses,
+      fixedExpenses: defaultUserItems.fixedExpenses,
+      subscriptionExpenses: defaultUserItems.subscriptionExpenses,
+      otherExpenses: defaultUserItems.otherExpenses,
+      transportExpenses: defaultUserItems.transportExpenses,
     };
 
     const newCard = await MonthCard.create(cardObject);
