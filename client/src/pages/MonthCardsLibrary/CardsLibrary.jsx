@@ -17,6 +17,8 @@ const CardsLibrary = () => {
   const [isLoading, setIsLoading] = useState(true);
   const [currentPage, setCurrentPage] = useState(1);
   const [allCards, setAllCards] = useState([]);
+  const [groupCards, setGroupCards] = useState([]);
+
   const cardsPerPage = 4;
 
   const paginationData = useMemo(() => {
@@ -60,8 +62,9 @@ const CardsLibrary = () => {
       const res = await Axios.get(`${backendLink}/${userid}/cards`, {
         headers: { Authorization: `Bearer ${token}` },
       });
-      setAllCards(res.data);
-      console.log(res.data);
+      setAllCards(res.data.cards);
+      setGroupCards(res.data.groupCards);
+      console.log(res.data.groupCards);
     } catch (error) {
       console.error('Error fetching card:', error);
     } finally {
@@ -73,15 +76,42 @@ const CardsLibrary = () => {
     fetchData();
   }, []);
 
+  const summaryWidget = () => {
+    let result = [];
+
+    Object.keys(groupCards).forEach((year) => {
+      // Add year
+      result.push(
+        <div key={`${year}-header`} className="year-item">
+          <strong>{year}</strong>
+        </div>
+      );
+
+      // Add cards
+      groupCards[year].forEach((card) => {
+        result.push(
+          <div key={card.id} className="card-item">
+            <a
+              href={`/${userid}/${card.id}`}
+              className="card-go-to-title small"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              <GetMonth cardMonth={card.month} />
+            </a>
+          </div>
+        );
+      });
+    });
+
+    return <div className="summary-flex">{result}</div>;
+  };
+
   return (
     <>
       <div className="filtering-cards-div col row-cols-1 g-4 justify-content-around align-items-center">
-        <div className="card ">
-          <div className="card-body">
-            <p className="card-text">
-              Navigation per year/month coming soon...
-            </p>
-          </div>
+        <div className="card left-aligned-content summary-columns">
+          {summaryWidget()}
         </div>
       </div>
       <div
@@ -96,7 +126,7 @@ const CardsLibrary = () => {
               <div className="card">
                 <div className="card-body" data-testid={item.month}>
                   <a
-                    className="card-go-to-title"
+                    className="card-go-to-title small"
                     href={`/${userid}/${item.id}`}
                     target="_blank"
                     rel="noopener noreferrer"
