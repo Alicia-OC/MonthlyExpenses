@@ -6,11 +6,7 @@ import { useEffect } from 'react';
 
 /** ICONS */
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import {
-  faCircleInfo,
-  faMinus,
-
-} from '@fortawesome/free-solid-svg-icons';
+import { faCircleInfo, faMinus } from '@fortawesome/free-solid-svg-icons';
 import { Container, Image } from 'react-bootstrap';
 
 import avatar from '../../assets/Anya.png';
@@ -127,8 +123,6 @@ const UserProfile = () => {
     return true;
   };
 
-
-
   const handleSave = async () => {
     if (!validatePassword(password, password2)) {
       return;
@@ -200,18 +194,66 @@ const UserProfile = () => {
     }
   };
 
-  const renderProfileInfo = () => (
-    <div className='profile-info-div'>
-      <p>
-        <label className="font-semibold ">Name: </label>
-        <span className="font-italic"> {user?.name || 'Undefined'}</span>
-      </p>
-      <p>
-        <label className="font-semibold ">Mail: </label>
-        <span className="font-italic"> {user?.email || 'Undefined'}</span>
-      </p>
-    </div>
-  );
+  const renderProfileInfo = () => {
+    if (user) {
+      const allitems = user.defaultItems;
+      const tableData = [];
+
+      Object.entries(allitems).forEach(([categoryName, categoryData]) => {
+        if (categoryData.items && categoryData.items.length > 0) {
+          categoryData.items.forEach((item, index) => {
+            tableData.push({
+              category: index === 0 ? categoryData.name : '', // Only show category on first item
+              description: item?.description || 'No description',
+              price: item?.price || 0,
+            });
+          });
+        }
+      });
+
+      return (
+        <div className="profile-info-div ">
+          <div className="">
+            <p>
+              <label className=" ">
+                <strong>Name:</strong>
+              </label>
+              <span className=""> {user?.name || 'Undefined'}</span>
+            </p>
+            <p>
+              <label className="">
+                {' '}
+                <strong>Mail:</strong>
+              </label>
+              <span className=""> {user?.email || 'Undefined'}</span>
+            </p>
+          </div>
+          <div>
+            <table className=" default-items-table w-full text-sm">
+              <p>Default Items</p>
+              <tbody>
+                {tableData.map((row, index) => (
+                  <tr key={index} className="border-b border-gray-100">
+                    <td className="py-1 px-4 text-gray-700 capitalize font-medium">
+                      <strong>{row.category}</strong>
+                    </td>
+                    <td className="py-1 px-4 text-gray-600 capitalize">
+                      {row.description}
+                    </td>
+                    <td className="py-1 px-4 text-right font-medium">
+                      {row.price}
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+        </div>
+      );
+    } else {
+      return 'Loading...';
+    }
+  };
 
   // Render profile edit form
   const renderProfileEditForm = () => (
@@ -302,7 +344,7 @@ const UserProfile = () => {
 
   const renderDynamicContent = () => {
     if (defaultItemsEditMode) {
-      return <AddDefaultItems />
+      return <AddDefaultItems />;
     }
     if (profileEditMode) {
       return renderProfileEditForm();
@@ -348,8 +390,6 @@ const UserProfile = () => {
         </div>
       </div>
       <Container fluid className="px-3 px-lg-4">
-        {' '}
-        {/**modal div */}
         <div className="row justify-content-center">
           <div className="col-12">
             {' '}

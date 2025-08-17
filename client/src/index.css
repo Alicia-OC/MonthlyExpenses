@@ -445,6 +445,14 @@ input {
   font-size: 35px;
 }
 
-.update-user-content {
-  padding-top: 2.5rem;
+
+.default-items-table {
+  padding-left: 5rem;
+
+
+}
+
+.default-items-table p {
+  font-weight: bold;
+  color: var(--pink-theme_h5);
 }
