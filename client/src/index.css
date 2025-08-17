@@ -447,12 +447,11 @@ input {
 
 
 .default-items-table {
-  padding-left: 5rem;
-
-
+  display: flex;
+  justify-content: center;
 }
 
-.default-items-table p {
+.default-items-div p {
   font-weight: bold;
   color: var(--pink-theme_h5);
 }

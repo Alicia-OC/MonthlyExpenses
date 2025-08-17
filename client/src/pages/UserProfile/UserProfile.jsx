@@ -228,9 +228,9 @@ const UserProfile = () => {
               <span className=""> {user?.email || 'Undefined'}</span>
             </p>
           </div>
-          <div>
-            <table className=" default-items-table w-full text-sm">
-              <p>Default Items</p>
+          <div className='default-items-div'>
+            <p>Default Items</p>
+            <table className="default-items-table w-full text-sm">
               <tbody>
                 {tableData.map((row, index) => (
                   <tr key={index} className="border-b border-gray-100">
