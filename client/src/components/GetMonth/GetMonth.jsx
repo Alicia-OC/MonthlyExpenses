@@ -18,4 +18,5 @@ const GetMonth = (props) => {
 
   return <span>{months[cardMonth - 1]}</span>;
 };
+
 export default GetMonth;

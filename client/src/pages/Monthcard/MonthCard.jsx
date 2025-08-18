@@ -110,7 +110,7 @@ const MonthCard = () => {
                             <h5>{category.name}</h5>
                             {category.items?.map((item, index) => (
                               <div
-                                className="item mb-3 month-card-body multi-column"
+                                className="item mb-3 separating-line multi-column"
                                 key={`${category.name}-${index}`}
                               >
                                 <ul className="list-unstyled month-card-item">

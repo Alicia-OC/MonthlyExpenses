@@ -53,9 +53,9 @@ const AddDefaultItems = () => {
       setIsLoading(false);
     }
   };
-
   useEffect(() => {
     fetchData();
+    console.log(defaultItems);
   }, []);
 
   const handleAddItem = async (newItemAdded) => {
@@ -66,31 +66,6 @@ const AddDefaultItems = () => {
     );
     setDefaultItems(updatedBlocks);
     setHasUnsavedChanges(true);
-
-    try {
-      const updateData = {};
-      updatedBlocks.forEach((block, index) => {
-        switch (block.name) {
-          case 'The Non-negotiables':
-            updateData.fixedItems = block.items;
-            break;
-          case 'On Repeat':
-            updateData.subscriptionItems = block.items;
-            break;
-          case 'Little Life Things':
-            updateData.otherItems = block.items;
-            break;
-          case 'Out & About':
-            updateData.transportItems = block.items;
-            break;
-          case 'Bits & Bites':
-            updateData.foodItems = block.items;
-            break;
-        }
-      });
-    } catch (error) {
-      console.error('Error fetching default items:', error);
-    }
   };
 
   const handleDeleteItem = async (e, blockName, indexToDelete) => {
@@ -105,42 +80,13 @@ const AddDefaultItems = () => {
 
     setDefaultItems(updatedBlocks);
     setHasUnsavedChanges(true);
-
-    try {
-      const updateData = {};
-
-      updatedBlocks.forEach((block, index) => {
-        switch (block.name) {
-          case 'The Non-negotiables':
-            updateData.fixedItems = block.items;
-            break;
-          case 'On Repeat':
-            updateData.subscriptionItems = block.items;
-            break;
-          case 'Little Life Things':
-            updateData.otherItems = block.items;
-            break;
-          case 'Out & About':
-            updateData.transportItems = block.items;
-            break;
-          case 'Bits & Bites':
-            updateData.foodItems = block.items;
-            break;
-        }
-      });
-    } catch (error) {
-      console.error('Error fetching card:', error);
-    }
-
-    console.log(updatedBlocks);
   };
-
   const handleSave = async () => {
     const modal = new Modal(document.getElementById('saveAlertModal'));
     try {
       const updateData = { totalIncome: income };
 
-      defaultItems.forEach((block) => {
+      const mappedData = defaultItems.forEach((block) => {
         switch (block.name) {
           case 'The Non-negotiables':
             updateData.fixedItems = block.items;
@@ -160,6 +106,8 @@ const AddDefaultItems = () => {
         }
       });
 
+      Object.assign(updateData, mappedData);
+      console.log('Saving data:', updateData);
       // DEBUG LOGGING
       const url = `${backendLink}/users/update/${userid}`;
 
@@ -194,7 +142,7 @@ const AddDefaultItems = () => {
             <h5>{group.name}</h5>
             {group.items.map((element, index) => (
               <div
-                className="item mb-3 month-card-body multi-column"
+                className="item mb-3 separating-line multi-column"
                 key={element.id}
               >
                 <ul className="list-unstyled month-card-item">

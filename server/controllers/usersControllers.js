@@ -7,17 +7,17 @@ let MonthCard = MonthCardSchema.MonthCard;
 
 const updateDetails = asyncHandler(async (req, res) => {
   try {
-    const { 
-      name, 
-      email, 
-      password, 
-      avatar, 
+    const {
+      name,
+      email,
+      password,
+      avatar,
       totalIncome,
       fixedItems,
       subscriptionItems,
       otherItems,
       transportItems,
-      foodItems
+      foodItems,
     } = req.body;
 
     const { userid } = req.params;
@@ -39,19 +39,33 @@ const updateDetails = asyncHandler(async (req, res) => {
     // Update default items fields
     if (totalIncome !== undefined) user.defaultItems.totalIncome = totalIncome;
     if (fixedItems) user.defaultItems.fixedItems.items = fixedItems;
-    if (subscriptionItems) user.defaultItems.subscriptionItems.items = subscriptionItems;
+    if (subscriptionItems)
+      user.defaultItems.subscriptionItems.items = subscriptionItems;
     if (otherItems) user.defaultItems.otherItems.items = otherItems;
     if (transportItems) user.defaultItems.transportItems.items = transportItems;
     if (foodItems) user.defaultItems.foodItems.items = foodItems;
 
+    /**DEBUG */
+    console.log("totalIncome set to:", user.defaultItems.totalIncome);
+    console.log("fixedItems set to:", user.defaultItems.fixedItems.items);
+    console.log(
+      "subscriptionItems set to:",
+      user.defaultItems.subscriptionItems.items
+    );
+    console.log("otherItems set to:", user.defaultItems.otherItems.items);
+    console.log(
+      "transportItems set to:",
+      user.defaultItems.transportItems.items
+    );
+    console.log("foodItems set to:", user.defaultItems.foodItems.items);
+    
     await user.save();
-    console.log(user.defaultItems)
+    console.log(user.defaultItems);
 
-    res.status(200).json({ 
-      message: "User details updated successfully", 
-      user 
+    res.status(200).json({
+      message: "User details updated successfully",
+      user,
     });
-
   } catch (error) {
     console.error("Update error:", error);
     res.status(500).json({ message: "Server error" });

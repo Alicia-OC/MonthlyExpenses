@@ -1,5 +1,6 @@
 const MonthCardSchema = require("../models/MonthCard");
 const UserSchema = require("../models/Users");
+const { cardCalculations } = require("../utils/cardCalculations");
 
 const asyncHandler = require("express-async-handler");
 let User = UserSchema.User;
@@ -120,78 +121,31 @@ const newAutomaticCard = asyncHandler(async (req, res) => {
         .json({ message: "You already have a card for this month" });
     }
 
-    const fixedItems = user.defaultItems?.fixedItems.items || [];
-    const subscriptionItems = user.defaultItems?.subscriptionItems.items || [];
-    const otherItems = user.defaultItems?.otherItems.items || [];
-    const transportItems = user.defaultItems?.transportItems.items || [];
-    const foodItems = user.defaultItems?.foodItems.items || [];
-    const totalIncome = user.defaultItems?.totalIncome || 0;
-
-    //CALCULATIONS//
-    const calcFixedExpenses = () =>
-      fixedItems.reduce((sum, item) => sum + (item.price || 0), 0);
-
-    const calcSubscriptionExpenses = () =>
-      subscriptionItems.reduce((sum, item) => sum + (item.price || 0), 0);
-
-    const calcOtherExpenses = () =>
-      otherItems.reduce((sum, item) => sum + (item.price || 0), 0);
-
-    const calcTransportExpenses = () =>
-      transportItems.reduce((sum, item) => sum + (item.price || 0), 0);
-
-    const calcFoodExpenses = () =>
-      foodItems.reduce((sum, item) => sum + (item.price || 0), 0);
-
-    const calcTotalExpenses = () => {
-      const result =
-        calcFixedExpenses() +
-        calcSubscriptionExpenses() +
-        calcOtherExpenses() +
-        calcTransportExpenses() +
-        calcFoodExpenses();
-      return result;
-    };
-
-    const calcTotalSavings = () => {
-      const total = totalIncome - calcTotalExpenses();
-      return Number(total.toFixed(2));
-    };
-
-    // Debug logs
-    console.log("=== DEBUGGING CALCULATIONS ===");
-    console.log("Fixed expenses:", calcFixedExpenses());
-    console.log("Subscription expenses:", calcSubscriptionExpenses());
-    console.log("Other expenses:", calcOtherExpenses());
-    console.log("Transport expenses:", calcTransportExpenses());
-    console.log("Food expenses:", calcFoodExpenses());
-    console.log("Total expenses:", calcTotalExpenses());
-    console.log("Total income:", totalIncome);
-    console.log("Calculated savings:", calcTotalSavings());
+    const defaultUserItems = await cardCalculations(user);
 
     const cardObject = {
       user: userid,
       year: year,
       month: month,
-      totalExpenses: calcTotalExpenses(),
-      totalIncome: totalIncome,
-      totalSavings: calcTotalSavings(),
+      totalExpenses: defaultUserItems.totalExpenses,
+      totalIncome: defaultUserItems.totalIncome,
+      totalSavings: defaultUserItems.totalSavings,
 
-      fixedItems: { items: fixedItems },
-      subscriptionItems: { items: subscriptionItems },
-      otherItems: { items: otherItems },
-      transportItems: { items: transportItems },
-      foodItems: { items: foodItems },
+      fixedItems: defaultUserItems.fixedItems,
+      subscriptionItems: defaultUserItems.subscriptionItems,
+      otherItems: defaultUserItems.otherItems,
+      transportItems: defaultUserItems.transportItems,
+      foodItems: defaultUserItems.foodItems,
 
-      fixedExpenses: calcFixedExpenses(),
-      subscriptionExpenses: calcSubscriptionExpenses(),
-      otherExpenses: calcOtherExpenses(),
-      transportExpenses: calcTransportExpenses(),
-      foodExpenses: calcFoodExpenses(),
+      fixedExpenses: defaultUserItems.fixedExpenses,
+      subscriptionExpenses: defaultUserItems.subscriptionExpenses,
+      otherExpenses: defaultUserItems.otherExpenses,
+      transportExpenses: defaultUserItems.transportExpenses,
     };
 
     const newCard = await MonthCard.create(cardObject);
 
+    /**UPDATE  USER'S CARD ARRAY */
     if (newCard) {
       user.cards.push(newCard._id);
       await user.save();
@@ -266,7 +220,7 @@ const getLastFourCards = asyncHandler(async (req, res) => {
     const user = await User.findById(userId).populate({
       path: "cards",
       select:
-        "month  foodExpenses subscriptionExpenses transportExpenses otherExpenses",
+        "month foodExpenses subscriptionExpenses transportExpenses otherExpenses",
       options: { sort: { createdAt: -1 }, limit: 4 },
     });
 

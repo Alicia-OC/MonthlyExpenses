@@ -196,7 +196,7 @@ const EditingCard = () => {
                         </div>
                         {group.items.map((element, itemIndex) => (
                           <div
-                            className="item mb-3 month-card-body multi-column"
+                            className="item mb-3 separating-line multi-column"
                             key={element.id}
                           >
                             <ul className="list-unstyled month-card-item">
