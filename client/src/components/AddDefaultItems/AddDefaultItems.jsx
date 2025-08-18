@@ -10,6 +10,7 @@ import { faMinus } from '@fortawesome/free-solid-svg-icons';
 import ExpenseInputFields from '../addExpenseInline/ExpenseInputFields';
 
 const AddDefaultItems = () => {
+  const user = useSelector((state) => state.user);
   const token = useSelector((state) => state.token);
   const userid = useSelector((state) => state.userId);
   const currency = useSelector((state) => state.currency);
@@ -150,7 +151,7 @@ const AddDefaultItems = () => {
                     {element.description}
                   </li>
                   <li className="month-card-item-money ">
-                    {element.price} {currency}
+                    {element.price} {user?.currency}
                     <button
                       onClick={(e) => handleDeleteItem(e, group.name, index)}
                       className="delete-list-item-btn"
@@ -165,6 +166,7 @@ const AddDefaultItems = () => {
               blockName={group.name}
               onAdd={(newItemAdded) => handleAddItem(newItemAdded)}
               isSmall={true}
+              cardCurrency={user?.currency}
             />
           </div>
         </>

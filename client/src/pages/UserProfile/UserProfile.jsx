@@ -83,38 +83,6 @@ const UserProfile = () => {
       setProfileEditMode(false);
     }
 
-    setIsLoading(true);
-
-    try {
-      const res = await Axios.get(
-        `${backendLink}/users/${userid}/defaultitems`,
-        {
-          headers: { Authorization: `Bearer ${token}` },
-        }
-      );
-      let itemsData = res.data;
-
-      setIncome(itemsData.totalIncome);
-      setDefaultItems([
-        { name: itemsData.fixedItems.name, items: itemsData.fixedItems.items },
-        {
-          name: itemsData.subscriptionItems.name,
-          items: itemsData.subscriptionItems.items,
-        },
-        { name: itemsData.otherItems.name, items: itemsData.otherItems.items },
-        {
-          name: itemsData.transportItems.name,
-          items: itemsData.transportItems.items,
-        },
-        { name: itemsData.foodItems.name, items: itemsData.foodItems.items },
-      ]);
-
-      console.log(res.data);
-    } catch (error) {
-      console.error('Error fetching default items:', error);
-    } finally {
-      setIsLoading(false);
-    }
   };
 
   const validatePassword = (pw1, pw2) => {

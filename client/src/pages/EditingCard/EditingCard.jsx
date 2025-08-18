@@ -28,7 +28,6 @@ const EditingCard = () => {
         headers: { Authorization: `Bearer ${token}` },
       });
       setCard(res.data);
-      
     } catch (error) {
       console.error('Error fetching card:', error);
     } finally {
@@ -186,7 +185,6 @@ const EditingCard = () => {
 
             <div className="month-card-component ">
               <div className="p-3 p-lg-4">
-                
                 <div className="multi-column ">
                   {expenseBlocks.map((group, index) => (
                     <>
@@ -222,6 +220,7 @@ const EditingCard = () => {
                           blockName={group.name}
                           onAdd={(newItemAdded) => handleAddItem(newItemAdded)}
                           isSmall={true}
+                          cardCurrency={card?.currency}
                         />
                       </div>
                     </>
