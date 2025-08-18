@@ -33,6 +33,7 @@ export const authSlice = createSlice({
       state.user = user;
       state.token = token;
       state.userId = user._id;
+      state.currency = user.currency
 
       console.log(user);
     },

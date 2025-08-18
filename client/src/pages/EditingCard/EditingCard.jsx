@@ -16,7 +16,6 @@ const backendLink = import.meta.env.VITE_APP_GETCARD;
 const EditingCard = () => {
   const token = useSelector((state) => state.token);
   const userId = useSelector((state) => state.userId);
-  const currency = useSelector((state) => state.currency);
   const [expenseBlocks, setExpenseBlocks] = useState([]);
   const [card, setCard] = useState();
   const [isLoading, setIsLoading] = useState(false);
@@ -29,13 +28,13 @@ const EditingCard = () => {
         headers: { Authorization: `Bearer ${token}` },
       });
       setCard(res.data);
+      
     } catch (error) {
       console.error('Error fetching card:', error);
     } finally {
       setIsLoading(false);
     }
   };
-
   useEffect(() => {
     getCard();
   }, [userId, token]);
@@ -181,6 +180,7 @@ const EditingCard = () => {
                 totalExpenses={card.totalExpenses}
                 totalIncome={card.totalIncome}
                 totalSavings={card.totalSavings}
+                cardCurrency={card.currency}
               />
             </div>
 
@@ -204,7 +204,7 @@ const EditingCard = () => {
                                 {element.description}
                               </li>
                               <li className="month-card-item-money ">
-                                {element.price} {currency}
+                                {element.price} {card?.currency}
                                 <button
                                   onClick={(e) =>
                                     handleDeleteItem(e, group.name, itemIndex)

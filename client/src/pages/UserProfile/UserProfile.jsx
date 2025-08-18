@@ -59,6 +59,14 @@ const UserProfile = () => {
   ];
 
   const currentMonth = new Date().getUTCMonth();
+  const currentYear = new Date().getFullYear();
+
+  const expensesYearIndex = user?.dataByYear.findIndex(
+    (obj) => obj.year === currentYear
+  );
+
+  const expensesYearSummary = user?.dataByYear[expensesYearIndex];
+
 
   const handleProfileEditingMode = () => {
     setProfileEditMode((prev) => !prev);
@@ -441,9 +449,14 @@ const UserProfile = () => {
                 {!defaultItemsEditMode ? (
                   <div className=" savings-div  ">
                     <h4 className="month-finances-h">
-                      {months[currentMonth]} finances
+                      {expensesYearSummary.year} finances
                     </h4>
-                    <ExpensesSummary />
+                    <ExpensesSummary
+                      totalExpenses={expensesYearSummary.totalExpenses}
+                      totalIncome={expensesYearSummary.totalIncome}
+                      totalSavings={expensesYearSummary.totalSavings}
+                      cardCurrency={user.currency}
+                    />
                   </div>
                 ) : (
                   ''

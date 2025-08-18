@@ -148,6 +148,24 @@ const newAutomaticCard = asyncHandler(async (req, res) => {
     /**UPDATE  USER'S CARD ARRAY */
     if (newCard) {
       user.cards.push(newCard._id);
+
+      const dataBlockIndex = user.dataByYear.findIndex(
+        (obj) => obj.year === year
+      );
+
+      if (dataBlockIndex === -1) {
+        user.dataByYear.push({
+          year: newCard.year,
+          savings: newCard.totalSavings,
+          expenses: newCard.totalExpenses,
+          income: newCard.totalIncome,
+        });
+      } else {
+        user.dataByYear[dataBlockIndex].savings += newCard.totalSavings;
+        user.dataByYear[dataBlockIndex].expenses += newCard.totalExpenses;
+        user.dataByYear[dataBlockIndex].income += newCard.totalIncome;
+      }
+
       await user.save();
 
       res.status(200).json({

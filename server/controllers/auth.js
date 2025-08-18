@@ -71,17 +71,11 @@ const signIn = asyncHandler(async (req, res) => {
     try {
       const currentYear = new Date().getFullYear();
       const currentmonth = new Date().getMonth() + 1;
-      console.log(currentmonth);
 
       const lastLoginYear = user.lastLogin.getFullYear();
       const lastLoginMonth = user.lastLogin.getMonth() + 1;
 
       if (currentYear === lastLoginYear && currentmonth === lastLoginMonth) {
-        const card = await User.findById(user.id).populate({
-          path: "cards",
-          select: "id month year userid ",
-          match: { month: currentmonth, year: currentYear, userid: user.id },
-        });
         const existingCard = await MonthCard.findOne({
           user: user.id,
           month: currentmonth,
@@ -89,11 +83,12 @@ const signIn = asyncHandler(async (req, res) => {
         });
 
         if (existingCard) {
-          // Card exists for this month/year
-
-          console.log("Card found:", existingCard._id);
+          console.log(
+            `This user already has a card for the current month: ${existingCard._id}`
+          );
         } else {
           console.log("No card found for this month/year");
+
           const defaultUserItems = await cardCalculations(user);
           const cardObject = {
             user: user.id,
@@ -117,10 +112,28 @@ const signIn = asyncHandler(async (req, res) => {
           const newCard = await MonthCard.create(cardObject);
           if (newCard) {
             user.cards.push(newCard._id);
+
+            const expensesYearIndex = user.dataByYear.findIndex(
+              (obj) => obj.year === newCard.year
+            );
+
+            if (expensesYearIndex === -1) {
+              user.dataByYear.push({
+                year: newCard.year,
+                totalSavings: newCard.totalSavings,
+                totalExpenses: newCard.totalExpenses,
+                totalIncome: newCard.totalIncome,
+              });
+            } else {
+              user.dataByYear[expensesYearIndex].savings +=
+                newCard.totalSavings;
+              user.dataByYear[expensesYearIndex].expenses +=
+                newCard.totalExpenses;
+              user.dataByYear[expensesYearIndex].income += newCard.totalIncome;
+            }
             await user.save();
           }
           console.log(newCard);
-          //console.log(newCard);
         }
       }
     } catch (error) {
