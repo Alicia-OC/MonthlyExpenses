@@ -212,7 +212,7 @@ const UserProfile = () => {
       });
 
       return (
-        <div className="profile-info-div ">
+        <div className="profile-info-div">
           <div className="">
             <p>
               <label className=" ">
@@ -228,7 +228,9 @@ const UserProfile = () => {
               <span className=""> {user?.email || 'Undefined'}</span>
             </p>
           </div>
-          <div className='default-items-div'>
+          <div className="separating-line"></div>
+
+          <div className="default-items-div">
             <p>Default Items</p>
             <table className="default-items-table w-full text-sm">
               <tbody>
@@ -241,7 +243,7 @@ const UserProfile = () => {
                       {row.description}
                     </td>
                     <td className="py-1 px-4 text-right font-medium">
-                      {row.price}
+                      {`${row.price} ${currency}`}
                     </td>
                   </tr>
                 ))}
@@ -257,7 +259,7 @@ const UserProfile = () => {
 
   // Render profile edit form
   const renderProfileEditForm = () => (
-    <div className="form-grid">
+    <div className="form-grid editing-profile-div">
       <div className="d-flex flex-row align-items-center ">
         <div className="form-floating flex-grow-1">
           <i className="fas fa-envelope fa-lg me-3 fa-fw"></i>
@@ -390,7 +392,7 @@ const UserProfile = () => {
         </div>
       </div>
       <Container fluid className="px-3 px-lg-4">
-        <div className="row justify-content-center">
+        <div className="row justify-content-center ">
           <div className="col-12">
             {' '}
             <div className="card">
@@ -449,6 +451,7 @@ const UserProfile = () => {
                 <div className="update-user-content">
                   <div className="main-content">{renderDynamicContent()}</div>
                 </div>
+                <div className="separating-line"></div>
                 <RecentCardWidget />
               </div>
             </div>

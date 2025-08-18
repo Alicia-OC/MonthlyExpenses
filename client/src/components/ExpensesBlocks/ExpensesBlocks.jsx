@@ -3,7 +3,7 @@ export const ItemsExpenseList = ({ items, currency }) => (
     {items.map((item, index) => (
       <div
         key={`${item.description}-${index}`}
-        className="item mb-3 month-card-body"
+        className="item mb-3 separating-line"
       >
         <ul className="list-unstyled month-card-item">
           <li className="month-card-item-description">{item.description}</li>

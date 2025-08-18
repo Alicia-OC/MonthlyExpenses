@@ -97,13 +97,7 @@
   width: 100% !important;
 }
 
-.month-card-body {
-  border-bottom: 1px solid #ccc;
-  padding-top: 0.5rem;
-  margin-top: 0.5rem;
-  padding-bottom: 0;
-  margin-bottom: 0
-}
+
 
 .block {
   break-inside: avoid;

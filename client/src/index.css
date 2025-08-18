@@ -455,3 +455,16 @@ input {
   font-weight: bold;
   color: var(--pink-theme_h5);
 }
+
+.separating-line {
+    border-bottom: 1px solid #ccc;
+    padding-top: 0.5rem;
+    margin-top: 0.5rem;
+    padding-bottom: 0;
+    margin-bottom: 0
+}
+
+.editing-profile-div{
+
+  margin-top: 1.5rem;
+}

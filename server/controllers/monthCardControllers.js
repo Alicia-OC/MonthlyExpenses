@@ -145,6 +145,7 @@ const newAutomaticCard = asyncHandler(async (req, res) => {
 
     const newCard = await MonthCard.create(cardObject);
 
+    /**UPDATE  USER'S CARD ARRAY */
     if (newCard) {
       user.cards.push(newCard._id);
       await user.save();
