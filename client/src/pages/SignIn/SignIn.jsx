@@ -10,6 +10,8 @@ const SignIn = () => {
   const [message, setMessage] = useState();
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [pwVisibility, setPwVisibility] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -25,7 +27,7 @@ const SignIn = () => {
         const { token, user } = response.data;
 
         dispatch(setLogin({ token, user }));
-        
+
         console.log(token, user);
         //window.location.replace('/');
       } else if (response.status === 400) {
@@ -46,29 +48,92 @@ const SignIn = () => {
           <div className="col-lg-12 col-xl-11">
             <div className="card text-black">
               <div className="card-body ">
-                <form className="mx-1 mx-md-4" onSubmit={handleSubmit}>
-                  {' '}
-                  {message && <div>{message}</div>}
-                  <label htmlFor="email">Your Email</label>
-                  <input
-                    type="text"
-                    id="email"
-                    value={email}
-                    onChange={(e) => setEmail(e.target.value)}
-                  />{' '}
-                  <label htmlFor="password">Password</label>
-                  <input
-                    type="password"
-                    id="password"
-                    value={password}
-                    onChange={(e) => setPassword(e.target.value)}
-                  />{' '}
-                  <div>
-                    <button className="btn btn-dark" type="submit">
-                      Submit
-                    </button>
-                  </div>
-                </form>
+                <div className="row justify-content-center">
+                  <p className="text-center h1 fw-bold mb-3 mx-1 mx-md-4 mt-2">
+                    Sign in
+                  </p>
+                  <p className="error-message text-center p fw-bold mb-3 mx-1 mx-md-4 mt-2">
+                    {' '}
+                    {message}
+                  </p>
+
+                  <form className="mx-1 mx-md-4">
+
+                    <div className="d-flex flex-row align-items-center mb-4">
+                      <div className="form-floating flex-fill mb-0">
+                        <i className="fas fa-envelope fa-lg me-3 fa-fw"></i>
+                        <input
+                          onChange={(e) => setEmail(e.target.value)}
+                          type="email"
+                          id="form-email"
+                          className="form-control"
+                        />
+                        <label className="form-label" htmlFor="form-email">
+                          Email
+                        </label>
+                      </div>
+                    </div>
+
+                    <div className="d-flex flex-row align-items-center mb-4">
+                      <div className="form-floating flex-fill mb-0">
+                        <i className="fas fa-lock fa-lg me-3 fa-fw"></i>
+
+                        <input
+                          onChange={(e) => setPassword(e.target.value)}
+                          type={pwVisibility ? 'text' : 'password'}
+                          id="form-pw"
+                          className="form-control"
+                        />
+                        <label className="form-label" htmlFor="form-pw">
+                          Password
+                        </label>
+                      </div>
+                    </div>
+
+                  
+                    <div className="form-check d-flex justify-content-center mb-4">
+                      <input
+                        className="form-check-input me-2"
+                        type="checkbox"
+                        value=""
+                        id="show-pw"
+                        onClick={(e) => setPwVisibility(!pwVisibility)}
+                      />
+                      <label className="form-check-label" htmlFor="show-pw">
+                        Show password
+                      </label>
+                    </div>
+
+                    <div>
+                      <button
+                        onClick={handleSubmit}
+                        className="btn btn-dark"
+                        type="submit"
+                        disabled={isLoading}
+                      >
+                        {isLoading ? (
+                          <>
+                            <span
+                              className="spinner-border spinner-border-sm me-2"
+                              role="status"
+                              aria-hidden="true"
+                            ></span>
+                            Creating Account...
+                          </>
+                        ) : (
+                          'Register'
+                        )}{' '}
+                      </button>
+                    </div>
+
+                    <p className="text-center text-muted mt-4 mb-0">
+                      You don't have an account?{' '}
+                      <a href="/signup" className="fw-bold text-body">
+                        <u>Create one here</u>
+                      </a>
+                    </p>
+                  </form>
+                </div>
               </div>
             </div>
           </div>

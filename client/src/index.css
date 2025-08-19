@@ -457,14 +457,14 @@ input {
 }
 
 .separating-line {
-    border-bottom: 1px solid #ccc;
-    padding-top: 0.5rem;
-    margin-top: 0.5rem;
-    padding-bottom: 0;
-    margin-bottom: 0
+  border-bottom: 1px solid #ccc;
+  padding-top: 0.5rem;
+  margin-top: 0.5rem;
+  padding-bottom: 0;
+  margin-bottom: 0
 }
 
-.editing-profile-div{
+.editing-profile-div {
 
   margin-top: 1.5rem;
 }
