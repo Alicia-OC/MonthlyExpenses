@@ -59,6 +59,14 @@ const UserProfile = () => {
   ];
 
   const currentMonth = new Date().getUTCMonth();
+  const currentYear = new Date().getFullYear();
+
+  const expensesYearIndex = user?.dataByYear.findIndex(
+    (obj) => obj.year === currentYear
+  );
+
+  const expensesYearSummary = user?.dataByYear[expensesYearIndex];
+
 
   const handleProfileEditingMode = () => {
     setProfileEditMode((prev) => !prev);
@@ -75,38 +83,6 @@ const UserProfile = () => {
       setProfileEditMode(false);
     }
 
-    setIsLoading(true);
-
-    try {
-      const res = await Axios.get(
-        `${backendLink}/users/${userid}/defaultitems`,
-        {
-          headers: { Authorization: `Bearer ${token}` },
-        }
-      );
-      let itemsData = res.data;
-
-      setIncome(itemsData.totalIncome);
-      setDefaultItems([
-        { name: itemsData.fixedItems.name, items: itemsData.fixedItems.items },
-        {
-          name: itemsData.subscriptionItems.name,
-          items: itemsData.subscriptionItems.items,
-        },
-        { name: itemsData.otherItems.name, items: itemsData.otherItems.items },
-        {
-          name: itemsData.transportItems.name,
-          items: itemsData.transportItems.items,
-        },
-        { name: itemsData.foodItems.name, items: itemsData.foodItems.items },
-      ]);
-
-      console.log(res.data);
-    } catch (error) {
-      console.error('Error fetching default items:', error);
-    } finally {
-      setIsLoading(false);
-    }
   };
 
   const validatePassword = (pw1, pw2) => {
@@ -159,36 +135,6 @@ const UserProfile = () => {
         }
       }
 
-      if (defaultItemsEditMode) {
-        const updateData = { totalIncome: income };
-
-        defaultItems.forEach((block) => {
-          switch (block.name) {
-            case 'The Non-negotiables':
-              updateData.fixedItems = block.items;
-              break;
-            case 'On Repeat':
-              updateData.subscriptionItems = block.items;
-              break;
-            case 'Little Life Things':
-              updateData.otherItems = block.items;
-              break;
-            case 'Out & About':
-              updateData.transportItems = block.items;
-              break;
-            case 'Bits & Bites':
-              updateData.foodItems = block.items;
-              break;
-          }
-        });
-        console.log(defaultItems);
-
-        await Axios.patch(
-          `${backendLink}/users/${userid}/defaultitems`,
-          updateData,
-          { headers: { Authorization: `Bearer ${token}` } }
-        );
-      }
     } catch (error) {
       console.log(error);
     }
@@ -441,9 +387,14 @@ const UserProfile = () => {
                 {!defaultItemsEditMode ? (
                   <div className=" savings-div  ">
                     <h4 className="month-finances-h">
-                      {months[currentMonth]} finances
+                      {expensesYearSummary.year} finances
                     </h4>
-                    <ExpensesSummary />
+                    <ExpensesSummary
+                      totalExpenses={expensesYearSummary.totalExpenses}
+                      totalIncome={expensesYearSummary.totalIncome}
+                      totalSavings={expensesYearSummary.totalSavings}
+                      cardCurrency={currency}
+                    />
                   </div>
                 ) : (
                   ''

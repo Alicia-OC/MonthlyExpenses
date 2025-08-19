@@ -148,6 +148,24 @@ const newAutomaticCard = asyncHandler(async (req, res) => {
     /**UPDATE  USER'S CARD ARRAY */
     if (newCard) {
       user.cards.push(newCard._id);
+
+      const dataBlockIndex = user.dataByYear.findIndex(
+        (obj) => obj.year === year
+      );
+
+      if (dataBlockIndex === -1) {
+        user.dataByYear.push({
+          year: newCard.year,
+          savings: newCard.totalSavings,
+          expenses: newCard.totalExpenses,
+          income: newCard.totalIncome,
+        });
+      } else {
+        user.dataByYear[dataBlockIndex].savings += newCard.totalSavings;
+        user.dataByYear[dataBlockIndex].expenses += newCard.totalExpenses;
+        user.dataByYear[dataBlockIndex].income += newCard.totalIncome;
+      }
+
       await user.save();
 
       res.status(200).json({
@@ -247,12 +265,13 @@ const getAllCards = asyncHandler(async (req, res) => {
     const user = await User.findById(userid).populate({
       path: "cards",
       select:
-        "id month year foodExpenses subscriptionExpenses transportExpenses otherExpenses",
+        "id month year currency foodExpenses subscriptionExpenses transportExpenses otherExpenses",
     });
 
     if (!user) {
       return res.status(404).json({ error: "User not found" });
     }
+
     const result = user.cards.map((card) => ({
       id: card._id,
       month: card.month,
@@ -261,6 +280,7 @@ const getAllCards = asyncHandler(async (req, res) => {
       subscriptionExpenses: card.subscriptionExpenses,
       transportExpenses: card.transportExpenses,
       otherExpenses: card.otherExpenses,
+      currency: card.currency
     }));
 
     const groupCards = (cards) => {

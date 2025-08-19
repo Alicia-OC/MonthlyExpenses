@@ -106,7 +106,7 @@ const CardsLibrary = () => {
 
     return <div className="summary-responsive ">{result}</div>;
   };
-
+console.log(currentCards)
   return (
     <>
       <div className="filtering-cards-div col row-cols-1 g-4 justify-content-around align-items-center">
@@ -139,11 +139,11 @@ const CardsLibrary = () => {
                   <p className="card-text">
                     You have spent{' '}
                     <boldd>
-                      {item.foodExpenses} {currency}{' '}
+                      {item.foodExpenses} {item.currency}{' '}
                     </boldd>
-                    in groceries, {item.subscriptionExpenses} {currency} in
-                    subscriptions, {item.transportExpenses} {currency} in
-                    transport, {item.otherExpenses} {currency} and in misc!
+                    in groceries, {item.subscriptionExpenses} {item.currency} in
+                    subscriptions, {item.transportExpenses} {item.currency} in
+                    transport, {item.otherExpenses} {item.currency} and in misc!
                   </p>
                 </div>
               </div>

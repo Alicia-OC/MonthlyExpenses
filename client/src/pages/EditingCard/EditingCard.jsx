@@ -16,7 +16,6 @@ const backendLink = import.meta.env.VITE_APP_GETCARD;
 const EditingCard = () => {
   const token = useSelector((state) => state.token);
   const userId = useSelector((state) => state.userId);
-  const currency = useSelector((state) => state.currency);
   const [expenseBlocks, setExpenseBlocks] = useState([]);
   const [card, setCard] = useState();
   const [isLoading, setIsLoading] = useState(false);
@@ -35,7 +34,6 @@ const EditingCard = () => {
       setIsLoading(false);
     }
   };
-
   useEffect(() => {
     getCard();
   }, [userId, token]);
@@ -181,12 +179,12 @@ const EditingCard = () => {
                 totalExpenses={card.totalExpenses}
                 totalIncome={card.totalIncome}
                 totalSavings={card.totalSavings}
+                cardCurrency={card.currency}
               />
             </div>
 
             <div className="month-card-component ">
               <div className="p-3 p-lg-4">
-                
                 <div className="multi-column ">
                   {expenseBlocks.map((group, index) => (
                     <>
@@ -204,7 +202,7 @@ const EditingCard = () => {
                                 {element.description}
                               </li>
                               <li className="month-card-item-money ">
-                                {element.price} {currency}
+                                {element.price} {card?.currency}
                                 <button
                                   onClick={(e) =>
                                     handleDeleteItem(e, group.name, itemIndex)
@@ -222,6 +220,7 @@ const EditingCard = () => {
                           blockName={group.name}
                           onAdd={(newItemAdded) => handleAddItem(newItemAdded)}
                           isSmall={true}
+                          cardCurrency={card?.currency}
                         />
                       </div>
                     </>

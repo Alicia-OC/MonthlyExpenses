@@ -85,6 +85,7 @@ const MonthCard = () => {
                   totalExpenses={card.totalExpenses}
                   totalIncome={card.totalIncome}
                   totalSavings={card.totalSavings}
+                  cardCurrency={card.currency}
                 />
               </div>{' '}
               <div className="p-3 month-card-container">

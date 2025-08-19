@@ -11,6 +11,7 @@ const ExpenseInputFields = ({ onAdd, blockName, ...props }) => {
   const currency = useSelector((state) => state.currency);
 
   const isSmall = props.isSmall;
+  const cardCurrency = props.cardCurrency
 
   //generate random UUID
   let myuuid = uuidv4();
@@ -72,7 +73,7 @@ const ExpenseInputFields = ({ onAdd, blockName, ...props }) => {
                 id="new-expense-price-input"
                 onChange={(e) => setNewItemPrice(e.target.value)}
               />
-              <label htmlFor="new-expense-price-input">{currency}</label>
+              <label htmlFor="new-expense-price-input">{cardCurrency}</label>
             </div>
           </div>
           <button type="submit">

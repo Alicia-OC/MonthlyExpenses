@@ -28,8 +28,9 @@ function App() {
         <Route index element={<Landing />} />
         <Route path="/landing" element={<Landing />} />
 
-        {/* Public Routes - No authentication required */}
         <Route path="/" element={<DashLayout auth={isAuth} />}>
+          {/* Public Routes - No authentication required */}
+          
           <Route path="/about" element={<About />} />
           <Route path="/privacy" element={<NoMatch />} />
 

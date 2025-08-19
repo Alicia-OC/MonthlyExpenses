@@ -1,18 +1,25 @@
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import Axios from 'axios';
-import { useState } from 'react';
-import { useSelector } from 'react-redux';
 import { Modal } from 'bootstrap';
 
+/**REDUX */
+import { useSelector, useDispatch } from 'react-redux';
+import { updateUser } from '../../state/authSlice';
+
+/**ICONS */
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faMinus } from '@fortawesome/free-solid-svg-icons';
 
 import ExpenseInputFields from '../addExpenseInline/ExpenseInputFields';
 
 const AddDefaultItems = () => {
+  const dispatch = useDispatch();
+
+  const user = useSelector((state) => state.user);
   const token = useSelector((state) => state.token);
   const userid = useSelector((state) => state.userId);
   const currency = useSelector((state) => state.currency);
+  const userItems = user?.defaultItems || '';
 
   const backendLink = import.meta.env.VITE_APP_API_URL;
 
@@ -21,41 +28,23 @@ const AddDefaultItems = () => {
   const [income, setIncome] = useState();
   const [hasUnsavedChanges, setHasUnsavedChanges] = useState(false);
 
-  const fetchData = async () => {
-    try {
-      const res = await Axios.get(
-        `${backendLink}/users/${userid}/defaultitems`,
-        {
-          headers: { Authorization: `Bearer ${token}` },
-        }
-      );
-      let itemsData = res.data;
-
-      setIncome(itemsData.totalIncome);
-      setDefaultItems([
-        { name: itemsData.fixedItems.name, items: itemsData.fixedItems.items },
-        {
-          name: itemsData.subscriptionItems.name,
-          items: itemsData.subscriptionItems.items,
-        },
-        { name: itemsData.otherItems.name, items: itemsData.otherItems.items },
-        {
-          name: itemsData.transportItems.name,
-          items: itemsData.transportItems.items,
-        },
-        { name: itemsData.foodItems.name, items: itemsData.foodItems.items },
-      ]);
-
-      console.log(res.data);
-    } catch (error) {
-      console.error('Error fetching default items:', error);
-    } finally {
-      setIsLoading(false);
-    }
-  };
   useEffect(() => {
-    fetchData();
-    console.log(defaultItems);
+    setIsLoading(true);
+    setDefaultItems([
+      { name: userItems.fixedItems.name, items: userItems.fixedItems.items },
+      {
+        name: userItems.subscriptionItems.name,
+        items: userItems.subscriptionItems.items,
+      },
+      { name: userItems.otherItems.name, items: userItems.otherItems.items },
+      {
+        name: userItems.transportItems.name,
+        items: userItems.transportItems.items,
+      },
+      { name: userItems.foodItems.name, items: userItems.foodItems.items },
+    ]);
+    setIncome(userItems.totalIncome);
+    setIsLoading(false);
   }, []);
 
   const handleAddItem = async (newItemAdded) => {
@@ -77,10 +66,10 @@ const AddDefaultItems = () => {
           }
         : block
     );
-
     setDefaultItems(updatedBlocks);
     setHasUnsavedChanges(true);
   };
+
   const handleSave = async () => {
     const modal = new Modal(document.getElementById('saveAlertModal'));
     try {
@@ -108,7 +97,7 @@ const AddDefaultItems = () => {
 
       Object.assign(updateData, mappedData);
       console.log('Saving data:', updateData);
-      // DEBUG LOGGING
+
       const url = `${backendLink}/users/update/${userid}`;
 
       const res = await Axios.patch(url, updateData, {
@@ -116,8 +105,12 @@ const AddDefaultItems = () => {
       });
 
       if (res.status === 200) {
+        const { defaultItems, currency, cards } = res.data.userDataUpdated;
+
+        dispatch(updateUser({ defaultItems, currency, cards }));
         modal.show();
         setHasUnsavedChanges(false);
+        console.log(user.defaultItems);
       }
     } catch (error) {
       console.log(error);
@@ -165,6 +158,7 @@ const AddDefaultItems = () => {
               blockName={group.name}
               onAdd={(newItemAdded) => handleAddItem(newItemAdded)}
               isSmall={true}
+              cardCurrency={currency}
             />
           </div>
         </>

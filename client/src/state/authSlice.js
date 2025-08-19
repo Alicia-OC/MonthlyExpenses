@@ -33,6 +33,7 @@ export const authSlice = createSlice({
       state.user = user;
       state.token = token;
       state.userId = user._id;
+      state.currency = user.currency;
 
       console.log(user);
     },
@@ -53,10 +54,23 @@ export const authSlice = createSlice({
     setCurrency: (state, action) => {
       state.currency = action.payload.currency;
     },
+
+    updateUser: (state, action) => {
+      state.user.currency = action.payload.currency;
+      state.user.defaultItems = action.payload.defaultItems;
+      state.user.cards = action.payload.cards;
+    },
   },
 });
 
-export const { setMode, setLogin, setLogout, setCards, setCurrency, setLastFourCards } =
-  authSlice.actions;
+export const {
+  setMode,
+  setLogin,
+  setLogout,
+  setCards,
+  setCurrency,
+  setLastFourCards,
+  updateUser,
+} = authSlice.actions;
 
 export default authSlice.reducer;

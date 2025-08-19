@@ -23,6 +23,11 @@ const userSchema = new mongoose.Schema(
       required: true,
       minlength: 8,
     },
+    currency: {
+      type: String,
+      required: true,
+      default: "€",
+    },
     avatar: { type: String, default: "../public/images/default-avatar.jpg" },
     cards: {
       type: [
@@ -35,7 +40,6 @@ const userSchema = new mongoose.Schema(
     dataByYear: [
       {
         year: { type: Number, required: true },
-        month: { type: String, required: true },
         savings: { type: Number, default: 0 },
         expenses: { type: Number, default: 0 },
         income: { type: Number, default: 0 },

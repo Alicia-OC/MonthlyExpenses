@@ -7,6 +7,11 @@ const monthCardSchema = new mongoose.Schema(
       ref: "User",
       required: true,
     },
+    currency: {
+      type: String,
+      required: true,
+      default: "€",
+    },
     year: { type: Number, required: true },
     month: { type: Number, required: true },
     totalExpenses: { type: Number, required: true, default: 0 },

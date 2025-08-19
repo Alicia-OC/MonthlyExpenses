@@ -18,8 +18,10 @@ const updateDetails = asyncHandler(async (req, res) => {
       otherItems,
       transportItems,
       foodItems,
+      currency,
     } = req.body;
 
+    console.log(currency);
     const { userid } = req.params;
 
     const user = await User.findById(userid);
@@ -44,27 +46,19 @@ const updateDetails = asyncHandler(async (req, res) => {
     if (otherItems) user.defaultItems.otherItems.items = otherItems;
     if (transportItems) user.defaultItems.transportItems.items = transportItems;
     if (foodItems) user.defaultItems.foodItems.items = foodItems;
+    if (currency) user.currency = currency;
 
-    /**DEBUG */
-    console.log("totalIncome set to:", user.defaultItems.totalIncome);
-    console.log("fixedItems set to:", user.defaultItems.fixedItems.items);
-    console.log(
-      "subscriptionItems set to:",
-      user.defaultItems.subscriptionItems.items
-    );
-    console.log("otherItems set to:", user.defaultItems.otherItems.items);
-    console.log(
-      "transportItems set to:",
-      user.defaultItems.transportItems.items
-    );
-    console.log("foodItems set to:", user.defaultItems.foodItems.items);
-    
     await user.save();
-    console.log(user.defaultItems);
+
+    const userDataUpdated = {
+      defaultItems: user.defaultItems,
+      currency: user.currency,
+      cards: user.cards,
+    };
 
     res.status(200).json({
       message: "User details updated successfully",
-      user,
+      userDataUpdated,
     });
   } catch (error) {
     console.error("Update error:", error);

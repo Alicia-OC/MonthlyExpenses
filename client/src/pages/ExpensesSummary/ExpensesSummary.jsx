@@ -16,27 +16,28 @@ const ExpensesSummary = (props) => {
   const totalExpenses = props.totalExpenses;
   const totalIncome = props.totalIncome;
   const totalSavings = props.totalSavings;
+  const cardCurrency = props.cardCurrency
 
   return (
     <div className="d-flex justify-content-center py-1 text-body">
       <div>
         <p className="mb-1 h5">
           <FontAwesomeIcon icon={faPiggyBank} />{' '}
-          {totalSavings + ' ' + currency}{' '}
+          {totalSavings + ' ' + cardCurrency}{' '}
         </p>
         <p className="small text-muted mb-0">savings</p>
       </div>
       <div className="px-3">
         <p className="mb-1 h5">
           <FontAwesomeIcon icon={faBasketShopping} />{' '}
-          {totalExpenses + ' ' + currency}
+          {totalExpenses + ' ' + cardCurrency}
         </p>
         <p className="small text-muted mb-0">expenses</p>
       </div>
       <div>
         <p className="mb-1 h5">
           <FontAwesomeIcon icon={faMoneyBillWave} />{' '}
-          {totalIncome + ' ' + currency}{' '}
+          {totalIncome + ' ' + cardCurrency}{' '}
         </p>
         <p className="small text-muted mb-0">income</p>
       </div>

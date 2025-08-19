@@ -1,5 +1,7 @@
 import 'bootstrap/dist/css/bootstrap.css';
 import './Header.css';
+import Axios from 'axios';
+import { useState } from 'react';
 
 import { Navbar, Nav, NavDropdown, Container } from 'react-bootstrap';
 import Image from 'react-bootstrap/Image';
@@ -10,8 +12,11 @@ import { setLogout } from '../../state/authSlice';
 import { setCurrency } from '../../state/authSlice';
 
 const Linkedin = import.meta.env.VITE_APP_LINKEDIN;
+const backendLink = import.meta.env.VITE_APP_API_URL;
 
 const NavBar = () => {
+  const [isLoading, setIsLoading] = useState(false);
+
   const dispatch = useDispatch();
   const userId = useSelector((state) => state.userId);
   const token = useSelector((state) => state.token);
@@ -19,6 +24,22 @@ const NavBar = () => {
 
   const updateCurrency = async (newCurrency) => {
     dispatch(setCurrency({ currency: newCurrency }));
+
+    setIsLoading(true);
+
+    try {
+      const res = await Axios.patch(
+        `${backendLink}/users/update/${userId}`,
+        { currency: newCurrency },
+        {
+          headers: { Authorization: `Bearer ${token}` },
+        }
+      );
+    } catch (error) {
+      console.error('Error fetching default items:', error);
+    } finally {
+      setIsLoading(false);
+    }
   };
 
   const HandleLogout = () => {
@@ -40,7 +61,10 @@ const NavBar = () => {
             <Nav.Link href="/about" target="_blank">
               About
             </Nav.Link>
-            <Nav.Link href="https://alicia-oc.github.io/aliciaoc-portfolio/" target="_blank">
+            <Nav.Link
+              href="https://alicia-oc.github.io/aliciaoc-portfolio/"
+              target="_blank"
+            >
               Portfolio
             </Nav.Link>
             <Nav.Link
