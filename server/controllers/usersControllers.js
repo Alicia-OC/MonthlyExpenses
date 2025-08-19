@@ -48,12 +48,17 @@ const updateDetails = asyncHandler(async (req, res) => {
     if (foodItems) user.defaultItems.foodItems.items = foodItems;
     if (currency) user.currency = currency;
 
-
     await user.save();
+
+    const userDataUpdated = {
+      defaultItems: user.defaultItems,
+      currency: user.currency,
+      cards: user.cards,
+    };
 
     res.status(200).json({
       message: "User details updated successfully",
-      user,
+      userDataUpdated,
     });
   } catch (error) {
     console.error("Update error:", error);

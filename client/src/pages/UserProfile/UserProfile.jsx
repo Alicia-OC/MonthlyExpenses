@@ -135,36 +135,6 @@ const UserProfile = () => {
         }
       }
 
-      if (defaultItemsEditMode) {
-        const updateData = { totalIncome: income };
-
-        defaultItems.forEach((block) => {
-          switch (block.name) {
-            case 'The Non-negotiables':
-              updateData.fixedItems = block.items;
-              break;
-            case 'On Repeat':
-              updateData.subscriptionItems = block.items;
-              break;
-            case 'Little Life Things':
-              updateData.otherItems = block.items;
-              break;
-            case 'Out & About':
-              updateData.transportItems = block.items;
-              break;
-            case 'Bits & Bites':
-              updateData.foodItems = block.items;
-              break;
-          }
-        });
-        console.log(defaultItems);
-
-        await Axios.patch(
-          `${backendLink}/users/${userid}/defaultitems`,
-          updateData,
-          { headers: { Authorization: `Bearer ${token}` } }
-        );
-      }
     } catch (error) {
       console.log(error);
     }
