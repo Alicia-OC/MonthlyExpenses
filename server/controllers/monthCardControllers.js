@@ -265,12 +265,13 @@ const getAllCards = asyncHandler(async (req, res) => {
     const user = await User.findById(userid).populate({
       path: "cards",
       select:
-        "id month year foodExpenses subscriptionExpenses transportExpenses otherExpenses",
+        "id month year currency foodExpenses subscriptionExpenses transportExpenses otherExpenses",
     });
 
     if (!user) {
       return res.status(404).json({ error: "User not found" });
     }
+
     const result = user.cards.map((card) => ({
       id: card._id,
       month: card.month,
@@ -279,6 +280,7 @@ const getAllCards = asyncHandler(async (req, res) => {
       subscriptionExpenses: card.subscriptionExpenses,
       transportExpenses: card.transportExpenses,
       otherExpenses: card.otherExpenses,
+      currency: card.currency
     }));
 
     const groupCards = (cards) => {
