@@ -14,6 +14,7 @@ const SignUp = () => {
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
   const [isLoading, setIsLoading] = useState(false);
+  const [pwVisibility, setPwVisibility] = useState(false);
 
   const validateData = () => {
     if (!fullName.trim() || !email.trim() || !password || !confirmPassword) {
@@ -38,6 +39,8 @@ const SignUp = () => {
       return true;
     }
   };
+
+  const changePwVisibility = () => {};
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -70,8 +73,7 @@ const SignUp = () => {
       } catch (error) {
         setMessage('Failed to create account. Please try again.');
       } finally {
-        setIsLoading(false); 
-        
+        setIsLoading(false);
       }
     }
   };
@@ -129,7 +131,7 @@ const SignUp = () => {
 
                         <input
                           onChange={(e) => setPassword(e.target.value)}
-                          type="password"
+                          type={pwVisibility ? 'text' : 'password'}
                           id="form-pw"
                           className="form-control"
                         />
@@ -144,7 +146,7 @@ const SignUp = () => {
                         <i className="fas fa-key fa-lg me-3 fa-fw"></i>
                         <input
                           onChange={(e) => setConfirmPassword(e.target.value)}
-                          type="password"
+                          type={pwVisibility ? 'text' : 'password'}
                           id="form-repeat-pw"
                           className="form-control"
                         />
@@ -160,6 +162,7 @@ const SignUp = () => {
                         type="checkbox"
                         value=""
                         id="show-pw"
+                        onClick={(e) => setPwVisibility(!pwVisibility)}
                       />
                       <label className="form-check-label" htmlFor="show-pw">
                         Show password
