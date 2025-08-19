@@ -19,7 +19,7 @@ const AddDefaultItems = () => {
   const token = useSelector((state) => state.token);
   const userid = useSelector((state) => state.userId);
   const currency = useSelector((state) => state.currency);
-  const userItems = user?.defaultItems;
+  const userItems = user?.defaultItems || '';
 
   const backendLink = import.meta.env.VITE_APP_API_URL;
 
@@ -28,25 +28,8 @@ const AddDefaultItems = () => {
   const [income, setIncome] = useState();
   const [hasUnsavedChanges, setHasUnsavedChanges] = useState(false);
 
-  const fetchData = () => {
-    const userItems = user?.defaultItems;
-
-    setDefaultItems([
-      { name: userItems.fixedItems.name, items: userItems.fixedItems.items },
-      {
-        name: userItems.subscriptionItems.name,
-        items: userItems.subscriptionItems.items,
-      },
-      { name: userItems.otherItems.name, items: userItems.otherItems.items },
-      {
-        name: userItems.transportItems.name,
-        items: userItems.transportItems.items,
-      },
-      { name: userItems.foodItems.name, items: userItems.foodItems.items },
-    ]);
-  };
-
   useEffect(() => {
+    setIsLoading(true);
     setDefaultItems([
       { name: userItems.fixedItems.name, items: userItems.fixedItems.items },
       {
@@ -60,7 +43,8 @@ const AddDefaultItems = () => {
       },
       { name: userItems.foodItems.name, items: userItems.foodItems.items },
     ]);
-    setIncome(userItems.totalIncome)
+    setIncome(userItems.totalIncome);
+    setIsLoading(false);
   }, []);
 
   const handleAddItem = async (newItemAdded) => {
@@ -159,7 +143,7 @@ const AddDefaultItems = () => {
                     {element.description}
                   </li>
                   <li className="month-card-item-money ">
-                    {element.price} {user?.currency}
+                    {element.price} {currency}
                     <button
                       onClick={(e) => handleDeleteItem(e, group.name, index)}
                       className="delete-list-item-btn"
@@ -174,7 +158,7 @@ const AddDefaultItems = () => {
               blockName={group.name}
               onAdd={(newItemAdded) => handleAddItem(newItemAdded)}
               isSmall={true}
-              cardCurrency={user?.currency}
+              cardCurrency={currency}
             />
           </div>
         </>

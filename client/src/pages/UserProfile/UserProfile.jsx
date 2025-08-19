@@ -393,7 +393,7 @@ const UserProfile = () => {
                       totalExpenses={expensesYearSummary.totalExpenses}
                       totalIncome={expensesYearSummary.totalIncome}
                       totalSavings={expensesYearSummary.totalSavings}
-                      cardCurrency={user.currency}
+                      cardCurrency={currency}
                     />
                   </div>
                 ) : (
