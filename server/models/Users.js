@@ -49,7 +49,7 @@ const userSchema = new mongoose.Schema(
       fixedItems: {
         name: {
           type: String,
-          default: "Fixed Expenses",
+          default: "The Non-negotiables",
         },
         items: {
           type: [
@@ -68,7 +68,7 @@ const userSchema = new mongoose.Schema(
       subscriptionItems: {
         name: {
           type: String,
-          default: "Subscriptions",
+          default: "On Repeat",
         },
         items: {
           type: [
@@ -87,7 +87,7 @@ const userSchema = new mongoose.Schema(
       otherItems: {
         name: {
           type: String,
-          default: "Other Expenses",
+          default: "Little Life Things",
         },
         items: {
           type: [
@@ -119,7 +119,7 @@ const userSchema = new mongoose.Schema(
       foodItems: {
         name: {
           type: String,
-          default: "Food & Dining",
+          default: "Bits & Bites",
         },
         items: {
           type: [
