@@ -8,7 +8,6 @@ let User = UserSchema.User;
 let MonthCard = MonthCardSchema.MonthCard;
 
 const { cardCalculations } = require("../utils/cardCalculations");
-const { newCard } = require("./monthCardControllers");
 
 const signUp = asyncHandler(async (req, res) => {
   try {
@@ -90,6 +89,7 @@ const signIn = asyncHandler(async (req, res) => {
           console.log("No card found for this month/year");
 
           const defaultUserItems = await cardCalculations(user);
+          
           const cardObject = {
             user: user.id,
             year: currentYear,
@@ -109,7 +109,9 @@ const signIn = asyncHandler(async (req, res) => {
             otherExpenses: defaultUserItems.otherExpenses,
             transportExpenses: defaultUserItems.transportExpenses,
           };
+
           const newCard = await MonthCard.create(cardObject);
+
           if (newCard) {
             user.cards.push(newCard._id);
 

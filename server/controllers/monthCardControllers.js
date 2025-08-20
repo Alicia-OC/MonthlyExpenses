@@ -1,6 +1,9 @@
 const MonthCardSchema = require("../models/MonthCard");
 const UserSchema = require("../models/Users");
 const { cardCalculations } = require("../utils/cardCalculations");
+const {
+  yearlyExpensesCalculations,
+} = require("../utils/yearlyExpensesCalculations");
 
 const asyncHandler = require("express-async-handler");
 let User = UserSchema.User;
@@ -280,7 +283,7 @@ const getAllCards = asyncHandler(async (req, res) => {
       subscriptionExpenses: card.subscriptionExpenses,
       transportExpenses: card.transportExpenses,
       otherExpenses: card.otherExpenses,
-      currency: card.currency
+      currency: card.currency,
     }));
 
     const groupCards = (cards) => {
@@ -425,6 +428,23 @@ const updateCard = asyncHandler(async (req, res) => {
 
     card.totalSavings = calcTotalSavings();
     const updatedCard = await card.save();
+
+    /**UPDATE DATABYYEAR   */
+
+    const { totalExpenses, totalIncome, totalSavings, id } = card;
+
+    const mockCard = {
+      totalExpenses: updatedCard.totalExpenses,
+      totalIncome: updatedCard.totalIncome,
+      totalSavings: updatedCard.totalSavings,
+      id: updatedCard._id,
+      year: updatedCard.year,
+    };
+
+    const updatedDataByYear = await yearlyExpensesCalculations(
+      user,
+      mockCard
+    );
 
     return res.status(200).json(updatedCard);
   } catch (error) {
