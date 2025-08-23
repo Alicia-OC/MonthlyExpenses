@@ -57,7 +57,7 @@ const MonthCard = () => {
     }
   }, [userId, token]);
 
-  console.log(card)
+  console.log(card);
   if (isLoading) {
     return (
       <Card className="month-card-component col-12 col-md-6 col-lg-4">
@@ -99,7 +99,7 @@ const MonthCard = () => {
                         card.otherItems,
                         card.transportItems,
                         card.foodItems,
-                        card.currency
+                        card.currency,
                       ]
                         .filter(
                           (category) =>
@@ -121,7 +121,7 @@ const MonthCard = () => {
                                     {item.description}
                                   </li>
                                   <li className="month-card-item-money">
-                                    {item.price} { card.currency}
+                                    {item.price} {card.currency}
                                   </li>
                                 </ul>
                               </div>

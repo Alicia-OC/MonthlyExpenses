@@ -58,7 +58,6 @@ const SignIn = () => {
                   </p>
 
                   <form className="mx-1 mx-md-4">
-
                     <div className="d-flex flex-row align-items-center mb-4">
                       <div className="form-floating flex-fill mb-0">
                         <i className="fas fa-envelope fa-lg me-3 fa-fw"></i>
@@ -90,7 +89,6 @@ const SignIn = () => {
                       </div>
                     </div>
 
-                  
                     <div className="form-check d-flex justify-content-center mb-4">
                       <input
                         className="form-check-input me-2"
@@ -111,18 +109,7 @@ const SignIn = () => {
                         type="submit"
                         disabled={isLoading}
                       >
-                        {isLoading ? (
-                          <>
-                            <span
-                              className="spinner-border spinner-border-sm me-2"
-                              role="status"
-                              aria-hidden="true"
-                            ></span>
-                            Creating Account...
-                          </>
-                        ) : (
-                          'Register'
-                        )}{' '}
+                        Sign in
                       </button>
                     </div>
 

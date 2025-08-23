@@ -381,6 +381,10 @@ const updateCard = asyncHandler(async (req, res) => {
       return foodItems.reduce((sum, item) => sum + (item.price || 0), 0);
     };
 
+    const oldCardExp = card.totalExpenses;
+    const oldCardSav = card.totalSavings;
+    const oldCardInc = card.totalIncome;
+
     // Update the fields
     if (year) card.year = year;
     if (month) card.month = month;
@@ -430,21 +434,16 @@ const updateCard = asyncHandler(async (req, res) => {
     const updatedCard = await card.save();
 
     /**UPDATE DATABYYEAR   */
-
-    const { totalExpenses, totalIncome, totalSavings, id } = card;
-
+  
     const mockCard = {
-      totalExpenses: updatedCard.totalExpenses,
-      totalIncome: updatedCard.totalIncome,
-      totalSavings: updatedCard.totalSavings,
+      totalExpensesDiff: updatedCard.totalExpenses - oldCardExp,
+      totalIncomeDiff: updatedCard.totalIncome - oldCardInc,
+      totalSavingsDiff: updatedCard.totalSavings - oldCardSav,
       id: updatedCard._id,
       year: updatedCard.year,
     };
 
-    const updatedDataByYear = await yearlyExpensesCalculations(
-      user,
-      mockCard
-    );
+    const updatedDataByYear = await yearlyExpensesCalculations(user._id, mockCard);
 
     return res.status(200).json(updatedCard);
   } catch (error) {
