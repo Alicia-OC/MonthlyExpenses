@@ -21,13 +21,24 @@ const yearlyExpensesCalculations = async (userId, card) => {
       const index = user.dataByYear.findIndex((obj) => obj.year === year);
       const yearObj = user.dataByYear[index];
 
-      user.dataByYear[index].totalExpenses += totalExpensesDiff;
-      user.dataByYear[index].totalSavings += totalSavingsDiff;
+      let calcTotalSavings = (user.dataByYear[index].totalSavings +=
+        totalSavingsDiff);
+      let calcTotalExpenses = (user.dataByYear[index].totalExpenses +=
+        totalExpensesDiff);
+
+      user.dataByYear[index].totalExpenses = Number(
+        calcTotalExpenses.toFixed(2)
+      );
+      user.dataByYear[index].totalSavings = Number(calcTotalSavings.toFixed(2));
       user.dataByYear[index].totalIncome += totalIncomeDiff;
+
+      user.dataByYear[index].totalIncome += Number(totalSavingsDiff.toFixed(2));
+
+      user.dataByYear[index].totalIncome += Number(totalIncomeDiff.toFixed(2));
 
       const updatedUser = await user.save();
 
-      return updatedUser
+      return updatedUser;
     }
   } catch (error) {
     console.error(
