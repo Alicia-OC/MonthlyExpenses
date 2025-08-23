@@ -1,6 +1,9 @@
 const MonthCardSchema = require("../models/MonthCard");
 const UserSchema = require("../models/Users");
 const { cardCalculations } = require("../utils/cardCalculations");
+const {
+  yearlyExpensesCalculations,
+} = require("../utils/yearlyExpensesCalculations");
 
 const asyncHandler = require("express-async-handler");
 let User = UserSchema.User;
@@ -280,7 +283,7 @@ const getAllCards = asyncHandler(async (req, res) => {
       subscriptionExpenses: card.subscriptionExpenses,
       transportExpenses: card.transportExpenses,
       otherExpenses: card.otherExpenses,
-      currency: card.currency
+      currency: card.currency,
     }));
 
     const groupCards = (cards) => {
@@ -378,6 +381,10 @@ const updateCard = asyncHandler(async (req, res) => {
       return foodItems.reduce((sum, item) => sum + (item.price || 0), 0);
     };
 
+    const oldCardExp = card.totalExpenses;
+    const oldCardSav = card.totalSavings;
+    const oldCardInc = card.totalIncome;
+
     // Update the fields
     if (year) card.year = year;
     if (month) card.month = month;
@@ -426,7 +433,19 @@ const updateCard = asyncHandler(async (req, res) => {
     card.totalSavings = calcTotalSavings();
     const updatedCard = await card.save();
 
-    return res.status(200).json(updatedCard);
+    /**UPDATE DATABYYEAR   */
+
+    const mockCard = {
+      totalExpensesDiff: updatedCard.totalExpenses - oldCardExp,
+      totalIncomeDiff: updatedCard.totalIncome - oldCardInc,
+      totalSavingsDiff: updatedCard.totalSavings - oldCardSav,
+      id: updatedCard._id,
+      year: updatedCard.year,
+    };
+
+    const updatedUser = await yearlyExpensesCalculations(user._id, mockCard);
+
+    return res.status(200).json({ updatedCard, updatedUser });
   } catch (error) {
     console.error("Error in updateCard:", error);
     return res.status(500).json({

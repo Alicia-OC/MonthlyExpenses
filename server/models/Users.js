@@ -40,9 +40,9 @@ const userSchema = new mongoose.Schema(
     dataByYear: [
       {
         year: { type: Number, required: true },
-        savings: { type: Number, default: 0 },
-        expenses: { type: Number, default: 0 },
-        income: { type: Number, default: 0 },
+        totalSavings: { type: Number, default: 0 },
+        totalExpenses: { type: Number, default: 0 },
+        totalIncome: { type: Number, default: 0 },
       },
     ],
     defaultItems: {

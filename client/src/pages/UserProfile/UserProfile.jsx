@@ -21,7 +21,6 @@ const UserProfile = () => {
   const token = useSelector((state) => state.token);
   const userid = useSelector((state) => state.userId);
   const currency = useSelector((state) => state.currency);
-
   const userAvatar = avatar || user?.avatar;
   const backendLink = import.meta.env.VITE_APP_API_URL;
 
@@ -43,20 +42,6 @@ const UserProfile = () => {
     password: '',
     password2: '',
   });
-  const months = [
-    'January',
-    'February',
-    'March',
-    'April',
-    'May',
-    'June',
-    'July',
-    'August',
-    'September',
-    'October',
-    'November',
-    'December',
-  ];
 
   const currentMonth = new Date().getUTCMonth();
   const currentYear = new Date().getFullYear();

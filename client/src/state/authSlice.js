@@ -56,9 +56,7 @@ export const authSlice = createSlice({
     },
 
     updateUser: (state, action) => {
-      state.user.currency = action.payload.currency;
-      state.user.defaultItems = action.payload.defaultItems;
-      state.user.cards = action.payload.cards;
+      Object.assign(state.user, action.payload);
     },
   },
 });
