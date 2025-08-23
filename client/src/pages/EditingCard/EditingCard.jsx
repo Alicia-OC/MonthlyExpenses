@@ -1,6 +1,5 @@
 import { Container } from 'react-bootstrap';
 import { useEffect, useState } from 'react';
-import { useSelector } from 'react-redux';
 import Axios from 'axios';
 
 import GetMonth from '../../components/GetMonth/GetMonth';
@@ -11,9 +10,16 @@ import ExpenseInputFields from '../../components/addExpenseInline/ExpenseInputFi
 
 import './css/index.css';
 
+/**REDUX */
+import { useSelector, useDispatch } from 'react-redux';
+import { updateUser } from '../../state/authSlice';
+
 const backendLink = import.meta.env.VITE_APP_GETCARD;
 
 const EditingCard = () => {
+  const dispatch = useDispatch();
+
+  const user = useSelector((state) => state.user);
   const token = useSelector((state) => state.token);
   const userId = useSelector((state) => state.userId);
   const [expenseBlocks, setExpenseBlocks] = useState([]);
@@ -93,8 +99,14 @@ const EditingCard = () => {
           headers: { Authorization: `Bearer ${token}` },
         }
       );
-      const updatedCard = res.data;
+      const updatedCard = res.data.updatedCard;
+      const updatedUser = res.data.updatedUser;
+
       setCard(updatedCard);
+
+      const { dataByYear } = updatedUser;
+      dispatch(updateUser({ dataByYear }));
+
     } catch (error) {
       console.error('Error fetching card:', error);
     }
@@ -142,8 +154,13 @@ const EditingCard = () => {
           headers: { Authorization: `Bearer ${token}` },
         }
       );
-      const updatedCard = res.data;
+      const updatedCard = res.data.updatedCard;
+      const updatedUser = res.data.updatedUser;
       setCard(updatedCard);
+
+      const { dataByYear } = updatedUser;
+      dispatch(updateUser({ dataByYear }));
+
     } catch (error) {
       console.error('Error fetching card:', error);
     }

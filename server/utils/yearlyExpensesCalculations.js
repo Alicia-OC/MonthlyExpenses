@@ -4,9 +4,9 @@ let User = UserSchema.User;
 const yearlyExpensesCalculations = async (userId, card) => {
   console.log(card);
   try {
-    const { totalExpenses, totalIncome, totalSavings, id, year } = card;
+    const { totalExpensesDiff, totalIncomeDiff, totalSavingsDiff, id, year } =
+      card;
     const cardId = card._id;
-   // const userId = user._id;
 
     const user = await User.findById(userId);
 
@@ -20,16 +20,14 @@ const yearlyExpensesCalculations = async (userId, card) => {
     } else {
       const index = user.dataByYear.findIndex((obj) => obj.year === year);
       const yearObj = user.dataByYear[index];
-      //console.log(yearObj)
-      console.log(user.dataByYear[index].totalExpenses);
 
-      user.dataByYear[index].totalExpenses += card.totalExpensesDiff;
-      user.dataByYear[index].totalSavings += card.totalSavingsDiff;
-      user.dataByYear[index].totalIncome += card.totalIncomeDiff;
-
-      console.log(user.dataByYear[index].totalExpenses);
+      user.dataByYear[index].totalExpenses += totalExpensesDiff;
+      user.dataByYear[index].totalSavings += totalSavingsDiff;
+      user.dataByYear[index].totalIncome += totalIncomeDiff;
 
       const updatedUser = await user.save();
+
+      return updatedUser
     }
   } catch (error) {
     console.error(

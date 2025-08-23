@@ -434,7 +434,7 @@ const updateCard = asyncHandler(async (req, res) => {
     const updatedCard = await card.save();
 
     /**UPDATE DATABYYEAR   */
-  
+
     const mockCard = {
       totalExpensesDiff: updatedCard.totalExpenses - oldCardExp,
       totalIncomeDiff: updatedCard.totalIncome - oldCardInc,
@@ -443,9 +443,9 @@ const updateCard = asyncHandler(async (req, res) => {
       year: updatedCard.year,
     };
 
-    const updatedDataByYear = await yearlyExpensesCalculations(user._id, mockCard);
+    const updatedUser = await yearlyExpensesCalculations(user._id, mockCard);
 
-    return res.status(200).json(updatedCard);
+    return res.status(200).json({ updatedCard, updatedUser });
   } catch (error) {
     console.error("Error in updateCard:", error);
     return res.status(500).json({
