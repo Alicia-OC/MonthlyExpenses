@@ -7,7 +7,6 @@ import { useEffect } from 'react';
 import avatar from '../../assets/IMG_0200.png';
 import screenshot from '../../assets/screenshot.png';
 
-
 const Landing = () => {
   const navigate = useNavigate();
 
@@ -40,23 +39,23 @@ const Landing = () => {
               </p>
             </p>
           </div>
-          <div
-            className="row middle-div"
-            data-aos="fade-right"
-            data-aos-delay="400"
-          >
+          <div className="row middle-div">
             <div className="col-lg-4 middle-div-left">
               {' '}
               <img
+                data-aos="fade-right"
+                data-aos-delay="400"
                 className="landing-screenshot-img"
                 src={screenshot}
                 alt="dreams"
-                width="400"
+                width="500"
               />
             </div>
             <div className=" col-lg-4 middle-div-right">
               {' '}
               <img
+                data-aos="fade-left"
+                data-aos-delay="400"
                 className="landing-avatar-img"
                 src={avatar}
                 alt="dreams"
@@ -80,7 +79,7 @@ const Landing = () => {
             </div>
           </div>
 
-          <div> footer</div>
+          <div className="footer-div"> footer</div>
         </div>
       </div>
     </>
