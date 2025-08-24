@@ -1,7 +1,6 @@
 @import url('https://fonts.googleapis.com/css2?family=Gaegu&family=Jost:ital,wght@0,100..900;1,100..900&display=swap');
 
 .landingPage {
-
     background-color: var(--pink-theme_main);
     position: absolute;
     top: 0;
@@ -19,11 +18,14 @@
     font-size: 70px
 }
 
-.landingPage h3 {
+.intro-div p {
 
     font-family: "Gaegu", sans-serif;
-    font-weight: 400;
-    font-style: normal;
+    font-size: 1.5rem;
+    display: inline !important;
+    text-align: center;
+    margin: 0;
+    padding-top: ;
 }
 
 .landingPage h4 {
@@ -34,13 +36,133 @@
 }
 
 
-.landingPage button {
-    margin-top: 100px;
-}
-
-
-
 .title {
     font-size: 3rem;
     color: white;
+}
+
+
+.landing-page {
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
+    width: 100%;
+}
+
+.title-div {
+    margin-top: 2rem;
+}
+
+.intro-div {
+    height: 30vh;
+    /* 30% of viewport height */
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding-top: 2rem;
+    box-sizing: border-box;
+}
+
+.middle-div {
+    height: 55vh;
+    /* 55% of viewport height */
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+    box-sizing: border-box;
+}
+
+.landing-page>div:last-child {
+    height: 15vh;
+    /* 15% of viewport height */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+    box-sizing: border-box;
+}
+
+.middle-div .avatar-img {
+    max-width: 400px;
+    height: auto;
+    flex-shrink: 0;
+
+}
+
+
+.middle-div-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 20px;
+}
+
+
+.landingPage h1::before {
+    content: '';
+    position: absolute;
+    top: 53%;
+    left: 0;
+    width: 100%;
+    height: 2.5em;
+    background-image: url('../../assets/Title.png');
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+    transform: translateY(-50%);
+    z-index: -1;
+}
+
+.dreams-word-animation {
+    display: inline;
+    color: white;
+}
+
+.dreams-word-animation span {
+    display: inline-block;
+    opacity: 0;
+    transform: translateX(20px);
+    animation: letterAppear 0.5s ease forwards;
+
+    display: inline;
+    text-shadow: 0 0 5px rgba(255, 0, 128, 1),
+        0 0 10px rgba(255, 0, 128, 1),
+        0 0 15px rgba(255, 0, 128, 1),
+        0 0 20px rgba(255, 0, 128, 1),
+        0 0 30px rgba(255, 0, 128, 1),
+        0 0 40px rgba(255, 0, 128, 1);
+    filter: drop-shadow(0 0 60px rgba(255, 0, 128, 1));
+}
+
+.dreams-word-animation span:nth-child(1) {
+    animation-delay: 0.9s;
+}
+
+.dreams-word-animation span:nth-child(2) {
+    animation-delay: 1s;
+}
+
+.dreams-word-animation span:nth-child(3) {
+    animation-delay: 1.1s;
+}
+
+.dreams-word-animation span:nth-child(4) {
+    animation-delay: 1.2s;
+}
+
+.dreams-word-animation span:nth-child(5) {
+    animation-delay: 1.3s;
+}
+
+.dreams-word-animation span:nth-child(6) {
+    animation-delay: 1.4s;
+}
+
+@keyframes letterAppear {
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
 }

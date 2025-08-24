@@ -15,7 +15,7 @@ const Footer = () => {
       <Container>
         <div className="row">
           <div className="col-md-12 text-muted">
-            &copy; 2025 [BRAND] <small>Built with 💙 and passion!</small>{' '}
+            &copy; 2025 Peekly, <small>Built with 💗 and passion!</small>{' '}
             <a href="/privacy" className="text-muted me-3">
               Privacy
             </a>
