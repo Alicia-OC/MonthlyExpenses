@@ -5,6 +5,8 @@ import 'aos/dist/aos.css';
 import { useEffect } from 'react';
 
 import avatar from '../../assets/IMG_0200.png';
+import screenshot from '../../assets/screenshot.png';
+
 
 const Landing = () => {
   const navigate = useNavigate();
@@ -46,8 +48,8 @@ const Landing = () => {
             <div className="col-lg-4 middle-div-left">
               {' '}
               <img
-                className="landing-avatar-img"
-                src={avatar}
+                className="landing-screenshot-img"
+                src={screenshot}
                 alt="dreams"
                 width="400"
               />
