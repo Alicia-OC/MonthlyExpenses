@@ -1,11 +1,46 @@
-* {
-    padding: 0;
-}
+@import url('https://fonts.googleapis.com/css2?family=Gaegu&family=Jost:ital,wght@0,100..900;1,100..900&display=swap');
 
-.landig-container {
+.landingPage {
 
     background-color: var(--pink-theme_main);
-    min-height: 90vh;
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    margin: 0;
     padding: 0;
+    align-content: center;
 
+}
+
+
+.landingPage h1 {
+    font-size: 70px
+}
+
+.landingPage h3 {
+
+    font-family: "Gaegu", sans-serif;
+    font-weight: 400;
+    font-style: normal;
+}
+
+.landingPage h4 {
+
+    font-family: "Gaegu", sans-serif;
+    font-weight: 300;
+    font-style: normal;
+}
+
+
+.landingPage button {
+    margin-top: 100px;
+}
+
+
+
+.title {
+    font-size: 3rem;
+    color: white;
 }

@@ -326,7 +326,7 @@ const UserProfile = () => {
         <div className="row justify-content-center ">
           <div className="col-12">
             {' '}
-            <div className="card">
+            <div className="card profile-div ">
               <div className="card-body p-4">
                 {/* Top Section - Avatar and Buttons */}
                 <div className="row mb-4">

@@ -1,21 +1,24 @@
 import { useNavigate } from 'react-router-dom';
 import './landing.css';
- 
+import Image from 'react-bootstrap/Image';
+
+import dream from '../../assets/dreams.png';
 
 const Landing = () => {
   const navigate = useNavigate();
 
   return (
     <>
-      <div className="container landig-container">
+      <div className="landingPage">
         {' '}
-        <div className=" landing-page">
-          <h1>Quick Peek, Smart Spend! </h1>
-          <h2>Landing (Public: anyone can access this page)</h2>
+        <div className="landing-page">
+          <h1>Peekly </h1>
           <h3>
-            The cutest way to manage your monthly expenses and reach your
-            financial dreams
+            the cutest way to manage your monthly expenses <br /> and reach your
+            financial <img src={dream} alt="dreams" width="100" />
           </h3>
+          <h4>Quick Peek, Smart Spend!</h4>
+       
           <button
             onClick={() => navigate('/signin', { replace: true })}
             className="btn btn-dark"

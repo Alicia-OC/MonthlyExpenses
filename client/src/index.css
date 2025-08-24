@@ -175,6 +175,12 @@ input {
   color: red;
 }
 
+.card.profile-div {
+
+  width: 800px !important;
+
+}
+
 .card-go-to-title {
   color: black;
   background-color: transparent;
@@ -238,6 +244,15 @@ input {
 @media (max-width: 768px) {
   .summary-responsive {
     grid-template-columns: 1fr;
+  }
+
+  .card.profile-div {
+    max-width: 500px;
+    margin: auto;
+  }
+
+  #root{
+    padding: 0 0 1rem 0 !important;
   }
 }
 
