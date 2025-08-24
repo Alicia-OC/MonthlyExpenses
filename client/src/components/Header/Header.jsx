@@ -54,7 +54,7 @@ const NavBar = () => {
   return (
     <Navbar expand="lg" bg="light" fixed="top" className="px-3">
       <Container fluid>
-        <Navbar.Brand href="/home">Brand</Navbar.Brand>
+        <Navbar.Brand href="/home">Peekly</Navbar.Brand>
         <Navbar.Toggle aria-controls="navbarNav" />
         <Navbar.Collapse id="navbarNav" className="navbar-element">
           <Nav className="ms-auto  align-items-center">
