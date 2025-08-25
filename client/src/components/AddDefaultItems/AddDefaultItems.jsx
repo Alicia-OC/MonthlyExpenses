@@ -110,7 +110,7 @@ const AddDefaultItems = () => {
         dispatch(updateUser({ defaultItems, currency, cards }));
         modal.show();
         setHasUnsavedChanges(false);
-        console.log(user.defaultItems);
+        window.location.reload();
       }
     } catch (error) {
       console.log(error);

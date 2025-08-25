@@ -61,7 +61,6 @@ const EditUserDetails = () => {
         const { name, email } = response.data.userDataUpdated;
 
         dispatch(updateUser({ name, email }));
-
         const modal = new Modal(document.getElementById('saveAlertModal'));
         modal.show();
       }
