@@ -151,6 +151,10 @@ const UserProfile = () => {
                 type="button"
                 className="btn btn-primary-pink"
                 data-bs-dismiss="modal"
+                onClick={(e) => {
+                  setDefaultItemsEditMode(false);
+                  setProfileEditMode(false);
+                }}
               >
                 OK
               </button>

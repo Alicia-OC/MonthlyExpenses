@@ -28,9 +28,7 @@ const SignIn = () => {
         const { token, user } = response.data;
 
         dispatch(setLogin({ token, user }));
-
         console.log(token, user);
-        //window.location.replace('/');
       } else if (response.status === 400) {
         setMessage('Missing required fields');
       } else if (response.status === 401) {
