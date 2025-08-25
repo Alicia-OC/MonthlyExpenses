@@ -10,7 +10,7 @@
   --pink-theme_main: #ffc7c7;
   --pink-theme_secondary: #ffe2e2;
   --pink-theme_font: #aaaaaa;
-  --pink-theme_h5: #EA86B6;
+  --pink-theme_h5: #d66b96;
   --pink-theme_blue: #A7D3F2;
 
   font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
@@ -109,7 +109,6 @@ span {
     background-color: #ffffff;
   }
 
-
   button {
     background-color: #f9f9f9;
   }
@@ -140,9 +139,10 @@ span {
 }
 
 .savings-div {
-  background: #f8f9fa;
+  background: var(--pink-);
   padding: 1.5rem;
   border-radius: 0.5rem;
+  color: white !important;
 
 }
 
@@ -223,7 +223,7 @@ input {
   max-height: 40px;
   /* Adjust this - roughly 40px per row × 3 rows */
   gap: 0;
-  color: #EA86B6;
+  color: var(--pink-theme_h5)
 }
 
 .year-item {
@@ -324,7 +324,7 @@ input {
 }
 
 .month-finances-h {
-  color: var(--pink-theme_h5);
+  color: black;
   margin-bottom: 15px;
 }
 

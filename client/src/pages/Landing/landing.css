@@ -1,7 +1,7 @@
 @import url('https://fonts.googleapis.com/css2?family=Gaegu&family=Jost:ital,wght@0,100..900;1,100..900&display=swap');
 
 .landingPage {
-    background-color: var(--pink-theme_main);
+    background-color: var(--pink-theme_white);
     position: absolute;
     top: 0;
     left: 0;

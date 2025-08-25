@@ -52,12 +52,38 @@ const NavBar = () => {
   };
 
   return (
-    <Navbar expand="lg" bg="light" fixed="top" className="px-3">
+    <Navbar expand="lg" fixed="top" className="navbar-div px-3">
       <Container fluid>
-        <Navbar.Brand href="/home">Peekly</Navbar.Brand>
+        <Navbar.Brand href="/home">
+          <h1>Peekly</h1>{' '}
+        </Navbar.Brand>
         <Navbar.Toggle aria-controls="navbarNav" />
         <Navbar.Collapse id="navbarNav" className="navbar-element">
-          <Nav className="ms-auto  align-items-center">
+          <Nav className="ms-auto align-items-center">
+            <NavDropdown title="Color palette" className='dropdown-menu-navbar'>
+              <NavDropdown.Item onClick={(e) => updateCurrency('$')}>
+                <span class="palette-dot theme_blue"></span>
+                <span class="palette-dot theme_white"></span>{' '}
+                <span class="palette-dot theme_secondary"></span>
+                <span class="palette-dot theme_main"></span>
+                <span class="palette-dot theme_h5"></span>
+              </NavDropdown.Item>
+              <NavDropdown.Item onClick={(e) => updateCurrency('€')}>
+                <span class="palette-dot theme_blue"></span>
+                <span class="palette-dot theme_white"></span>{' '}
+                <span class="palette-dot theme_secondary"></span>
+                <span class="palette-dot theme_main"></span>
+                <span class="palette-dot theme_h5"></span>
+              </NavDropdown.Item>
+              <NavDropdown.Item onClick={(e) => updateCurrency('£')}>
+                <span class="palette-dot theme_blue"></span>
+                <span class="palette-dot theme_white"></span>{' '}
+                <span class="palette-dot theme_secondary"></span>
+                <span class="palette-dot theme_main"></span>
+                <span class="palette-dot theme_h5"></span>
+              </NavDropdown.Item>
+            </NavDropdown>
+
             <Nav.Link href="/about" target="_blank">
               About
             </Nav.Link>
