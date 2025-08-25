@@ -2,6 +2,8 @@ import axios from 'axios';
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
+import ShowPasswordInput from '../../components/ShowPasswordInput/ShowPasswordInput';
+
 const VITE_APP_API_URL = import.meta.env.VITE_APP_API_URL;
 
 const SignUp = () => {
@@ -40,8 +42,6 @@ const SignUp = () => {
     }
   };
 
-  const changePwVisibility = () => {};
-
   const handleSubmit = async (e) => {
     e.preventDefault();
 
@@ -76,6 +76,9 @@ const SignUp = () => {
         setIsLoading(false);
       }
     }
+  };
+  const handlePwVisibility = (data) => {
+    setPwVisibility(data);
   };
 
   return (
@@ -155,19 +158,7 @@ const SignUp = () => {
                         </label>
                       </div>
                     </div>
-
-                    <div className="form-check d-flex justify-content-center mb-4">
-                      <input
-                        className="form-check-input me-2"
-                        type="checkbox"
-                        value=""
-                        id="show-pw"
-                        onClick={(e) => setPwVisibility(!pwVisibility)}
-                      />
-                      <label className="form-check-label" htmlFor="show-pw">
-                        Show password
-                      </label>
-                    </div>
+                    <ShowPasswordInput onDataChange={handlePwVisibility} />
 
                     <div>
                       <button

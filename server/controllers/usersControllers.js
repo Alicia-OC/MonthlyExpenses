@@ -21,8 +21,8 @@ const updateDetails = asyncHandler(async (req, res) => {
       currency,
     } = req.body;
 
-    console.log(currency);
     const { userid } = req.params;
+    console.log(userid, name, email);
 
     const user = await User.findById(userid);
 
@@ -54,6 +54,8 @@ const updateDetails = asyncHandler(async (req, res) => {
       defaultItems: user.defaultItems,
       currency: user.currency,
       cards: user.cards,
+      name: user.name,
+      email: user.email,
     };
 
     res.status(200).json({

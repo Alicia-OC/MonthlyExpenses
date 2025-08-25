@@ -54,12 +54,10 @@
 
 .intro-div {
     height: 30vh;
-    /* 30% of viewport height */
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    padding-top: 2rem;
     box-sizing: border-box;
 }
 
