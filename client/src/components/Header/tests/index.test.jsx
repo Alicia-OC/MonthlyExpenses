@@ -46,7 +46,7 @@ describe('Navbar component', async () => {
       </Provider>
     );
 
-    expect(screen.getByText('Brand')).toBeInTheDocument();
+    expect(screen.getByText('Peekly')).toBeInTheDocument();
     expect(screen.getByText('About')).toBeInTheDocument();
     expect(screen.getByText('LinkedIn')).toBeInTheDocument();
     expect(

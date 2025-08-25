@@ -106,7 +106,6 @@ const CardsLibrary = () => {
 
     return <div className="summary-responsive ">{result}</div>;
   };
-console.log(currentCards)
   return (
     <>
       <div className="filtering-cards-div col row-cols-1 g-4 justify-content-around align-items-center">
