@@ -5,6 +5,7 @@ import { Modal } from 'bootstrap';
 import { useEffect } from 'react';
 
 import { updateUser } from '../../state/authSlice';
+import ShowPasswordInput from '../ShowPasswordInput/ShowPasswordInput';
 
 /** ICONS */
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -23,8 +24,7 @@ const EditUserDetails = () => {
   const [password, setPassword] = useState(null);
   const [password2, setPassword2] = useState(null);
   const [errMsgPassword, setErrMsgPassword] = useState(null);
-
-  const [isLoading, setIsLoading] = useState(false);
+  const [pwVisibility, setPwVisibility] = useState(false);
 
   const validatePassword = (pw1, pw2) => {
     if (pw1 !== pw2) {
@@ -68,6 +68,10 @@ const EditUserDetails = () => {
     } catch (error) {
       console.log(error);
     }
+  };
+
+  const handlePwVisibility = (data) => {
+    setPwVisibility(data);
   };
 
   return (
@@ -123,7 +127,7 @@ const EditUserDetails = () => {
           <i className="fas fa-envelope fa-lg me-3 fa-fw"></i>
           <input
             onChange={(e) => setPassword(e.target.value)}
-            type="password"
+            type={pwVisibility ? 'text' : 'password'}
             id="form-password"
             className="form-control"
           />
@@ -138,7 +142,7 @@ const EditUserDetails = () => {
           <i className="fas fa-key fa-lg me-3 fa-fw"></i>
           <input
             onChange={(e) => setPassword2(e.target.value)}
-            type="password"
+            type={pwVisibility ? 'text' : 'password'}
             id="form-repeat-pw"
             className="form-control"
           />
@@ -147,6 +151,7 @@ const EditUserDetails = () => {
           </label>
         </div>
       </div>
+      <ShowPasswordInput onDataChange={handlePwVisibility} />
 
       {errMsgPassword}
 

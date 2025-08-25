@@ -3,6 +3,7 @@ import { useState } from 'react';
 import { useDispatch } from 'react-redux';
 
 import { setLogin } from '../../state/authSlice';
+import ShowPasswordInput from '../../components/ShowPasswordInput/ShowPasswordInput';
 
 const SignIn = () => {
   const dispatch = useDispatch();
@@ -39,6 +40,10 @@ const SignIn = () => {
       console.log(error);
       setMessage('Please try again or reset your password.');
     }
+  };
+
+  const handlePwVisibility = (data) => {
+    setPwVisibility(data);
   };
 
   return (
@@ -89,18 +94,7 @@ const SignIn = () => {
                       </div>
                     </div>
 
-                    <div className="form-check d-flex justify-content-center mb-4">
-                      <input
-                        className="form-check-input me-2"
-                        type="checkbox"
-                        value=""
-                        id="show-pw"
-                        onClick={(e) => setPwVisibility(!pwVisibility)}
-                      />
-                      <label className="form-check-label" htmlFor="show-pw">
-                        Show password
-                      </label>
-                    </div>
+                    <ShowPasswordInput onDataChange={handlePwVisibility} />
 
                     <div>
                       <button

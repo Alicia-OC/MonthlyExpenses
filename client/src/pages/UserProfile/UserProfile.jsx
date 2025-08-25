@@ -1,12 +1,8 @@
-import Axios from 'axios';
 import { useState } from 'react';
-import { useSelector, useDispatch } from 'react-redux';
-import { Modal } from 'bootstrap';
-import { useEffect } from 'react';
+import { useSelector } from 'react-redux';
 
 /** ICONS */
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faCircleInfo, faMinus } from '@fortawesome/free-solid-svg-icons';
+
 import { Container, Image } from 'react-bootstrap';
 
 import avatar from '../../assets/Anya.png';
@@ -22,8 +18,6 @@ const UserProfile = () => {
   const userid = useSelector((state) => state.userId);
   const currency = useSelector((state) => state.currency);
   const userAvatar = avatar || user?.avatar;
-  const backendLink = import.meta.env.VITE_APP_API_URL;
-  const dispatch = useDispatch();
 
   const [profileEditMode, setProfileEditMode] = useState(false);
   const [defaultItemsEditMode, setDefaultItemsEditMode] = useState(false);
