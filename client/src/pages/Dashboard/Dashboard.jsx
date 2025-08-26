@@ -4,6 +4,7 @@ import { useNavigate } from 'react-router-dom';
 import { useEffect } from 'react';
 import isTokenExpired from '../../utils/auth';
 import { setLogout } from '../../state/authSlice';
+import useLocalStorage from 'use-local-storage';
 
 import NavBar from '../../components/Header/Header';
 import Footer from '../../components/Footer/Footer';
@@ -12,6 +13,13 @@ import './css/index.css';
 
 const DashLayout = () => {
   const token = useSelector((state) => state.token);
+  const defaultDark = window.matchMedia('(prefers-color-scheme: green)').matches;
+  const [theme, setTheme] = useLocalStorage(
+    'theme',
+    defaultDark ? 'pastels-pink' : 'light'
+  );
+
+
 
   const navigate = useNavigate();
   const dispatch = useDispatch();
@@ -24,7 +32,7 @@ const DashLayout = () => {
   }, [token, dispatch, navigate]);
 
   return (
-    <div className="DashLayoutWrapper">
+    <div className="DashLayoutWrapper" data-theme={theme}>
       <NavBar />
       <div className="DashContainer">
         <Outlet />

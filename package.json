@@ -1,5 +1,6 @@
 {
   "dependencies": {
-    "aos": "^2.3.4"
+    "aos": "^2.3.4",
+    "use-local-storage": "^3.0.0"
   }
 }

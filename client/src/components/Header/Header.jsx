@@ -60,27 +60,27 @@ const NavBar = () => {
         <Navbar.Toggle aria-controls="navbarNav" />
         <Navbar.Collapse id="navbarNav" className="navbar-element">
           <Nav className="ms-auto align-items-center">
-            <NavDropdown title="Color palette" className='dropdown-menu-navbar'>
+            <NavDropdown title="Color palette" className="dropdown-menu-navbar">
               <NavDropdown.Item onClick={(e) => updateCurrency('$')}>
-                <span class="palette-dot theme_blue"></span>
-                <span class="palette-dot theme_white"></span>{' '}
-                <span class="palette-dot theme_secondary"></span>
-                <span class="palette-dot theme_main"></span>
-                <span class="palette-dot theme_h5"></span>
+                <span class="palette-dot theme_pink_1"></span>
+                <span class="palette-dot theme_pink_2"></span>
+                <span class="palette-dot theme_pink_3"></span>
+                <span class="palette-dot theme_pink_4"></span>
+                <span class="palette-dot theme_pink_5"></span>
               </NavDropdown.Item>
               <NavDropdown.Item onClick={(e) => updateCurrency('€')}>
-                <span class="palette-dot theme_blue"></span>
-                <span class="palette-dot theme_white"></span>{' '}
-                <span class="palette-dot theme_secondary"></span>
-                <span class="palette-dot theme_main"></span>
-                <span class="palette-dot theme_h5"></span>
+                <span class="palette-dot theme_green_1"></span>
+                <span class="palette-dot theme_green_2"></span>
+                <span class="palette-dot theme_green_3"></span>
+                <span class="palette-dot theme_green_4"></span>
+                <span class="palette-dot theme_green_5"></span>
               </NavDropdown.Item>
               <NavDropdown.Item onClick={(e) => updateCurrency('£')}>
-                <span class="palette-dot theme_blue"></span>
-                <span class="palette-dot theme_white"></span>{' '}
-                <span class="palette-dot theme_secondary"></span>
-                <span class="palette-dot theme_main"></span>
-                <span class="palette-dot theme_h5"></span>
+                <span class="palette-dot theme_dark_1"></span>
+                <span class="palette-dot theme_dark_2"></span>
+                <span class="palette-dot theme_dark_3"></span>
+                <span class="palette-dot theme_dark_4"></span>
+                <span class="palette-dot theme_dark_5"></span>
               </NavDropdown.Item>
             </NavDropdown>
 

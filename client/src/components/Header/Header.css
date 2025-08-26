@@ -10,7 +10,7 @@
 }
 
 .navbar-div {
-    background-color: var(--pink-theme_secondary)
+    background-color: var(--background)
 }
 
 .navbar-div h1 {
@@ -52,28 +52,51 @@
     margin-right: 5px;
 }
 
-.palette-dot.theme_white {
-    background-color: var(--pink-theme_white)
+.palette-dot.theme_pink_1 {
+    background-color: #A7D3F2;
 }
 
-.palette-dot.theme_main {
-    background-color: var(--pink-theme_main)
+.palette-dot.theme_pink_2 {
+    background-color: #f6f6f6
 }
 
-.palette-dot.theme_secondary {
-    background-color: var(--pink-theme_secondary)
+.palette-dot.theme_pink_3 {
+    background-color: #ffe2e2;
 }
 
-.palette-dot.theme_h5 {
-    background-color: var(--pink-theme_h5)
+.palette-dot.theme_pink_4 {
+    background-color: #ffc7c7;
 }
 
-.palette-dot.theme_blue {
-    background-color: var(--pink-theme_blue)
+.palette-dot.theme_pink_5 {
+    background-color: #d66b96
+}
+
+/* Green theme colors from lightest to darkest */
+.theme_green_1 {
+  background-color: #DAD7CD; /* Lightest - white */
+}
+
+.theme_green_2 {
+  background-color: #C4D4B0; /* Light green */
+}
+
+.theme_green_3 {
+  background-color: #A3B18A; /* Medium - background green */
+}
+
+.theme_green_4 {
+  background-color: #588157; /* Darker - text primary/accent */
+}
+
+.theme_green_5 {
+  background-color: #344E41; /* Darkest - text secondary */
 }
 
 
 .navbar .dropdown-item {
-  padding: 0 12px; /* Reduce padding */
-  white-space: nowrap; /* Prevent text wrapping */
+    padding: 0 12px;
+    /* Reduce padding */
+    white-space: nowrap;
+    /* Prevent text wrapping */
 }

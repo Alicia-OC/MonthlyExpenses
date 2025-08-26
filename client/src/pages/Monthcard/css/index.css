@@ -19,8 +19,7 @@
 
 
 .month-card-h5 {
-    color: var(--pink-theme_h5);
-    /** border-bottom: 2px solid var(--pink-theme_h5);**/
+    color: var(--accent);
     padding: 5px;
 
 }
