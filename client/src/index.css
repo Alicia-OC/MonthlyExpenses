@@ -40,6 +40,8 @@
 }
 
 [data-theme='green'] {
+    --background-main: #2D3142;
+
   --background: #A3B18A;
   --text-primary: #588157;
   --text-secondary: #344E41;
@@ -74,7 +76,6 @@ body {
   display: flex;
   place-items: center;
   min-height: 100vh;
-  background-color: var(--background-main) !important;
 
 }
 
@@ -93,13 +94,12 @@ h1 {
 }
 
 .DashLayoutWrapper {
-  background-color: var(--background-main)
 }
 
 .card {
 
   background-color: var(--background-main) !important;
-color: #ccc;
+
 }
 
 .btn-primary-pink {
