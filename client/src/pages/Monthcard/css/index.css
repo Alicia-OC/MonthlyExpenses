@@ -1,38 +1,32 @@
 .month-card-component {
-  width: 100%;
-  max-width: 500px;
-  margin: 0 auto;
-  padding: 1rem;
+    width: 100%;
+    max-width: 500px;
+    margin: 0 auto;
+    padding: 1rem;
 }
 
 @media (min-width: 768px) {
-  .month-card-component {
-    max-width: 600px;
-  }
+    .month-card-component {
+        max-width: 600px;
+    }
 }
 
 @media (min-width: 992px) {
-  .month-card-component {
-    max-width: 800px;
-  }
+    .month-card-component {
+        max-width: 800px;
+    }
 }
 
-
-.month-card-h5 {
-    color: var(--accent);
-    padding: 5px;
-
-}
 
 .month-card-container li {
     color: black;
     font-size: 1em;
-    
+
 }
 
 .month-card-container {
     padding-top: 1em;
-    
+
 }
 
 .card-category {
@@ -60,6 +54,7 @@
     .month-card-item-money {
         text-align: left;
     }
+
     .container {
         max-width: 400;
     }

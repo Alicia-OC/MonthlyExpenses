@@ -162,7 +162,7 @@ const UserProfile = () => {
           </div>
         </div>
       </div>
-      <Container fluid className="px-3 px-lg-4">
+      <Container fluid className="px-3 px-lg-4 py-5">
         <div className="row justify-content-center ">
           <div className="col-12">
             {' '}

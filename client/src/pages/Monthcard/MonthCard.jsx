@@ -81,7 +81,7 @@ const MonthCard = () => {
           <Card className="month-card-component col-12 col-md-6 col-lg-4">
             <>
               <h2>{card && months[card.month - 1]}</h2>
-              <div className="savings-div p-4 text-black bg-body-tertiary">
+              <div className="savings-div p-4 text-black">
                 <ExpensesSummary
                   totalExpenses={card.totalExpenses}
                   totalIncome={card.totalIncome}

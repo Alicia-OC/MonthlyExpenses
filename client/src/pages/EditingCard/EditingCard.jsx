@@ -188,7 +188,7 @@ const EditingCard = () => {
         <div className="col-12">
           {' '}
           <div className="card h-100">
-            <div className="savings-div p-4 text-black bg-body-tertiary">
+            <div className="savings-div p-4 text-black">
               <h2>
                 <GetMonth cardMonth={card.month} />
               </h2>

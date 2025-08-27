@@ -13,13 +13,17 @@ import './css/index.css';
 
 const DashLayout = () => {
   const token = useSelector((state) => state.token);
-  const defaultDark = window.matchMedia('(prefers-color-scheme: green)').matches;
+  const defaultDark = window.matchMedia(
+    '(prefers-color-scheme: green)'
+  ).matches;
   const [theme, setTheme] = useLocalStorage(
     'theme',
     defaultDark ? 'pastels-pink' : 'light'
   );
 
-
+  useEffect(() => {
+    document.documentElement.setAttribute('data-theme', theme);
+  }, [theme]);
 
   const navigate = useNavigate();
   const dispatch = useDispatch();
