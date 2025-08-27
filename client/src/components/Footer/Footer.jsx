@@ -19,7 +19,7 @@ const Footer = () => {
             <a href="/privacy" className="text-muted me-3">
               Privacy
             </a>
-            <a href={Github} className="text-muted" title='Visit my GitHub profile'>
+            <a href={Github} className="" title='Visit my GitHub profile'>
               <FontAwesomeIcon style={{ marginRight: '8px' }} icon={faGithub} />
             </a>
             <a href={Linkedin} className="text-muted" title='Visit my LinkedIn profile'>

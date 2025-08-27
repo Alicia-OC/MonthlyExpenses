@@ -46,7 +46,7 @@ const SignIn = () => {
 
   return (
     <>
-      <section className="">
+      <section className="sign-div">
         <div className="row d-flex justify-content-center align-items-center h-100">
           <div className="col-lg-12 col-xl-11">
             <div className="card text-black">
@@ -105,7 +105,7 @@ const SignIn = () => {
                       </button>
                     </div>
 
-                    <p className="text-center text-muted mt-4 mb-0">
+                    <p className="text-center mt-4 mb-0">
                       You don't have an account?{' '}
                       <a href="/signup" className="fw-bold text-body">
                         <u>Create one here</u>

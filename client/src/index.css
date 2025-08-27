@@ -29,47 +29,51 @@
 
 }
 
-[data-theme='pastel'] {
-  --main-background: #f6f6f6;
-  --background: #ffc7c7;
-  --text-primary: black;
-  --text-secondary: grey;
-  --white: #f6f6f6;
-  --semi-accent: #ffe2e2;
-  --accent: #d66b96;
-  --accent-variant: #A7D3F2;
+[data-theme='light'] {
+  --main-background: rgb(255, 255, 255);
+  --background: #f6f6f6;
 
+  --text-primary: #5A7C8A;
+  --text-secondary: #BA3B8A;
+
+  --white: #f6f6f6;
+
+  --semi-accent: #BDD8E8;
+
+  --accent: #ffc7c7;
+
+  --accent-variant: #DAEAF1;
 }
 
 [data-theme='green'] {
   --white: #DAD7CD;
-
-  --main-background: #f6f6f6;
+  --main-background: rgb(255, 255, 255);
   --background: #DAD7CD;
-
   --text-primary: #344E41;
   --text-secondary: #9CAA8A;
-
-
   --accent: #A3B18A;
   --semi-accent: #588157;
   --accent-variant: #C4D4B0;
 }
 
 [data-theme='dark'] {
-  --main-background: #2D3142;
-  --background: #BFC0C0;
-  --text-primary: #FFFFFF;
-  --text-secondary: #BFC0C0;
+  --main-background: #121212;
+  --background: #1C1C1C;
   --white: #FFFFFF;
-  --semi-accent: #4F5D75;
-  --accent: #EF8354;
-  --accent-variant: #C4D4B0;
+
+  --text-primary: #B0B0B0;
+
+  --text-secondary: #E0E0E0;
+
+  --semi-accent: #888888;
+
+  --accent: #444444;
+  --accent-variant: #c;
 }
 
-a {
-  font-weight: 500;
-  text-decoration: inherit;
+
+* {
+  color: var(--text-primary);
 }
 
 body {
@@ -78,7 +82,18 @@ body {
   place-items: center;
   min-height: 100vh;
   background-color: var(--main-background) !important;
+  color: var(--text-primary) !important;
+  /* Add this */
+
+
 }
+
+a {
+  font-weight: 500;
+  text-decoration: inherit;
+}
+
+
 
 h1 {
   font-size: 3.2em;
@@ -117,7 +132,7 @@ input:focus {
 .card-summary-div a:hover {
   font-size: 18px;
   color: #344E41;
-    font-size: 1.8em;
+  font-size: 1.8em;
 
 }
 
@@ -134,11 +149,6 @@ input:focus {
   background-color: var(--background) !important;
 
 }
-
-.btn-primary-pink {
-  background-color: var(--background) !important;
-}
-
 
 button {
   border-radius: 8px;
@@ -199,7 +209,7 @@ span {
 
 .savings-div {
   border-radius: 0.5rem;
-  background-color: #A3B18A
+  background-color: var(--accent);
 }
 
 .form-grid {
@@ -425,8 +435,18 @@ input {
 
 .delete-list-item-btn {
   padding: 0.25rem 0.5rem;
-  border-radius: 0.25rem;
+  border-radius: 1rem;
   font-size: 0.875rem;
+}
+
+.user-profile-btn {
+  border-radius: 0.75rem;
+  margin-bottom: 5px;
+}
+
+.avatar-profile-section {
+  border-radius: 0.75rem;
+
 }
 
 .floating-save-btn button {
