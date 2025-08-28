@@ -33,7 +33,7 @@
   --main-background: rgb(255, 255, 255);
   --background: #f6f6f6;
 
-  --text-primary: #5A7C8A;
+  --text-primary: #232b2e;
   --text-secondary: #BA3B8A;
 
   --white: #f6f6f6;
@@ -42,13 +42,15 @@
 
   --accent: #ffc7c7;
 
-  --accent-variant: #DAEAF1;
+  --accent-variant: #5A7C8A;
 }
 
 [data-theme='green'] {
   --white: #DAD7CD;
+
   --main-background: rgb(255, 255, 255);
   --background: #DAD7CD;
+
   --text-primary: #344E41;
   --text-secondary: #9CAA8A;
   --accent: #A3B18A;
@@ -61,14 +63,15 @@
   --background: #1C1C1C;
   --white: #FFFFFF;
 
-  --text-primary: #B0B0B0;
+  --text-primary: #E0E0E0;
 
   --text-secondary: #E0E0E0;
 
-  --semi-accent: #888888;
+  --semi-accent: #3F0071;
 
   --accent: #444444;
-  --accent-variant: #c;
+
+  --accent-variant: #444444;
 }
 
 
@@ -250,6 +253,11 @@ input {
   background: var(--accent) !important;
   transform: scale(1.05);
   transition: transform 0.3s ease-in-out;
+}
+
+
+.input-wrapper.new-item label {
+  background-color: transparent !important;
 
 }
 
@@ -560,7 +568,7 @@ input {
 }
 
 .separating-line {
-  border-bottom: 1px solid #ccc;
+  border-bottom: 1px solid var(--accent);
   padding-top: 0.5rem;
   margin-top: 0.5rem;
   padding-bottom: 0;
@@ -576,4 +584,13 @@ input {
   margin-left: 10px;
   margin-top: 20px;
 
+}
+
+.footer-div {
+  background-color: var(--accent);
+}
+
+
+.footer-div a {
+  color: var(--text-primary);
 }

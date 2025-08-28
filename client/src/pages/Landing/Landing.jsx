@@ -78,8 +78,6 @@ const Landing = () => {
               </button>{' '}
             </div>
           </div>
-
-          <div className="footer-div"> footer</div>
         </div>
       </div>
     </>

@@ -16,6 +16,7 @@ const DashLayout = () => {
   const defaultDark = window.matchMedia(
     '(prefers-color-scheme: green)'
   ).matches;
+
   const [theme, setTheme] = useLocalStorage(
     'theme',
     defaultDark ? 'pastels-pink' : 'light'
@@ -37,7 +38,7 @@ const DashLayout = () => {
 
   return (
     <div className="DashLayoutWrapper" data-theme={theme}>
-      <NavBar />
+      <NavBar onClick={(newTheme) => setTheme(newTheme)} />
       <div className="DashContainer">
         <Outlet />
       </div>

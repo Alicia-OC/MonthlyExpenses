@@ -1,7 +1,8 @@
 import 'bootstrap/dist/css/bootstrap.css';
 import './Header.css';
 import Axios from 'axios';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
+import useLocalStorage from 'use-local-storage';
 
 import { Navbar, Nav, NavDropdown, Container } from 'react-bootstrap';
 import Image from 'react-bootstrap/Image';
@@ -14,13 +15,30 @@ import { setCurrency } from '../../state/authSlice';
 const Linkedin = import.meta.env.VITE_APP_LINKEDIN;
 const backendLink = import.meta.env.VITE_APP_API_URL;
 
-const NavBar = () => {
+const NavBar = ({ onClick }) => {
   const [isLoading, setIsLoading] = useState(false);
 
   const dispatch = useDispatch();
   const userId = useSelector((state) => state.userId);
   const token = useSelector((state) => state.token);
   const isAuth = Boolean(token);
+
+  const defaultDark = window.matchMedia(
+    '(prefers-color-scheme: green)'
+  ).matches;
+
+  const [theme, setTheme] = useLocalStorage(
+    'theme',
+    defaultDark ? 'pastels-pink' : 'light'
+  );
+
+  useEffect(() => {
+    document.documentElement.setAttribute('data-theme', theme);
+  }, [theme]);
+
+  const handleTheme = () => {
+    onClick(theme);
+  };
 
   const updateCurrency = async (newCurrency) => {
     dispatch(setCurrency({ currency: newCurrency }));
@@ -60,36 +78,31 @@ const NavBar = () => {
         <Navbar.Toggle aria-controls="navbarNav" />
         <Navbar.Collapse id="navbarNav" className="navbar-element">
           <Nav className="ms-auto align-items-center">
-            <NavDropdown title="Color palette" className="dropdown-menu-navbar">
-              <NavDropdown.Item onClick={(e) => updateCurrency('$')}>
-                <span class="palette-dot theme_pink_1"></span>
-                <span class="palette-dot theme_pink_2"></span>
-                <span class="palette-dot theme_pink_3"></span>
-                <span class="palette-dot theme_pink_4"></span>
-                <span class="palette-dot theme_pink_5"></span>
+            <NavDropdown
+              title="Color palette"
+              className="dropdown-menu-color-palette"
+            >
+              <NavDropdown.Item onClick={(e) => onClick('light')}>
+                <span class="palette-dot theme-pastel-pink"></span>
+                <span class="">Pastel Pink</span>
               </NavDropdown.Item>
-              <NavDropdown.Item onClick={(e) => updateCurrency('€')}>
-                <span class="palette-dot theme_green_1"></span>
-                <span class="palette-dot theme_green_2"></span>
-                <span class="palette-dot theme_green_3"></span>
-                <span class="palette-dot theme_green_4"></span>
-                <span class="palette-dot theme_green_5"></span>
+              <NavDropdown.Item onClick={(e) => onClick('green')}>
+                <span class="palette-dot theme_green"></span>
+                <span class="">Earth</span>
               </NavDropdown.Item>
-              <NavDropdown.Item onClick={(e) => updateCurrency('£')}>
-                <span class="palette-dot theme_dark_1"></span>
-                <span class="palette-dot theme_dark_2"></span>
-                <span class="palette-dot theme_dark_3"></span>
-                <span class="palette-dot theme_dark_4"></span>
-                <span class="palette-dot theme_dark_5"></span>
+              <NavDropdown.Item onClick={(e) => onClick('dark')}>
+                <span class="palette-dot theme_dark"></span>
+                <span class="">Dark</span>
               </NavDropdown.Item>
             </NavDropdown>
 
-            <Nav.Link href="/about" target="_blank">
+            <Nav.Link href="/about" target="_blank" className="header-links">
               About
             </Nav.Link>
             <Nav.Link
               href="https://alicia-oc.github.io/aliciaoc-portfolio/"
               target="_blank"
+              className="header-links"
             >
               Portfolio
             </Nav.Link>
@@ -97,7 +110,7 @@ const NavBar = () => {
               href={Linkedin}
               target="_blank"
               rel="noopener noreferrer"
-              className="navbar-element"
+              className="header-links"
             >
               LinkedIn
             </Nav.Link>
