@@ -127,6 +127,7 @@ const NavBar = ({ onClick }) => {
                     />
                   }
                   id="accountDropdown"
+                  className="navbar-dropdown-menu"
                 >
                   <NavDropdown.Item href={`/profile/${userId}`}>
                     Profile
@@ -142,7 +143,7 @@ const NavBar = ({ onClick }) => {
                   </NavDropdown.Item>{' '}
                 </NavDropdown>
 
-                <NavDropdown title="Currency">
+                <NavDropdown title="Currency" className="navbar-dropdown-menu">
                   <NavDropdown.Item onClick={(e) => updateCurrency('$')}>
                     USD $
                   </NavDropdown.Item>

@@ -55,9 +55,9 @@ const ExpenseInputFields = ({ onAdd, blockName, ...props }) => {
                 onChange={(e) => setnewItem(e.target.value)}
                 type="text"
                 id="new-expense-item-input"
-                className="form-control"
+                className="form-control line-input"
               />
-              <label htmlFor="new-expense-item-input">{blockName}</label>
+              <label  className='label-input' htmlFor="new-expense-item-input">{blockName}</label>
             </div>
 
             <div

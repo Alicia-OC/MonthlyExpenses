@@ -89,9 +89,9 @@ const SignUp = () => {
             <div className="card text-black">
               <div className="card-body ">
                 <div className="row justify-content-center">
-                  <p className="text-center h1 fw-bold mb-3 mx-1 mx-md-4 mt-2">
+                  <h1 className="text-center h1 fw-bold mb-3 mx-1 mx-md-4 mt-2">
                     Sign up
-                  </p>
+                  </h1>
                   <p className="error-message text-center p fw-bold mb-3 mx-1 mx-md-4 mt-2">
                     {' '}
                     {message}

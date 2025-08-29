@@ -29,20 +29,17 @@
 
 }
 
+
 [data-theme='light'] {
   --main-background: rgb(255, 255, 255);
   --background: #f6f6f6;
-
-  --text-primary: #232b2e;
-  --text-secondary: #BA3B8A;
-
-  --white: #f6f6f6;
-
-  --semi-accent: #BDD8E8;
-
-  --accent: #ffc7c7;
-
-  --accent-variant: #5A7C8A;
+  --secondary-background: #FFF8EEff;
+  --text-primary: #1a1f23;
+  --text-secondary: #1C4C8Bff;
+  --white: #F2E4DCff;
+  --semi-accent: #A9BACAff;
+  --accent: #F4D2C9ff;
+  --accent-variant: #F2D9D4ff;
 }
 
 [data-theme='green'] {
@@ -59,25 +56,38 @@
 }
 
 [data-theme='dark'] {
-  --main-background: #121212;
-  --background: #1C1C1C;
+  --main-background: #191C21ff;
+  --background: #25282Fff;
   --white: #FFFFFF;
 
   --text-primary: #E0E0E0;
 
-  --text-secondary: #E0E0E0;
+  --text-secondary: #5890CCff;
 
-  --semi-accent: #3F0071;
+  --semi-accent: #7BA7D7ff;
 
-  --accent: #444444;
+  --accent: #3D4A5Dff;
 
   --accent-variant: #444444;
 }
 
 
-* {
+p {
   color: var(--text-primary);
 }
+
+a {
+  text-decoration: none !important;
+}
+
+table {
+  color: var(--text-primary);
+}
+
+li {
+  color: var(--text-primary);
+}
+
 
 body {
   margin: 0;
@@ -88,7 +98,6 @@ body {
   color: var(--text-primary) !important;
   /* Add this */
 
-
 }
 
 a {
@@ -96,13 +105,16 @@ a {
   text-decoration: inherit;
 }
 
-
-
 h1 {
   font-size: 3.2em;
   line-height: 1.1;
   font-family: var(--font-clean);
   padding: 1rem;
+  color: var(--text-primary) !important;
+}
+
+h2 {
+  color: var(--text-primary) !important;
 }
 
 h5 {
@@ -110,7 +122,8 @@ h5 {
 }
 
 input {
-  background-color: var(--main-background) !important;
+  color: var(--text-primary) !important;
+
 }
 
 input:focus {
@@ -128,17 +141,36 @@ input:focus {
 }
 
 
-.card-summary-div h4 {
-  font-size: 18px;
-}
-
 .card-summary-div a:hover {
   font-size: 18px;
-  color: #344E41;
   font-size: 1.8em;
+  cursor: pointer;
+}
+
+.card-summary-div:hover {
+  cursor: pointer;
+  background-color: var(--accent) !important;
 
 }
 
+.form-control.line-input {
+  border: none;
+}
+
+
+.input-wrapper .form-floating label,
+.input-wrapper .form-floating .label-input {
+  background-color: transparent !important;
+  background: transparent !important;
+  border: none !important;
+  color: var(--text-primary) !important;
+}
+
+.input-wrapper .form-floating label::before,
+.input-wrapper .form-floating label::after {
+  background: transparent !important;
+  background-color: transparent !important;
+}
 
 .title-div {
   display: flex;
@@ -212,7 +244,13 @@ span {
 
 .savings-div {
   border-radius: 0.5rem;
-  background-color: var(--accent);
+  background-color: rgba(from var(--accent) r g b / 0.8);
+  /* 80% opacity */
+  width: fit-content;
+  padding: 1.5rem 5rem 1.5rem 5rem;
+  margin-left: auto;
+  margin-right: auto;
+
 }
 
 .form-grid {
@@ -232,6 +270,7 @@ span {
   display: flex;
   align-items: center;
   gap: 8px;
+  margin-bottom: 0.9rem;
 }
 
 input {
@@ -285,7 +324,7 @@ input {
 .card-go-to-title:hover {
   font-size: 2em;
   text-decoration: none;
-
+  color: var(--semi-accent);
 }
 
 .card-go-to-title.small {
@@ -295,7 +334,7 @@ input {
 
 .card-go-to-title.small:hover {
   font-size: 1.1em;
-  color: var(--text-secondary);
+  color: var(--text-secondary) !important;
 
 }
 
@@ -319,6 +358,8 @@ input {
 .year-item {
   font-weight: bold;
   grid-column: 1 / -1;
+  color: var(--text-primary) !important;
+
 }
 
 .card-item {
@@ -564,8 +605,9 @@ input {
 
 .default-items-div p {
   font-weight: bold;
-  color: var(--accent);
+  color: var(--text-secondary);
 }
+
 
 .separating-line {
   border-bottom: 1px solid var(--accent);
@@ -593,4 +635,9 @@ input {
 
 .footer-div a {
   color: var(--text-primary);
+}
+
+.about-section {
+
+  margin-top: 5rem;
 }

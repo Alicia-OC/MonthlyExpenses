@@ -34,9 +34,24 @@
     font-weight: 400;
 }
 
+.navbar-dropdown-menu .dropdown-menu {
+    min-width: auto !important;
+    width: auto !important;
+    max-width: 120px;
+    padding: 0.6rem;}
+
+
+.navbar-dropdown-menu .dropdown-item:hover {
+    background-color: var(--accent);
+    font-size: 1.05rem;
+    transition: transform 0.3s ease-in-out;
+    font-weight: 400;
+}
+
 
 .dropdown-menu {
     background-color: var(--accent);
+
 }
 
 .dropdown-item {
@@ -98,9 +113,7 @@
 
 .navbar .dropdown-item {
     padding: 0 12px;
-    /* Reduce padding */
     white-space: nowrap;
-    /* Prevent text wrapping */
 }
 
 
