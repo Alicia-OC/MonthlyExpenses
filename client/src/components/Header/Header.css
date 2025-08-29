@@ -8,3 +8,126 @@
     text-align: center;
     justify-content: center;
 }
+
+.navbar-div {
+    background-color: var(--accent);
+    color: var(--text-primary) !important;
+}
+
+.navbar-div a {
+    background-color: var(--accent);
+    color: var(--text-primary) !important;
+}
+
+.dropdown-menu-color-palette .dropdown-item:hover {
+    background-color: var(--accent);
+    font-size: 1.05rem;
+    transition: transform 0.3s ease-in-out;
+    font-weight: 400;
+}
+
+
+.navbar-nav .header-links :hover {
+    background-color: var(--accent);
+    font-size: 1.05rem;
+    transition: transform 0.3s ease-in-out;
+    font-weight: 400;
+}
+
+.navbar-dropdown-menu .dropdown-menu {
+    min-width: auto !important;
+    width: auto !important;
+    max-width: 120px;
+    padding: 0.6rem;}
+
+
+.navbar-dropdown-menu .dropdown-item:hover {
+    background-color: var(--accent);
+    font-size: 1.05rem;
+    transition: transform 0.3s ease-in-out;
+    font-weight: 400;
+}
+
+
+.dropdown-menu {
+    background-color: var(--accent);
+
+}
+
+.dropdown-item {
+    color: #212529;
+}
+
+
+.navbar-div h1 {
+    padding: 0rem;
+    margin-left: 10px;
+}
+
+.navbar-div h1:hover {
+    animation: heartbeat 4.5s ease-in-out infinite;
+}
+
+@keyframes heartbeat {
+    0% {
+        transform: scale(1);
+    }
+
+    14% {
+        transform: scale(1.2);
+    }
+
+    28% {
+        transform: scale(1);
+    }
+
+    42% {
+        transform: scale(1.2);
+    }
+
+    70% {
+        transform: scale(1);
+    }
+}
+
+.palette-dot {
+    display: inline-block;
+    width: 15px;
+    height: 20px;
+    margin-right: 5px;
+    border-radius: 0.3rem;
+}
+
+
+.palette-dot.theme-pastel-pink {
+    background-color: #d66b96
+}
+
+.theme_green {
+    background-color: #344E41;
+}
+
+.theme_dark {
+    background-color: #121212;
+}
+
+.navbar .dropdown-item {
+    padding: 0 12px;
+    white-space: nowrap;
+}
+
+
+.header-links {
+    position: relative;
+    transition: color 0.2s ease;
+}
+
+.header-links:hover {
+    font-size: 1.05rem;
+    transition: transform 0.3s ease-in-out;
+    font-weight: 400;
+}
+
+.header-links:hover::after {
+    width: 100%;
+}

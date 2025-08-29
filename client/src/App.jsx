@@ -18,6 +18,8 @@ import CardsLibrary from './pages/MonthCardsLibrary/CardsLibrary';
 import About from './pages/About/About';
 
 function App() {
+
+
   const isAuth = Boolean(useSelector((state) => state.token));
 
   return (
@@ -29,7 +31,7 @@ function App() {
 
         <Route path="/" element={<DashLayout auth={isAuth} />}>
           {/* Public Routes - No authentication required */}
-          
+
           <Route path="/about" element={<About />} />
           <Route path="/privacy" element={<NoMatch />} />
 

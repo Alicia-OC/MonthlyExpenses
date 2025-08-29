@@ -21,25 +21,25 @@ const ExpensesSummary = (props) => {
   return (
     <div className="d-flex justify-content-center py-1 text-body">
       <div>
-        <p className="mb-1 h5">
+        <p className="mb-1">
           <FontAwesomeIcon icon={faPiggyBank} />{' '}
           {totalSavings + ' ' + cardCurrency}{' '}
         </p>
-        <p className="small text-muted mb-0">savings</p>
+        <p className="small mb-0">savings</p>
       </div>
       <div className="px-3">
-        <p className="mb-1 h5">
+        <p className="mb-1">
           <FontAwesomeIcon icon={faBasketShopping} />{' '}
           {totalExpenses + ' ' + cardCurrency}
         </p>
-        <p className="small text-muted mb-0">expenses</p>
+        <p className="small mb-0">expenses</p>
       </div>
       <div>
-        <p className="mb-1 h5">
+        <p className="mb-1">
           <FontAwesomeIcon icon={faMoneyBillWave} />{' '}
           {totalIncome + ' ' + cardCurrency}{' '}
         </p>
-        <p className="small text-muted mb-0">income</p>
+        <p className="small mb-0">income</p>
       </div>
     </div>
   );

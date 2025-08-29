@@ -6,20 +6,17 @@
 
 
 :root {
+  /* LIGHT-PINK*/
   --pink-theme_white: #f6f6f6;
   --pink-theme_main: #ffc7c7;
   --pink-theme_secondary: #ffe2e2;
   --pink-theme_font: #aaaaaa;
-  --pink-theme_h5: #EA86B6;
+  --pink-theme_h5: #d66b96;
   --pink-theme_blue: #A7D3F2;
 
   font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
   line-height: 1.5;
   font-weight: 400;
-
-  color-scheme: light dark;
-  color: black;
-  background-color: var(--pink-theme_main);
 
   font-synthesis: none;
   text-rendering: optimizeLegibility;
@@ -29,6 +26,78 @@
   --font-clean: "Poiret One", sans-serif;
   --font-handwritten: 'Kalam', cursive;
   --font-numbers: "Poppins", sans-serif;
+
+}
+
+
+[data-theme='light'] {
+  --main-background: rgb(255, 255, 255);
+  --background: #f6f6f6;
+  --secondary-background: #FFF8EEff;
+  --text-primary: #1a1f23;
+  --text-secondary: #1C4C8Bff;
+  --white: #F2E4DCff;
+  --semi-accent: #A9BACAff;
+  --accent: #F4D2C9ff;
+  --accent-variant: #F2D9D4ff;
+}
+
+[data-theme='green'] {
+  --white: #DAD7CD;
+
+  --main-background: rgb(255, 255, 255);
+  --background: #DAD7CD;
+
+  --text-primary: #344E41;
+  --text-secondary: #9CAA8A;
+  --accent: #A3B18A;
+  --semi-accent: #588157;
+  --accent-variant: #C4D4B0;
+}
+
+[data-theme='dark'] {
+  --main-background: #191C21ff;
+  --background: #25282Fff;
+  --white: #FFFFFF;
+
+  --text-primary: #E0E0E0;
+
+  --text-secondary: #5890CCff;
+
+  --semi-accent: #7BA7D7ff;
+
+  --accent: #3D4A5Dff;
+
+  --accent-variant: #444444;
+}
+
+
+p {
+  color: var(--text-primary);
+}
+
+a {
+  text-decoration: none !important;
+}
+
+table {
+  color: var(--text-primary);
+}
+
+li {
+  color: var(--text-primary);
+}
+
+
+body {
+  margin: 0;
+  display: flex;
+  place-items: center;
+  min-height: 100vh;
+  background-color: var(--main-background) !important;
+  color: var(--text-primary) !important;
+  /* Add this */
+
 }
 
 a {
@@ -36,21 +105,72 @@ a {
   text-decoration: inherit;
 }
 
-body {
-  margin: 0;
-  display: flex;
-  place-items: center;
-  min-height: 100vh;
-
-}
-
 h1 {
   font-size: 3.2em;
   line-height: 1.1;
   font-family: var(--font-clean);
   padding: 1rem;
+  color: var(--text-primary) !important;
 }
 
+h2 {
+  color: var(--text-primary) !important;
+}
+
+h5 {
+  color: var(--text-primary) !important;
+}
+
+input {
+  color: var(--text-primary) !important;
+
+}
+
+input:focus {
+  outline: none;
+  box-shadow: 0 0 0 0.3rem var(--accent-variant) !important;
+  border-color: var(--accent) !important;
+}
+
+.new-expense-price-input {
+  background-color: var(--main-background) !important;
+}
+
+.form-floating>.form-control {
+  background-color: var(--main-background) !important;
+}
+
+
+.card-summary-div a:hover {
+  font-size: 18px;
+  font-size: 1.8em;
+  cursor: pointer;
+}
+
+.card-summary-div:hover {
+  cursor: pointer;
+  background-color: var(--accent) !important;
+
+}
+
+.form-control.line-input {
+  border: none;
+}
+
+
+.input-wrapper .form-floating label,
+.input-wrapper .form-floating .label-input {
+  background-color: transparent !important;
+  background: transparent !important;
+  border: none !important;
+  color: var(--text-primary) !important;
+}
+
+.input-wrapper .form-floating label::before,
+.input-wrapper .form-floating label::after {
+  background: transparent !important;
+  background-color: transparent !important;
+}
 
 .title-div {
   display: flex;
@@ -58,12 +178,10 @@ h1 {
   justify-content: center;
 }
 
-.btn-primary-pink {
-  background-color: var(--pink-theme_main) !important;
-}
 
-.btn-primary-pink:hover {
-  background-color: var(--pink-theme_h5) !important;
+.card {
+
+  background-color: var(--background) !important;
 
 }
 
@@ -74,12 +192,14 @@ button {
   font-size: 1em;
   font-weight: 500;
   font-family: inherit;
-  background-color: #1a1a1a;
+  background-color: var(--accent);
   cursor: pointer;
   transition: transform 0.3s ease-in-out;
-
 }
 
+button:hover {
+  background-color: var(--semi-accent) !important;
+}
 
 .add-new-card-btn {
   background-color: #1a1a1a;
@@ -88,31 +208,14 @@ button {
 }
 
 .add-new-card-btn:hover {
-  background-color: var(--pink-theme_h5);
+  background-color: var(--accent);
   transform: scale(1.05);
   transition: transform 0.3s ease-in-out;
 }
 
 
-input {
-  color-scheme: light;
-
-}
-
 span {
   padding: 0em 0.3em;
-}
-
-@media (prefers-color-scheme: light) {
-  :root {
-    color: #213547;
-    background-color: #ffffff;
-  }
-
-
-  button {
-    background-color: #f9f9f9;
-  }
 }
 
 .tooltip {
@@ -140,9 +243,13 @@ span {
 }
 
 .savings-div {
-  background: #f8f9fa;
-  padding: 1.5rem;
   border-radius: 0.5rem;
+  background-color: rgba(from var(--accent) r g b / 0.8);
+  /* 80% opacity */
+  width: fit-content;
+  padding: 1.5rem 5rem 1.5rem 5rem;
+  margin-left: auto;
+  margin-right: auto;
 
 }
 
@@ -163,12 +270,34 @@ span {
   display: flex;
   align-items: center;
   gap: 8px;
+  margin-bottom: 0.9rem;
 }
 
 input {
   width: 100%;
   padding: 4px 8px;
   box-sizing: border-box;
+}
+
+.input-wrapper.new-item button {
+  background: var(--semi-accent);
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 9px;
+}
+
+.input-wrapper.new-item button:hover {
+  background: var(--accent) !important;
+  transform: scale(1.05);
+  transition: transform 0.3s ease-in-out;
+}
+
+
+.input-wrapper.new-item label {
+  background-color: transparent !important;
+
 }
 
 .errMsgPassword {
@@ -183,7 +312,7 @@ input {
 }
 
 .card-go-to-title {
-  color: black;
+  color: var(--text-primary);
   background-color: transparent;
   font-size: 1.8em;
   cursor: pointer;
@@ -193,19 +322,19 @@ input {
 }
 
 .card-go-to-title:hover {
-  color: var(--pink-theme_h5);
   font-size: 2em;
   text-decoration: none;
+  color: var(--semi-accent);
 }
 
 .card-go-to-title.small {
   font-size: 1em;
-  color: black;
+  color: var(--text-primary);
 }
 
 .card-go-to-title.small:hover {
   font-size: 1.1em;
-  color: var(--pink-theme_blue);
+  color: var(--text-secondary) !important;
 
 }
 
@@ -223,12 +352,14 @@ input {
   max-height: 40px;
   /* Adjust this - roughly 40px per row × 3 rows */
   gap: 0;
-  color: #EA86B6;
+  color: var(--accent)
 }
 
 .year-item {
   font-weight: bold;
   grid-column: 1 / -1;
+  color: var(--text-primary) !important;
+
 }
 
 .card-item {
@@ -293,11 +424,11 @@ input {
   text-align: left;
   margin-bottom: 0;
   font-weight: bolder;
-  color: var(--pink-theme_blue);
+  color: var(--accent-variant);
 }
 
 .see-all-link {
-  color: var(--pink-theme_main);
+  color: var(--text-primary);
   background-color: transparent;
   text-decoration: none;
   font-size: 1.25rem;
@@ -306,8 +437,8 @@ input {
 }
 
 .see-all-link:hover {
-  color: var(--pink-theme_blue);
-  text-decoration: underline;
+  color: var(--semi-accent);
+  text-decoration: none;
 }
 
 .card-library {
@@ -324,13 +455,8 @@ input {
 }
 
 .month-finances-h {
-  color: var(--pink-theme_h5);
+  color: black;
   margin-bottom: 15px;
-}
-
-
-.see-all-link {
-  color: var(--pink-theme_h5);
 }
 
 
@@ -351,19 +477,29 @@ input {
 }
 
 .default-items-group h5 {
-  border-bottom: 2px solid var(--pink-theme_h5);
+  border-bottom: 2px solid var(--accent);
   padding-bottom: 0.5rem;
   margin-bottom: 1rem;
 }
 
 .delete-list-item-btn {
   padding: 0.25rem 0.5rem;
-  border-radius: 0.25rem;
+  border-radius: 1rem;
   font-size: 0.875rem;
 }
 
+.user-profile-btn {
+  border-radius: 0.75rem;
+  margin-bottom: 5px;
+}
+
+.avatar-profile-section {
+  border-radius: 0.75rem;
+
+}
+
 .floating-save-btn button {
-  background-color: var(--pink-theme_h5);
+  background-color: var(--accent);
   border: none;
   border-radius: 50px;
   width: 60px;
@@ -446,7 +582,7 @@ input {
 }
 
 .floating-save-btn button:hover {
-  background-color: var(--pink-theme_blue);
+  background-color: var(--accent-variant);
   transform: translateY(-50%) scale(1.05);
   box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
 
@@ -469,11 +605,12 @@ input {
 
 .default-items-div p {
   font-weight: bold;
-  color: var(--pink-theme_h5);
+  color: var(--text-secondary);
 }
 
+
 .separating-line {
-  border-bottom: 1px solid #ccc;
+  border-bottom: 1px solid var(--accent);
   padding-top: 0.5rem;
   margin-top: 0.5rem;
   padding-bottom: 0;
@@ -489,4 +626,18 @@ input {
   margin-left: 10px;
   margin-top: 20px;
 
+}
+
+.footer-div {
+  background-color: var(--accent);
+}
+
+
+.footer-div a {
+  color: var(--text-primary);
+}
+
+.about-section {
+
+  margin-top: 5rem;
 }

@@ -1,5 +1,7 @@
 import { useState, useEffect, useMemo } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
+
 import Axios from 'axios';
 
 import GetMonth from '../../components/GetMonth/GetMonth';
@@ -7,6 +9,8 @@ import GetMonth from '../../components/GetMonth/GetMonth';
 import './css/index.css';
 
 const CardsLibrary = () => {
+  const navigate = useNavigate();
+
   const backendLink = import.meta.env.VITE_APP_GETCARD;
   const user = useSelector((state) => state.user);
 
@@ -106,61 +110,65 @@ const CardsLibrary = () => {
 
     return <div className="summary-responsive ">{result}</div>;
   };
+
+  const handleCardClick = (cardid) => {
+    navigate(`/${userid}/${cardid}`);
+  };
+
   return (
     <>
-      <div className="filtering-cards-div col row-cols-1 g-4 justify-content-around align-items-center">
-        <div className="card left-aligned-content summary-columns">
-          {summaryWidget()}
+      <div className="container py-5 h-100 ">
+        <div className="filtering-cards-div col row-cols-1 g-4 justify-content-around align-items-center">
+          <div className="card left-aligned-content summary-columns">
+            {summaryWidget()}
+          </div>
         </div>
-      </div>
-      <div
-        style={{ marginTop: '0.05rem' }}
-        className="row row-cols-1 row-cols-md-2 g-4 justify-content-around align-items-center"
-      >
-        {isLoading && <div>Loading...</div>}
-        {!isLoading &&
-          allCards &&
-          currentCards.map((item) => (
-            <div className="col" key={item.id}>
-              <div className="card">
-                <div className="card-body" data-testid={item.month}>
-                  <a
-                    className="card-go-to-title small"
-                    href={`/${userid}/${item.id}`}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                  >
+        <div
+          style={{ marginTop: '0.05rem' }}
+          className="row row-cols-1 row-cols-md-2 g-4 justify-content-around align-items-center"
+        >
+          {isLoading && <div>Loading...</div>}
+          {!isLoading &&
+            allCards &&
+            currentCards.map((item) => (
+              <div className="col" key={item.id}>
+                <div
+                  className="card card-summary-div"
+                  onClick={(e) => handleCardClick(item.id)}
+                >
+                  <div className="card-body" data-testid={item.month}>
                     <h5 className="card-title">
                       <GetMonth cardMonth={item.month} />
                     </h5>
-                  </a>
 
-                  <p className="card-text">
-                    You have spent{' '}
-                    <boldd>
-                      {item.foodExpenses} {item.currency}{' '}
-                    </boldd>
-                    in groceries, {item.subscriptionExpenses} {item.currency} in
-                    subscriptions, {item.transportExpenses} {item.currency} in
-                    transport, {item.otherExpenses} {item.currency} and in misc!
-                  </p>
+                    <p className="card-text">
+                      You have spent{' '}
+                      <boldd>
+                        {item.foodExpenses} {item.currency}{' '}
+                      </boldd>
+                      in groceries, {item.subscriptionExpenses} {item.currency}{' '}
+                      in subscriptions, {item.transportExpenses} {item.currency}{' '}
+                      in transport, {item.otherExpenses} {item.currency} and in
+                      misc!
+                    </p>
+                  </div>
                 </div>
               </div>
-            </div>
-          ))}
-      </div>
-      <div style={{ marginTop: '1rem' }}>
-        <button onClick={prevPage} disabled={currentPage === 1}>
-          Previous
-        </button>
+            ))}
+        </div>
+        <div style={{ marginTop: '1rem' }}>
+          <button onClick={prevPage} disabled={currentPage === 1}>
+            Previous
+          </button>
 
-        <span style={{ margin: '0 1rem' }}>
-          Page {currentPage} of {totalPages}
-        </span>
+          <span style={{ margin: '0 1rem' }}>
+            Page {currentPage} of {totalPages}
+          </span>
 
-        <button onClick={nextPage} disabled={currentPage === totalPages}>
-          Next
-        </button>
+          <button onClick={nextPage} disabled={currentPage === totalPages}>
+            Next
+          </button>
+        </div>
       </div>
     </>
   );

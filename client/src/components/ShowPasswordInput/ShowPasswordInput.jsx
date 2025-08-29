@@ -16,7 +16,7 @@ const ShowPasswordInput = ({ onDataChange }) => {
         }}
       />
       <label className="form-check-label" htmlFor="show-pw">
-        Show password
+       <p>Show password</p> 
       </label>
     </div>
   );

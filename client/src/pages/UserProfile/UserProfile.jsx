@@ -162,7 +162,7 @@ const UserProfile = () => {
           </div>
         </div>
       </div>
-      <Container fluid className="px-3 px-lg-4">
+      <Container fluid className="px-3 px-lg-4 py-5">
         <div className="row justify-content-center ">
           <div className="col-12">
             {' '}
@@ -176,7 +176,7 @@ const UserProfile = () => {
                       <Image
                         src={userAvatar}
                         style={{ maxWidth: '300px', width: '100%' }}
-                        className="img-fluid img-thumbnail mt-6 mb-2"
+                        className="avatar-profile-section img-fluid mt-6 mb-2"
                         alt="User avatar"
                       />
 
@@ -184,7 +184,7 @@ const UserProfile = () => {
                         type="button"
                         data-mdb-button-init
                         data-mdb-ripple-init
-                        className="btn btn-outline-dark"
+                        className="user-profile-btn"
                         data-mdb-ripple-color="dark"
                         onClick={handleProfileEditingMode}
                       >
@@ -197,7 +197,7 @@ const UserProfile = () => {
                         type="button"
                         data-mdb-button-init
                         data-mdb-ripple-init
-                        className="btn btn-outline-dark"
+                        className="user-profile-btn"
                         data-mdb-ripple-color="dark"
                         onClick={handleDefaultItemsEditingMode}
                       >
@@ -210,7 +210,7 @@ const UserProfile = () => {
                 </div>
 
                 {!defaultItemsEditMode ? (
-                  <div className=" savings-div  ">
+                  <div className="savings-div py-3">
                     <h4 className="month-finances-h">
                       {expensesYearSummary.year} finances
                     </h4>

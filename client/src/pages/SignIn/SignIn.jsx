@@ -46,15 +46,15 @@ const SignIn = () => {
 
   return (
     <>
-      <section className="">
+      <section className="sign-div">
         <div className="row d-flex justify-content-center align-items-center h-100">
           <div className="col-lg-12 col-xl-11">
             <div className="card text-black">
               <div className="card-body ">
                 <div className="row justify-content-center">
-                  <p className="text-center h1 fw-bold mb-3 mx-1 mx-md-4 mt-2">
+                  <h1 className="text-center h1 fw-bold mb-3 mx-1 mx-md-4 mt-2">
                     Sign in
-                  </p>
+                  </h1>
                   <p className="error-message text-center p fw-bold mb-3 mx-1 mx-md-4 mt-2">
                     {' '}
                     {message}
@@ -101,14 +101,14 @@ const SignIn = () => {
                         type="submit"
                         disabled={isLoading}
                       >
-                        Sign in
+                        Submit
                       </button>
                     </div>
 
-                    <p className="text-center text-muted mt-4 mb-0">
+                    <p className="text-center mt-4 mb-0">
                       You don't have an account?{' '}
-                      <a href="/signup" className="fw-bold text-body">
-                        <u>Create one here</u>
+                      <a href="/signup" className="sign-link fw-bold">
+                        <>Create one here</>
                       </a>
                     </p>
                   </form>

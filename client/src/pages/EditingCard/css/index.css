@@ -6,16 +6,12 @@
 }
 
 .month-card-h5 {
-  color: var(--pink-theme_h5);
-  /** border-bottom: 2px solid var(--pink-theme_h5);**/
   padding: 5px;
 
 }
 
 .month-card-container li {
-  color: black;
   font-size: 1em;
-
 }
 
 .month-card-container {
@@ -97,7 +93,9 @@
   width: 100% !important;
 }
 
-
+.sign-div {
+  padding-top: 5rem;
+}
 
 .block {
   break-inside: avoid;
@@ -108,21 +106,6 @@
   margin-bottom: 0;
 }
 
-.input-wrapper.new-item button {
-  background: var(--pink-theme_h5);
-  color: white;
-  border: none;
-  border-radius: 4px;
-  cursor: pointer;
-  font-size: 9px;
-}
-
-.input-wrapper.new-item button:hover {
-  background: var(--pink-theme_blue);
-  transform: scale(1.05);
-  transition: transform 0.3s ease-in-out;
-
-}
 
 .delete-list-item-btn {
   margin-left: 10px;
@@ -135,7 +118,7 @@
 }
 
 .delete-list-item-btn:hover {
-  background-color: var(--pink-theme_h5);
+  background-color: var(--background);
   color: white;
   transform: scale(1.05);
   transition: transform 0.3s ease-in-out;

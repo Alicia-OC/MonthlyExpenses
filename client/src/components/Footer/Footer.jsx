@@ -11,18 +11,18 @@ const Footer = () => {
 
 
   return (
-    <footer className="bg-light py-4 border-top  fixed-bottom">
+    <footer className="footer-div py-2 fixed-bottom">
       <Container>
         <div className="row">
-          <div className="col-md-12 text-muted">
+          <div className="col-md-12">
             &copy; 2025 Peekly, <small>Built with 💗 and passion!</small>{' '}
-            <a href="/privacy" className="text-muted me-3">
+            <a href="/privacy" className=" me-3">
               Privacy
             </a>
-            <a href={Github} className="text-muted" title='Visit my GitHub profile'>
+            <a href={Github} className="" title='Visit my GitHub profile'>
               <FontAwesomeIcon style={{ marginRight: '8px' }} icon={faGithub} />
             </a>
-            <a href={Linkedin} className="text-muted" title='Visit my LinkedIn profile'>
+            <a href={Linkedin} className="" title='Visit my LinkedIn profile'>
               <FontAwesomeIcon
                 style={{ marginRight: '8px' }}
                 icon={faLinkedin}

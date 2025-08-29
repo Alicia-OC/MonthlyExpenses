@@ -22,7 +22,7 @@ const Landing = () => {
       <div className="landingPage">
         <div className="landing-page">
           <div className="title-div" data-aos="fade-up" data-aos-delay="400">
-            <h1>Peekly </h1>
+            <h1 className='peekly-h1-name'>Peekly </h1>
           </div>
 
           <div className="intro-div" data-aos="fade-up" data-aos-delay="400">
@@ -78,8 +78,6 @@ const Landing = () => {
               </button>{' '}
             </div>
           </div>
-
-          <div className="footer-div"> footer</div>
         </div>
       </div>
     </>

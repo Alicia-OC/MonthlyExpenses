@@ -3,7 +3,7 @@ import { Container } from 'react-bootstrap';
 const About = () => {
   return (
     <Container>
-      <div className="card">
+      <div className="card about-section">
         <p>
           Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis
           ultricies lacinia aliquet. Quisque vel justo eget sapien cursus
