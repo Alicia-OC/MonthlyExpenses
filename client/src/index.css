@@ -156,14 +156,6 @@ input:-webkit-autofill:active {
   background-image: none !important;
 }
 
-input:autofill {
-  background-color: var(--main-background) !important;
-  color: var(--text-primary) !important;
-  caret-color: var(--text-primary) !important;
-  /* Add this line */
-
-}
-
 input[type="number"]::-webkit-outer-spin-button,
 input[type="number"]::-webkit-inner-spin-button {
   -webkit-appearance: none;
@@ -199,7 +191,12 @@ button:hover {
 
 .profile-div button:hover,
 .sign-div button:hover {
-  background-color: var(--accent) !important;
+  background-color: var(--text-primary) !important;
+}
+
+
+.form-check-input {
+  color: var(--accent) !important;
 }
 
 .new-expense-price-input {
