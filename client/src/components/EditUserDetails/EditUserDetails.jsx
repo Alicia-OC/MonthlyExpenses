@@ -154,7 +154,7 @@ const EditUserDetails = () => {
 
       {errMsgPassword}
 
-      <button className="btn btn-dark" onClick={handleSave}>
+      <button className="btn submit-button " onClick={handleSave}>
         Save
       </button>
     </div>

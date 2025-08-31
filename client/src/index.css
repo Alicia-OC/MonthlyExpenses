@@ -192,11 +192,13 @@ button:hover {
   background-color: var(--semi-accent) !important;
 }
 
-.profile-div button {
+.profile-div button,
+.sign-div button {
   background-color: var(--semi-accent) !important;
 }
 
-.profile-div button:hover {
+.profile-div button:hover,
+.sign-div button:hover {
   background-color: var(--accent) !important;
 }
 
@@ -313,6 +315,12 @@ span {
   padding: 1.5rem 5rem 1.5rem 5rem;
   margin-left: auto;
   margin-right: auto;
+
+}
+
+.savings-div div {
+
+  gap: 1rem;
 
 }
 

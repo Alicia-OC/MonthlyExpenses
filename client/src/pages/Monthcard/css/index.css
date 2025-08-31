@@ -1,8 +1,18 @@
-.month-card-component {
+.month-card-component.non-editing-card {
     width: 100%;
-    max-width: 500px;
-    margin: 0 auto;
+    min-width: 900px;
+    min-height: auto;
     padding: 1rem;
+    margin-top: 5rem;
+
+}
+
+.month-card-component.non-editing-card h2 {
+    padding: 2rem;
+}
+
+.non-editing-card .month-card-container {
+    padding: 4rem;
 }
 
 @media (min-width: 768px) {
@@ -17,7 +27,7 @@
     }
 }
 
-
+.month-card-component {}
 
 .month-card-container {
     padding-top: 1em;
