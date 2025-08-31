@@ -163,7 +163,7 @@ const SignUp = () => {
                     <div>
                       <button
                         onClick={handleSubmit}
-                        className="btn btn-dark"
+                        className="btn"
                         type="submit"
                         disabled={isLoading}
                       >

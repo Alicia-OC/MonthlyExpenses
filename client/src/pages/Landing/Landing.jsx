@@ -64,14 +64,14 @@ const Landing = () => {
               <h4>Quick Peek, Smart Spend!</h4>
               <button
                 onClick={() => navigate('/signin', { replace: true })}
-                className="btn btn-dark"
+                className="btn"
                 type="submit"
               >
                 Sign in
               </button>{' '}
               <button
                 onClick={() => navigate('/signup', { replace: true })}
-                className="btn btn-dark"
+                className="btn"
                 type="submit"
               >
                 Sign up, join us!
