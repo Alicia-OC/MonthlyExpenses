@@ -6,7 +6,6 @@
 
 }
 
-
 .logo {
   height: 6em;
   padding: 1.5em;
@@ -30,4 +29,7 @@
 .DashContainer {
   box-sizing: content-box;
 
+}
+.editing-profile-div .form-control {
+  background-color: #fce4ec; /* pastel pink */
 }

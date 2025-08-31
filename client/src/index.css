@@ -59,18 +59,24 @@
   --main-background: #191C21ff;
   --background: #25282Fff;
   --white: #FFFFFF;
-
   --text-primary: #E0E0E0;
-
   --text-secondary: #5890CCff;
-
   --semi-accent: #7BA7D7ff;
-
   --accent: #3D4A5Dff;
-
   --accent-variant: #444444;
 }
 
+
+body {
+  margin: 0;
+  display: flex;
+  place-items: center;
+  min-height: 100vh;
+  background-color: var(--main-background) !important;
+  color: var(--text-primary) !important;
+  /* Add this */
+
+}
 
 p {
   color: var(--text-primary);
@@ -86,18 +92,6 @@ table {
 
 li {
   color: var(--text-primary);
-}
-
-
-body {
-  margin: 0;
-  display: flex;
-  place-items: center;
-  min-height: 100vh;
-  background-color: var(--main-background) !important;
-  color: var(--text-primary) !important;
-  /* Add this */
-
 }
 
 a {
@@ -117,6 +111,11 @@ h2 {
   color: var(--text-primary) !important;
 }
 
+h4 {
+  color: var(--text-primary) !important;
+}
+
+
 h5 {
   color: var(--text-primary) !important;
 }
@@ -130,6 +129,22 @@ input:focus {
   outline: none;
   box-shadow: 0 0 0 0.3rem var(--accent-variant) !important;
   border-color: var(--accent) !important;
+}
+
+button {
+  border-radius: 8px;
+  border: 1px solid transparent;
+  padding: 0.6em 1.2em;
+  font-size: 1em;
+  font-weight: 500;
+  font-family: inherit;
+  background-color: var(--semi-accent);
+  cursor: pointer;
+  transition: transform 0.3s ease-in-out;
+}
+
+button:hover {
+  background-color: var(--accent) !important;
 }
 
 .new-expense-price-input {
@@ -157,13 +172,23 @@ input:focus {
   border: none;
 }
 
+/* FLOATING LABEL BACKGROUND*/
+
+
+.input-wrapper .form-floating label,
+.input-wrapper .form-floating.new-expense-price-input label {
+  padding: 0.1rem 0.5rem 0.1rem 0.5rem;
+  height: auto;
+}
 
 .input-wrapper .form-floating label,
 .input-wrapper .form-floating .label-input {
   background-color: transparent !important;
-  background: transparent !important;
+  background: var(--accent) !important;
   border: none !important;
   color: var(--text-primary) !important;
+  border-radius: 0.5rem;
+
 }
 
 .input-wrapper .form-floating label::before,
@@ -171,6 +196,8 @@ input:focus {
   background: transparent !important;
   background-color: transparent !important;
 }
+
+/* FLOATING LABEL BACKGROUND*/
 
 .title-div {
   display: flex;
@@ -180,26 +207,9 @@ input:focus {
 
 
 .card {
-
   background-color: var(--background) !important;
-
 }
 
-button {
-  border-radius: 8px;
-  border: 1px solid transparent;
-  padding: 0.6em 1.2em;
-  font-size: 1em;
-  font-weight: 500;
-  font-family: inherit;
-  background-color: var(--accent);
-  cursor: pointer;
-  transition: transform 0.3s ease-in-out;
-}
-
-button:hover {
-  background-color: var(--semi-accent) !important;
-}
 
 .add-new-card-btn {
   background-color: #1a1a1a;
@@ -294,11 +304,6 @@ input {
   transition: transform 0.3s ease-in-out;
 }
 
-
-.input-wrapper.new-item label {
-  background-color: transparent !important;
-
-}
 
 .errMsgPassword {
   color: red;
