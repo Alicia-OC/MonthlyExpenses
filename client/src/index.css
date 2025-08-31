@@ -30,9 +30,11 @@
 }
 
 
+/* For other browsers */
+
 [data-theme='light'] {
   --main-background: #F6EFEA;
-  --background: #F9F7F7  ;
+  --background: #F9F7F7;
   --secondary-background: #F1E8DE;
   --text-primary: #144D90;
   --text-secondary: #144D90;
@@ -126,13 +128,51 @@ input {
   border-color: var(--accent) !important;
   border-width: 0 0 0 0.1rem;
   background-color: var(--main-background) !important;
+  caret-color: var(--text-primary) !important;
+  /* Add this line */
+
+
 }
 
 input:focus {
   outline: none;
   border: 0.2rem solid var(--semi-accent) !important;
   box-shadow: 0 0 0 0.1rem var(--semi-accent) !important;
+  caret-color: var(--text-primary) !important;
+  /* Add this line */
 
+
+}
+
+input:-webkit-autofill,
+input:-webkit-autofill:hover,
+input:-webkit-autofill:focus,
+input:-webkit-autofill:active {
+  -webkit-box-shadow: 0 0 0 1000px var(--main-background) inset !important;
+  -webkit-text-fill-color: var(--text-primary) !important;
+  color: var(--text-primary) !important;
+  caret-color: var(--text-primary) !important;
+  background-color: var(--main-background) !important;
+  background-image: none !important;
+}
+
+input:autofill {
+  background-color: var(--main-background) !important;
+  color: var(--text-primary) !important;
+  caret-color: var(--text-primary) !important;
+  /* Add this line */
+
+}
+
+input[type="number"]::-webkit-outer-spin-button,
+input[type="number"]::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+/* Firefox */
+input[type="number"] {
+  -moz-appearance: textfield;
 }
 
 button {
@@ -142,12 +182,21 @@ button {
   font-size: 1em;
   font-weight: 500;
   font-family: inherit;
-  background-color: var(--semi-accent);
+  background-color: var(--accent);
   cursor: pointer;
   transition: transform 0.3s ease-in-out;
+  color: var(--text-primary);
 }
 
 button:hover {
+  background-color: var(--semi-accent) !important;
+}
+
+.profile-div button {
+  background-color: var(--semi-accent) !important;
+}
+
+.profile-div button:hover {
   background-color: var(--accent) !important;
 }
 
@@ -257,7 +306,7 @@ span {
 
 .savings-div {
   border-radius: 0.5rem;
-  border: dashed 0.3rem;
+  border: dashed 0.2rem;
   border-color: var(--text-primary);
   background-color: var(--accent);
   width: fit-content;
