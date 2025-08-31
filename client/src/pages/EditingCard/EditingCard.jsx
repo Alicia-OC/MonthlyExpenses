@@ -106,7 +106,6 @@ const EditingCard = () => {
 
       const { dataByYear } = updatedUser;
       dispatch(updateUser({ dataByYear }));
-
     } catch (error) {
       console.error('Error fetching card:', error);
     }
@@ -160,7 +159,6 @@ const EditingCard = () => {
 
       const { dataByYear } = updatedUser;
       dispatch(updateUser({ dataByYear }));
-
     } catch (error) {
       console.error('Error fetching card:', error);
     }
@@ -199,7 +197,6 @@ const EditingCard = () => {
                 cardCurrency={card.currency}
               />
             </div>
-
             <div className="month-card-component ">
               <div className="p-3 p-lg-4">
                 <div className="multi-column ">

@@ -31,21 +31,21 @@
 
 
 [data-theme='light'] {
-  --main-background: rgb(255, 255, 255);
-  --background: #f6f6f6;
-  --secondary-background: #FFF8EEff;
-  --text-primary: #1a1f23;
-  --text-secondary: #1C4C8Bff;
+  --main-background: #F6EFEA;
+  --background: #F9F7F7  ;
+  --secondary-background: #F1E8DE;
+  --text-primary: #144D90;
+  --text-secondary: #144D90;
   --white: #F2E4DCff;
-  --semi-accent: #A9BACAff;
-  --accent: #F4D2C9ff;
-  --accent-variant: #F2D9D4ff;
+  --semi-accent: #A9BACA;
+  --accent: #F3D1C8;
+  --accent-variant: #C49999;
 }
 
 [data-theme='green'] {
   --white: #DAD7CD;
 
-  --main-background: rgb(255, 255, 255);
+  --main-background: #FEFDF9;
   --background: #DAD7CD;
 
   --text-primary: #344E41;
@@ -122,13 +122,17 @@ h5 {
 
 input {
   color: var(--text-primary) !important;
-
+  box-shadow: 0 0 0 0.1rem var(--accent) !important;
+  border-color: var(--accent) !important;
+  border-width: 0 0 0 0.1rem;
+  background-color: var(--main-background) !important;
 }
 
 input:focus {
   outline: none;
-  box-shadow: 0 0 0 0.3rem var(--accent-variant) !important;
-  border-color: var(--accent) !important;
+  border: 0.2rem solid var(--semi-accent) !important;
+  box-shadow: 0 0 0 0.1rem var(--semi-accent) !important;
+
 }
 
 button {
@@ -151,10 +155,13 @@ button:hover {
   background-color: var(--main-background) !important;
 }
 
-.form-floating>.form-control {
+.form-floating.form-control {
   background-color: var(--main-background) !important;
 }
 
+.input-wrapper.form-floating.input {
+  border-radius: 5rem !important;
+}
 
 .card-summary-div a:hover {
   font-size: 18px;
@@ -166,10 +173,6 @@ button:hover {
   cursor: pointer;
   background-color: var(--accent) !important;
 
-}
-
-.form-control.line-input {
-  border: none;
 }
 
 /* FLOATING LABEL BACKGROUND*/
@@ -254,8 +257,9 @@ span {
 
 .savings-div {
   border-radius: 0.5rem;
-  background-color: rgba(from var(--accent) r g b / 0.8);
-  /* 80% opacity */
+  border: dashed 0.3rem;
+  border-color: var(--text-primary);
+  background-color: var(--accent);
   width: fit-content;
   padding: 1.5rem 5rem 1.5rem 5rem;
   margin-left: auto;
@@ -491,6 +495,8 @@ input {
   padding: 0.25rem 0.5rem;
   border-radius: 1rem;
   font-size: 0.875rem;
+  position: relative;
+  top: -3px;
 }
 
 .user-profile-btn {
@@ -615,11 +621,20 @@ input {
 
 
 .separating-line {
-  border-bottom: 1px solid var(--accent);
-  padding-top: 0.5rem;
-  margin-top: 0.5rem;
+  padding: 0.7rem;
   padding-bottom: 0;
-  margin-bottom: 0
+  margin-bottom: 0;
+  position: relative;
+  /* Remove the border-bottom from here */
+}
+
+.separating-line::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0.5rem;
+  right: calc(0.5rem + 30px);
+  border-bottom: 1px solid var(--accent);
 }
 
 .editing-profile-div {
