@@ -141,7 +141,6 @@
 .stacked-inputs .form-control {
   border-radius: 0;
   font-size: 12px;
-  /* Remove radius from middle inputs */
 }
 
 .stacked-inputs .form-floating:first-child .form-control {

@@ -11,7 +11,7 @@ const ExpenseInputFields = ({ onAdd, blockName, ...props }) => {
   const currency = useSelector((state) => state.currency);
 
   const isSmall = props.isSmall;
-  const cardCurrency = props.cardCurrency
+  const cardCurrency = props.cardCurrency;
 
   //generate random UUID
   let myuuid = uuidv4();
@@ -51,13 +51,16 @@ const ExpenseInputFields = ({ onAdd, blockName, ...props }) => {
               style={isSmall ? { flex: '3' } : undefined}
             >
               <input
+                autoComplete="off"
                 value={newItem}
                 onChange={(e) => setnewItem(e.target.value)}
                 type="text"
                 id="new-expense-item-input"
                 className="form-control line-input"
               />
-              <label  className='label-input' htmlFor="new-expense-item-input">{blockName}</label>
+              <label className="label-input" htmlFor="new-expense-item-input">
+                {blockName}
+              </label>
             </div>
 
             <div
