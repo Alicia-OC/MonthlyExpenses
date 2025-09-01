@@ -70,6 +70,7 @@
 .icon-socials a {
     padding: 1.5rem;
     color: #F1E8DE;
+    text-decoration: none;
 }
 
 .icon-socials a:hover {

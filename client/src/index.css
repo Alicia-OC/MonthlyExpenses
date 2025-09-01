@@ -162,13 +162,27 @@ input[type="number"]::-webkit-inner-spin-button {
   margin: 0;
 }
 
+.form-check-input:checked {
+  background-color: var(--semi-accent) !important;
+  border-color: var(--semi-accent) !important;
+}
+
+.sign-link {
+  color: var(--text-primary) !important;
+}
+
+.sign-link:hover {
+   color: var(--text-secondary) !important;
+
+}
+
 /* Firefox */
 input[type="number"] {
   -moz-appearance: textfield;
 }
 
 button,
-.sign-div button  {
+.sign-div button {
   border-radius: 8px;
   border: 1px solid transparent;
   padding: 0.6em 1.2em;
@@ -186,7 +200,7 @@ button:hover,
   background-color: var(--semi-accent) !important;
 }
 
-.profile-div button{
+.profile-div button {
   background-color: var(--semi-accent) !important;
 }
 
