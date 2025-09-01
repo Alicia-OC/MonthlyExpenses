@@ -1,7 +1,7 @@
 @import url('https://fonts.googleapis.com/css2?family=Gaegu&family=Jost:ital,wght@0,100..900;1,100..900&display=swap');
 
 .landingPage {
-    background-color: var(--pink-theme_white);
+    background-color: var(--pink-theme_white) !important;
     position: absolute;
     top: 0;
     left: 0;
@@ -10,28 +10,94 @@
     margin: 0;
     padding: 0;
     align-content: center;
-
 }
 
 
-.landingPage h1 {
-    font-size: 70px
+.landing-page {
+    background-image: url('../../assets/Background2.png');
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
+    background-color: rgb(162, 191, 221)
 }
 
-.intro-div p {
+.landing-page {
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
+    width: 100%;
+}
 
+.landingPage h1 {}
+
+.intro-div {
     font-family: "Gaegu", sans-serif;
     font-size: 1.5rem;
     display: inline !important;
     text-align: center;
     margin: 0;
+    padding-top: 19rem;
+}
+
+.intro-div h2 {
+    max-width: 45rem;
+    position: fixed;
+    right: 320px;
 }
 
 .landingPage h4 {
-
     font-family: "Gaegu", sans-serif;
     font-weight: 300;
     font-style: normal;
+}
+
+.auth-buttons {
+    position: absolute;
+    top: 20px;
+    right: 220px;
+    z-index: 10;
+}
+
+.icon-socials {
+    position: absolute;
+    top: 640px;
+    right: 350px;
+    z-index: 10;
+    font-size: 1.5rem;
+}
+
+
+.icon-socials a {
+    padding: 1.5rem;
+    color: #F1E8DE;
+}
+
+.icon-socials a:hover {
+    transform: scale(1.1);
+    transition: transform 0.3s ease-in-out;
+}
+
+.auth-buttons button {
+    font-family: "Gaegu", sans-serif;
+    font-size: 1.3rem;
+    background-color: transparent;
+}
+
+.auth-buttons button:hover {
+    background-color: transparent !important;
+    transform: scale(1.1);
+    transition: transform 0.3s ease-in-out;
+}
+
+.title-highlight {
+    color: var(--main-background);
+    margin: 0px;
+}
+
+.flexible-word {
+    display: inline-block;
+    font-weight: bold;
+    color: #144D90;
 }
 
 
@@ -40,13 +106,6 @@
     color: white;
 }
 
-
-.landing-page {
-    display: flex;
-    flex-direction: column;
-    height: 100vh;
-    width: 100%;
-}
 
 .title-div {
     margin-top: 2rem;
@@ -92,21 +151,21 @@
 
 }
 
-
-.landingPage h1::before {
+/*.landingPage h1::before {
     content: '';
     position: absolute;
     top: 53%;
     left: 0;
     width: 100%;
     height: 2.5em;
-    background-image: url('../../assets/Title.png');
+    background-image: url('../../assets/Brand figure.png');
     background-size: contain;
     background-repeat: no-repeat;
     background-position: center;
     transform: translateY(-50%);
     z-index: -1;
-}
+}*/
+
 
 .footer-div {
     padding: 0;

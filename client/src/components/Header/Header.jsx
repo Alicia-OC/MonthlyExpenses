@@ -15,7 +15,7 @@ import { setCurrency } from '../../state/authSlice';
 const Linkedin = import.meta.env.VITE_APP_LINKEDIN;
 const backendLink = import.meta.env.VITE_APP_API_URL;
 
-const NavBar = ({ onClick }) => {
+const Header = ({ onClick }) => {
   const [isLoading, setIsLoading] = useState(false);
 
   const dispatch = useDispatch();
@@ -72,7 +72,7 @@ const NavBar = ({ onClick }) => {
   return (
     <Navbar expand="lg" fixed="top" className="navbar-div px-3">
       <Container fluid>
-        <Navbar.Brand href="/home">
+        <Navbar.Brand href="/home" className='peekly-brand-name'>
           <h1>Peekly</h1>{' '}
         </Navbar.Brand>
         <Navbar.Toggle aria-controls="navbarNav" />
@@ -163,4 +163,4 @@ const NavBar = ({ onClick }) => {
   );
 };
 
-export default NavBar;
+export default Header;
