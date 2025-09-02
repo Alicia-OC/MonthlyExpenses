@@ -425,7 +425,7 @@ input {
 .summary-responsive {
   display: grid;
   gap: 10px;
-  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+    grid-template-columns: repeat(10, 0.5fr);
   color: var(--accent)
 }
 
@@ -448,9 +448,6 @@ input {
 }
 
 @media (max-width: 768px) {
-  .summary-responsive {
-    grid-template-columns: 1fr;
-  }
 
   .card.profile-div {
     max-width: 500px;
@@ -463,17 +460,11 @@ input {
 }
 
 @media (min-width: 769px) and (max-width: 1200px) {
-  .summary-responsive {
-    grid-template-columns: repeat(2, 1fr);
-  }
-
 
 }
 
 @media (min-width: 1201px) {
-  .summary-responsive {
-    grid-template-columns: repeat(3, 1fr);
-  }
+
 }
 
 /**/

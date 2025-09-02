@@ -62,6 +62,7 @@ const CardsLibrary = () => {
 
   const fetchData = async () => {
     setIsLoading(true);
+
     try {
       const res = await Axios.get(`${backendLink}/${userid}/cards`, {
         headers: { Authorization: `Bearer ${token}` },
@@ -115,6 +116,35 @@ const CardsLibrary = () => {
     navigate(`/${userid}/${cardid}`);
   };
 
+const cardsLoop = () => {
+  return Object.entries(groupCards).flatMap(([year, items]) =>
+    [...items].reverse().map((item) => (
+      <div className="col" key={item.id}>
+        <div
+          className="card card-summary-div"
+          onClick={() => handleCardClick(item.id)}
+        >
+          <div className="card-body" data-testid={item.month}>
+            <h5 className="card-title">
+              <GetMonth cardMonth={item.month} /> {item.year}
+            </h5>
+
+            <p className="card-text">
+              You have spent{" "}
+              <strong>
+                {item.foodExpenses} {item.currency}{" "}
+              </strong>
+              in groceries, {item.subscriptionExpenses} {item.currency} in
+              subscriptions, {item.transportExpenses} {item.currency} in
+              transport, {item.otherExpenses} {item.currency} and in misc!
+            </p>
+          </div>
+        </div>
+      </div>
+    ))
+  )
+}
+
   return (
     <>
       <div className="container py-5 h-100 ">
@@ -128,33 +158,7 @@ const CardsLibrary = () => {
           className="row row-cols-1 row-cols-md-2 g-4 justify-content-around align-items-center"
         >
           {isLoading && <div>Loading...</div>}
-          {!isLoading &&
-            allCards &&
-            currentCards.map((item) => (
-              <div className="col" key={item.id}>
-                <div
-                  className="card card-summary-div"
-                  onClick={(e) => handleCardClick(item.id)}
-                >
-                  <div className="card-body" data-testid={item.month}>
-                    <h5 className="card-title">
-                      <GetMonth cardMonth={item.month} />
-                    </h5>
-
-                    <p className="card-text">
-                      You have spent{' '}
-                      <boldd>
-                        {item.foodExpenses} {item.currency}{' '}
-                      </boldd>
-                      in groceries, {item.subscriptionExpenses} {item.currency}{' '}
-                      in subscriptions, {item.transportExpenses} {item.currency}{' '}
-                      in transport, {item.otherExpenses} {item.currency} and in
-                      misc!
-                    </p>
-                  </div>
-                </div>
-              </div>
-            ))}
+          {!isLoading && allCards && cardsLoop()}
         </div>
         <div style={{ marginTop: '1rem' }}>
           <button onClick={prevPage} disabled={currentPage === 1}>
