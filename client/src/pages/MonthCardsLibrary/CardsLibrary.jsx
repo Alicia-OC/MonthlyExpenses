@@ -16,7 +16,6 @@ const CardsLibrary = () => {
 
   const userid = user?._id;
   const token = useSelector((state) => state.token);
-  const currency = useSelector((state) => state.currency);
 
   const [isLoading, setIsLoading] = useState(true);
   const [currentPage, setCurrentPage] = useState(1);
@@ -116,34 +115,34 @@ const CardsLibrary = () => {
     navigate(`/${userid}/${cardid}`);
   };
 
-const cardsLoop = () => {
-  return Object.entries(groupCards).flatMap(([year, items]) =>
-    [...items].reverse().map((item) => (
-      <div className="col" key={item.id}>
-        <div
-          className="card card-summary-div"
-          onClick={() => handleCardClick(item.id)}
-        >
-          <div className="card-body" data-testid={item.month}>
-            <h5 className="card-title">
-              <GetMonth cardMonth={item.month} /> {item.year}
-            </h5>
+  const cardsLoop = () => {
+    return Object.entries(groupCards).flatMap(([year, items]) =>
+      [...items].reverse().map((item) => (
+        <div className="col" key={item.id}>
+          <div
+            className="card card-summary-div"
+            onClick={() => handleCardClick(item.id)}
+          >
+            <div className="card-body" data-testid={item.month}>
+              <h5 className="card-title">
+                <GetMonth cardMonth={item.month} /> {item.year}
+              </h5>
 
-            <p className="card-text">
-              You have spent{" "}
-              <strong>
-                {item.foodExpenses} {item.currency}{" "}
-              </strong>
-              in groceries, {item.subscriptionExpenses} {item.currency} in
-              subscriptions, {item.transportExpenses} {item.currency} in
-              transport, {item.otherExpenses} {item.currency} and in misc!
-            </p>
+              <p className="card-text">
+                You have spent{' '}
+                <strong>
+                  {item.foodExpenses} {item.currency}{' '}
+                </strong>
+                in groceries, {item.subscriptionExpenses} {item.currency} in
+                subscriptions, {item.transportExpenses} {item.currency} in
+                transport, {item.otherExpenses} {item.currency} and in misc!
+              </p>
+            </div>
           </div>
         </div>
-      </div>
-    ))
-  )
-}
+      ))
+    );
+  };
 
   return (
     <>
