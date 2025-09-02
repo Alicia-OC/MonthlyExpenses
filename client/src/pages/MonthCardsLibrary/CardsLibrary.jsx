@@ -129,13 +129,11 @@ const CardsLibrary = () => {
               </h5>
 
               <p className="card-text">
-                You have spent{' '}
-                <strong>
-                  {item.foodExpenses} {item.currency}{' '}
-                </strong>
-                in groceries, {item.subscriptionExpenses} {item.currency} in
-                subscriptions, {item.transportExpenses} {item.currency} in
-                transport, {item.otherExpenses} {item.currency} and in misc!
+                You have spent {item.foodExpenses}
+                {item.currency} in groceries, {item.subscriptionExpenses}
+                {item.currency} in subscriptions, {item.transportExpenses}
+                {item.currency} in transport, {item.otherExpenses}
+                {item.currency} and in misc!
               </p>
             </div>
           </div>
