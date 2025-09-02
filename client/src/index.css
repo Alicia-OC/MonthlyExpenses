@@ -416,7 +416,7 @@ input {
 }
 
 .filtering-cards-div {
-  padding: 1rem;
+  padding: rem;
 }
 
 
@@ -426,9 +426,6 @@ input {
   display: grid;
   gap: 10px;
   grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
-  max-height: 40px;
-  /* Adjust this - roughly 40px per row × 3 rows */
-  gap: 0;
   color: var(--accent)
 }
 
