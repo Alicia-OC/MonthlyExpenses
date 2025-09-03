@@ -172,7 +172,7 @@ input[type="number"]::-webkit-inner-spin-button {
 }
 
 .sign-link:hover {
-   color: var(--text-secondary) !important;
+  color: var(--text-secondary) !important;
 
 }
 
@@ -425,7 +425,7 @@ input {
 .summary-responsive {
   display: grid;
   gap: 10px;
-    grid-template-columns: repeat(10, 0.5fr);
+  grid-template-columns: repeat(10, 0.5fr);
   color: var(--accent)
 }
 
@@ -459,13 +459,9 @@ input {
   }
 }
 
-@media (min-width: 769px) and (max-width: 1200px) {
+@media (min-width: 769px) and (max-width: 1200px) {}
 
-}
-
-@media (min-width: 1201px) {
-
-}
+@media (min-width: 1201px) {}
 
 /**/
 
@@ -716,4 +712,34 @@ input {
 .about-section {
 
   margin-top: 5rem;
+}
+
+.filtering-cards-div select {
+  padding: 0.5rem 1rem 0.5rem 1rem;
+  border-radius: 0.7rem;
+  border-width: 0.1rem;
+  border-color: var(--accent-variant);
+  background-color: var(--accent);
+  color: var(--text-primary);
+  font-weight: bold;
+  cursor: pointer;
+}
+
+
+
+select:hover {
+  background-color: var(--semi-accent)
+}
+
+select:focus {
+  background-color: var(--semi-accent)
+}
+
+select option {
+  background: var(--accent-variant);
+}
+
+select option:hover {
+  background: var(--semi-accent) !important;
+
 }
