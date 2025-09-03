@@ -714,8 +714,7 @@ input {
   margin-top: 5rem;
 }
 
-.filtering-cards-div select,
-option {
+.filtering-cards-div select {
   padding: 0.5rem 1rem 0.5rem 1rem;
   border-radius: 0.7rem;
   border-width: 0.1rem;
@@ -723,10 +722,24 @@ option {
   background-color: var(--accent);
   color: var(--text-primary);
   font-weight: bold;
+  cursor: pointer;
 }
 
-.filtering-cards-div option {
-  padding: 0.5rem 1rem 0.5rem 1rem;
-  border-radius: 0.7rem;
-  border-width: 0.2rem;
+
+
+select:hover {
+  background-color: var(--semi-accent)
+}
+
+select:focus {
+  background-color: var(--semi-accent)
+}
+
+select option {
+  background: var(--accent-variant);
+}
+
+select option:hover {
+  background: var(--semi-accent) !important;
+
 }
