@@ -19,10 +19,12 @@ const CardsLibrary = () => {
 
   const [isLoading, setIsLoading] = useState(true);
   const [currentPage, setCurrentPage] = useState(1);
+  const [isLoadingYear, setIsLoadingYear] = useState(false);
+
   const [allCards, setAllCards] = useState([]);
   const [groupCards, setGroupCards] = useState([]);
-  
   const [selectedYear, setSelectedYear] = useState(2025);
+  const [availableYears, setAvailableYears] = useState([2025]);
 
   /**PAGINATION */
   const cardsPerPage = 4;
@@ -38,6 +40,7 @@ const CardsLibrary = () => {
 
     const indexOfLastCard = currentPage * cardsPerPage;
     const indexOfFirstCard = indexOfLastCard - cardsPerPage;
+
     const currentCards = allCards
       .slice(indexOfFirstCard, indexOfLastCard)
       .reverse();
@@ -62,22 +65,20 @@ const CardsLibrary = () => {
   };
   /**PAGINATION */
 
-
   const fetchCardsByYear = async (year) => {
     setIsLoading(true);
-    console.log('first fetch');
+
     try {
       const res = await Axios.get(`${backendLink}/${userid}/${year}/cards`, {
         params: { year: year },
         headers: { Authorization: `Bearer ${token}` },
       });
 
-      
       setAllCards(res.data.cards);
       setGroupCards(res.data.groupCards);
-
       setSelectedYear(year);
-      console.log(res.data);
+
+      setAvailableYears(res.data.availableYears);
     } catch (error) {
       console.error('Error fetching card:', error);
     } finally {
@@ -87,6 +88,7 @@ const CardsLibrary = () => {
 
   const handleYearChange = (e) => {
     const selectedYear = e.target.value;
+    setCurrentPage(1); // Reset to first page when changing year
     fetchCardsByYear(selectedYear);
   };
 
@@ -95,15 +97,15 @@ const CardsLibrary = () => {
       <select
         id="card-year-dropdown"
         className="card-year-dropdown"
+        value={selectedYear}
         onChange={handleYearChange}
+        disabled={isLoading}
       >
-        {Object.keys(groupCards)
-          .map((year) => (
-            <option key={year} value={year}>
-              {year}
-            </option>
-          ))
-          .reverse()}
+        {availableYears.map((year) => (
+          <option key={year} value={year}>
+            {year}
+          </option>
+        ))}
       </select>
       {allCards.map((card) => (
         <div key={card.id} className="card-item">
@@ -124,7 +126,6 @@ const CardsLibrary = () => {
     fetchCardsByYear(2025);
   }, []);
 
-
   const handleCardClick = (cardid) => {
     navigate(`/${userid}/${cardid}`);
   };
@@ -141,8 +142,7 @@ const CardsLibrary = () => {
           className="row row-cols-1 row-cols-md-2 g-4 justify-content-around align-items-center"
         >
           {isLoading && <div>Loading...</div>}
-          {!isLoading &&
-            allCards &&
+          {allCards &&
             currentCards.map((item) => (
               <div className="col" key={item.id}>
                 <div

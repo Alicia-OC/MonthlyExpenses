@@ -355,10 +355,17 @@ const getCardsBasedOnYear = asyncHandler(async (req, res) => {
       year: card.year,
     }));
 
+    const availableYears =  []
+
     const groupCards = (cards) => {
+      
       const grouped = {};
+
       cards.forEach((card) => {
         const year = card.year;
+
+        availableYears.push(year) // push years available into array for frontend dropdown menu
+
         if (!grouped[year]) {
           grouped[year] = [];
         }
@@ -372,10 +379,14 @@ const getCardsBasedOnYear = asyncHandler(async (req, res) => {
       return grouped;
     };
     const groupedData = groupCards(allCardsFormatted);
-
+     
+    
+    
+    
     res.status(200).json({
-      cards: cardsByYearFormatted, // Original flat array
-      groupCards: groupedData, // Grouped by year
+      cards: cardsByYearFormatted, 
+      groupCards: groupedData,
+      availableYears: [...new Set(availableYears)]
     });
   } catch (error) {
     console.error("Error getting the last 4 cards:", error);
