@@ -286,6 +286,7 @@ const getAllCards = asyncHandler(async (req, res) => {
       currency: card.currency,
     }));
 
+    /**GROUP CARDS BY YEAR; OBSOLETE */
     const groupCards = (cards) => {
       const grouped = {};
 
@@ -304,6 +305,7 @@ const getAllCards = asyncHandler(async (req, res) => {
       return grouped;
     };
     const groupedData = groupCards(result);
+    /**GROUP CARDS BY YEAR; OBSOLETE */
 
     res.status(200).json({
       cards: result, // Original flat array
@@ -311,6 +313,72 @@ const getAllCards = asyncHandler(async (req, res) => {
     });
   } catch (error) {
     console.error("Error getting the cards:", error);
+    res.status(500).json({ error: "Internal server error" });
+  }
+});
+
+const getCardsBasedOnYear = asyncHandler(async (req, res) => {
+  try {
+    const userId = req.user.id; // From JWT token
+    const cardsYear = req.params.year;
+
+    const cardsByYear = await User.findById(userId).populate({
+      path: "cards",
+      select:
+        "month year foodExpenses subscriptionExpenses transportExpenses otherExpenses",
+      match: { year: cardsYear },
+    });
+    const allCards = await User.findById(userId).populate({
+      path: "cards",
+      select:
+        "id month year currency foodExpenses subscriptionExpenses transportExpenses otherExpenses",
+    });
+
+    if (!cardsByYear || !allCards) {
+      return res.status(404).json({ error: "User not found" });
+    }
+
+    const cardsByYearFormatted = cardsByYear.cards.map((card) => ({
+      id: card._id,
+      month: card.month,
+      year: card.year,
+      foodExpenses: card.foodExpenses,
+      subscriptionExpenses: card.subscriptionExpenses,
+      transportExpenses: card.transportExpenses,
+      otherExpenses: card.otherExpenses,
+      currency: card.currency,
+    }));
+
+    const allCardsFormatted = allCards.cards.map((card) => ({
+      id: card._id,
+      month: card.month,
+      year: card.year,
+    }));
+
+    const groupCards = (cards) => {
+      const grouped = {};
+      cards.forEach((card) => {
+        const year = card.year;
+        if (!grouped[year]) {
+          grouped[year] = [];
+        }
+        grouped[year].push(card);
+      });
+
+      Object.keys(grouped).forEach((year) => {
+        grouped[year].sort((a, b) => a.month - b.month);
+      });
+
+      return grouped;
+    };
+    const groupedData = groupCards(allCardsFormatted);
+
+    res.status(200).json({
+      cards: cardsByYearFormatted, // Original flat array
+      groupCards: groupedData, // Grouped by year
+    });
+  } catch (error) {
+    console.error("Error getting the last 4 cards:", error);
     res.status(500).json({ error: "Internal server error" });
   }
 });
@@ -463,4 +531,5 @@ module.exports = {
   getAllCards,
   getLastFourCards,
   newAutomaticCard,
+  getCardsBasedOnYear,
 };

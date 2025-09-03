@@ -10,7 +10,10 @@ router.route("/new/:userid").post(authJwt.verifyToken, monthCardControllers.newA
 
 router.route("/cards/recent").get(authJwt.verifyToken, monthCardControllers.getLastFourCards);
 
+router.route("/:userid/:year/cards").get(authJwt.verifyToken, monthCardControllers.getCardsBasedOnYear);
+
 router.route("/:userid/cards").get(authJwt.verifyToken, monthCardControllers.getAllCards);
+
 
 router.route("/:userid/cards/last-card").get(authJwt.verifyToken, monthCardControllers.getLastCard);
 
