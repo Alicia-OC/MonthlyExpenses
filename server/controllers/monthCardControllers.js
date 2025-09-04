@@ -1,6 +1,6 @@
 const MonthCardSchema = require("../models/MonthCard");
 const UserSchema = require("../models/Users");
-const { cardCalculations } = require("../utils/cardCalculations");
+const { createNewCard } = require("../utils/createNewCard");
 const {
   yearlyExpensesCalculations,
 } = require("../utils/yearlyExpensesCalculations");
@@ -124,31 +124,8 @@ const newAutomaticCard = asyncHandler(async (req, res) => {
         .json({ message: "You already have a card for this month" });
     }
 
-    const defaultUserItems = await cardCalculations(user);
+    const newCard = await createNewCard(user);
 
-    const cardObject = {
-      user: userid,
-      year: year,
-      month: month,
-      totalExpenses: defaultUserItems.totalExpenses,
-      totalIncome: defaultUserItems.totalIncome,
-      totalSavings: defaultUserItems.totalSavings,
-
-      fixedItems: defaultUserItems.fixedItems,
-      subscriptionItems: defaultUserItems.subscriptionItems,
-      otherItems: defaultUserItems.otherItems,
-      transportItems: defaultUserItems.transportItems,
-      foodItems: defaultUserItems.foodItems,
-
-      fixedExpenses: defaultUserItems.fixedExpenses,
-      subscriptionExpenses: defaultUserItems.subscriptionExpenses,
-      otherExpenses: defaultUserItems.otherExpenses,
-      transportExpenses: defaultUserItems.transportExpenses,
-    };
-
-    const newCard = await MonthCard.create(cardObject);
-
-    /**UPDATE  USER'S CARD ARRAY */
     if (newCard) {
       user.cards.push(newCard._id);
 
@@ -157,6 +134,7 @@ const newAutomaticCard = asyncHandler(async (req, res) => {
       );
 
       if (dataBlockIndex === -1) {
+        //if user has dataByYear empty, add the new created card values
         user.dataByYear.push({
           year: newCard.year,
           savings: newCard.totalSavings,
@@ -164,6 +142,7 @@ const newAutomaticCard = asyncHandler(async (req, res) => {
           income: newCard.totalIncome,
         });
       } else {
+        // else, do calculations
         user.dataByYear[dataBlockIndex].savings += newCard.totalSavings;
         user.dataByYear[dataBlockIndex].expenses += newCard.totalExpenses;
         user.dataByYear[dataBlockIndex].income += newCard.totalIncome;
@@ -214,18 +193,52 @@ const getLastCard = asyncHandler(async (req, res) => {
     const { userid } = req.params;
 
     //replace the cards field with the full card documents from that referenced collection.
-    const user = await User.findById(userid).populate("cards");
+    const cards = await User.findById(userid).populate("cards");
 
-    if (!userid || !user) {
+    if (!userid || !cards) {
       return res.status(404).json({ error: "access denied" });
     }
 
-    if (user.cards.length === 0) {
+    if (cards.cards.length === 0) {
       console.log("No cards found for this user.");
     } else {
-      const latestCard = user.cards[user.cards.length - 1];
+      const latestCard = cards.cards[cards.cards.length - 1];
       return res.status(200).json(latestCard);
     }
+  } catch (error) {
+    console.error("Error:", error);
+    return res
+      .status(500)
+      .json({ error: "Internal server error", details: error.message });
+  }
+});
+
+const getCurrentCard = asyncHandler(async (req, res) => {
+  try {
+    const { userid } = req.params;
+
+    if (!userid) {
+      return res.status(404).json({ error: "access denied" });
+    }
+
+    const currentMonth = new Date().getMonth();
+    const currentYear = new Date().getFullYear();
+
+    const user = await User.findById(userid).populate({
+      path: "cards",
+      match: { year: currentYear, month: currentMonth + 1 },
+    });
+
+    if (!user) {
+      return res.status(404).json({ error: "User not found" });
+    }
+
+    if (!user.cards || user.cards.length === 0) {
+      console.log("no card");
+      const newCard = await createNewCard(user);
+      return res.status(200).json(newCard);
+    }
+    return res.status(200).json(user.cards[0]);
   } catch (error) {
     console.error("Error:", error);
     return res
@@ -355,16 +368,15 @@ const getCardsBasedOnYear = asyncHandler(async (req, res) => {
       year: card.year,
     }));
 
-    const availableYears =  []
+    const availableYears = [];
 
     const groupCards = (cards) => {
-      
       const grouped = {};
 
       cards.forEach((card) => {
         const year = card.year;
 
-        availableYears.push(year) // push years available into array for frontend dropdown menu
+        availableYears.push(year); // push years available into array for frontend dropdown menu
 
         if (!grouped[year]) {
           grouped[year] = [];
@@ -379,14 +391,11 @@ const getCardsBasedOnYear = asyncHandler(async (req, res) => {
       return grouped;
     };
     const groupedData = groupCards(allCardsFormatted);
-     
-    
-    
-    
+
     res.status(200).json({
-      cards: cardsByYearFormatted, 
+      cards: cardsByYearFormatted,
       groupCards: groupedData,
-      availableYears: [...new Set(availableYears)]
+      availableYears: [...new Set(availableYears)],
     });
   } catch (error) {
     console.error("Error getting the last 4 cards:", error);
@@ -543,4 +552,5 @@ module.exports = {
   getLastFourCards,
   newAutomaticCard,
   getCardsBasedOnYear,
+  getCurrentCard,
 };

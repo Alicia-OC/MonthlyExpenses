@@ -30,7 +30,7 @@ const EditingCard = () => {
     setIsLoading(true);
 
     try {
-      const res = await Axios.get(`${backendLink}/${userId}/cards/last-card`, {
+      const res = await Axios.get(`${backendLink}/${userId}/cards/current-card`, {
         headers: { Authorization: `Bearer ${token}` },
       });
       setCard(res.data);

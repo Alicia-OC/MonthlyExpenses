@@ -49,15 +49,6 @@ const cardCalculations = async (user) => {
   };
 
   // Debug logs
-  console.log("=== DEBUGGING CALCULATIONS ===");
-  console.log("Fixed expenses:", calcFixedExpenses());
-  console.log("Subscription expenses:", calcSubscriptionExpenses());
-  console.log("Other expenses:", calcOtherExpenses());
-  console.log("Transport expenses:", calcTransportExpenses());
-  console.log("Food expenses:", calcFoodExpenses());
-  console.log("Total expenses:", calcTotalExpenses());
-  console.log("Total income:", objectData.totalIncome);
-  console.log("Calculated savings:", calcTotalSavings());
 
   const data = {
     fixedItems: { items: fixedItems },
