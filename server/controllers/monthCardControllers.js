@@ -1,6 +1,5 @@
 const MonthCardSchema = require("../models/MonthCard");
 const UserSchema = require("../models/Users");
-const { cardCalculations } = require("../utils/cardCalculations");
 const { createNewCard } = require("../utils/createNewCard");
 const {
   yearlyExpensesCalculations,
@@ -235,10 +234,10 @@ const getCurrentCard = asyncHandler(async (req, res) => {
     }
 
     if (!user.cards || user.cards.length === 0) {
+      console.log("no card");
       const newCard = await createNewCard(user);
       return res.status(200).json(newCard);
     }
-
     return res.status(200).json(user.cards[0]);
   } catch (error) {
     console.error("Error:", error);
